@@ -157,14 +157,15 @@ exports.createReservation = async (req, res) => {
       userId,
       paymentIntentId: paymentIntent?.id,
       paymentStatus: paymentIntent?.status || "pending",
+      status: "confirmed", // Set default status to confirmed for successful payments
     });
 
     console.log("Creating reservation with data:", reservation);
 
     const savedReservation = await reservation.save();
 
-    // Update table status to 'Reserved'
-    await Table.findByIdAndUpdate(tableId, { status: "Reserved" });
+    // Don't permanently set table status to 'Reserved' here
+    // Table availability should be checked dynamically based on reservations
 
     res.status(201).json({
       message: "Reservation confirmed",

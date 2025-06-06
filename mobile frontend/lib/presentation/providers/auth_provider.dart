@@ -15,6 +15,7 @@ class AuthProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
   bool get isAuthenticated => _currentUser != null;
+  String? get token => _authService.token;
 
   AuthProvider() {
     _authService.initialize();

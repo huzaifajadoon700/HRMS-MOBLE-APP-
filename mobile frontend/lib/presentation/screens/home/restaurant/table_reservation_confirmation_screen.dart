@@ -10,6 +10,9 @@ class TableReservationConfirmationScreen extends StatelessWidget {
   final int guestCount;
   final String occasion;
   final String? specialRequests;
+  final DateTime? reservationDate;
+  final TimeOfDay? reservationTime;
+  final TimeOfDay? endTime;
 
   const TableReservationConfirmationScreen({
     super.key,
@@ -17,12 +20,16 @@ class TableReservationConfirmationScreen extends StatelessWidget {
     required this.guestCount,
     required this.occasion,
     this.specialRequests,
+    this.reservationDate,
+    this.reservationTime,
+    this.endTime,
   });
 
   @override
   Widget build(BuildContext context) {
-    final reservationId = 'T${table.tableNumber}-${DateTime.now().millisecondsSinceEpoch}';
-    
+    final reservationId =
+        'T${table.tableNumber}-${DateTime.now().millisecondsSinceEpoch}';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reservation Confirmed'),
@@ -78,7 +85,7 @@ class TableReservationConfirmationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            
+
             // Reservation ID
             _buildInfoRow(
               context,
@@ -87,7 +94,7 @@ class TableReservationConfirmationScreen extends StatelessWidget {
               showCopyButton: true,
             ),
             const SizedBox(height: 24),
-            
+
             // QR Code
             Center(
               child: Column(
@@ -102,7 +109,7 @@ class TableReservationConfirmationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Reservation details card
             Card(
               shape: RoundedRectangleBorder(
@@ -129,13 +136,18 @@ class TableReservationConfirmationScreen extends StatelessWidget {
                     _buildInfoRow(
                       context,
                       'Date',
-                      DateFormat('EEEE, MMMM d, yyyy').format(table.reservationTime!),
+                      reservationDate != null
+                          ? DateFormat('EEEE, MMMM d, yyyy')
+                              .format(reservationDate!)
+                          : 'Date not available',
                     ),
                     const SizedBox(height: 8),
                     _buildInfoRow(
                       context,
                       'Time',
-                      DateFormat('h:mm a').format(table.reservationTime!),
+                      reservationTime != null && endTime != null
+                          ? '${reservationTime!.format(context)} - ${endTime!.format(context)}'
+                          : 'Time not available',
                     ),
                     const SizedBox(height: 8),
                     _buildInfoRow(
@@ -151,7 +163,8 @@ class TableReservationConfirmationScreen extends StatelessWidget {
                         occasion,
                       ),
                     ],
-                    if (specialRequests != null && specialRequests!.isNotEmpty) ...[
+                    if (specialRequests != null &&
+                        specialRequests!.isNotEmpty) ...[
                       const Divider(height: 24),
                       _buildInfoRow(
                         context,
@@ -164,7 +177,7 @@ class TableReservationConfirmationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Restaurant info card
             Card(
               shape: RoundedRectangleBorder(
@@ -211,7 +224,7 @@ class TableReservationConfirmationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Policy reminders
             Card(
               shape: RoundedRectangleBorder(
@@ -246,7 +259,7 @@ class TableReservationConfirmationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            
+
             // Buttons
             Row(
               children: [
@@ -256,7 +269,8 @@ class TableReservationConfirmationScreen extends StatelessWidget {
                       // Calendar add functionality would be implemented here
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Calendar functionality will be implemented soon'),
+                          content: Text(
+                              'Calendar functionality will be implemented soon'),
                         ),
                       );
                     },
@@ -405,4 +419,4 @@ class TableReservationConfirmationScreen extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -13,13 +13,14 @@ class TablesScreen extends StatefulWidget {
   State<TablesScreen> createState() => _TablesScreenState();
 }
 
-class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderStateMixin {
+class _TablesScreenState extends State<TablesScreen>
+    with SingleTickerProviderStateMixin {
   late List<TableModel> _tables;
   late AnimationController _animationController;
-  
+
   // Service
   final TableService _tableService = TableService();
-  
+
   // State variables
   String _selectedLocation = 'All';
   int _selectedCapacity = 0;
@@ -27,31 +28,31 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
   bool _showAvailableOnly = false;
   bool _isLoading = true;
   String? _errorMessage;
-  
+
   // Reservation date and time
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize animation controller
     _animationController = AnimationController(
-      vsync: this, 
+      vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    
+
     // Load tables data
     _loadTables();
   }
-  
+
   Future<void> _loadTables() async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
-    
+
     try {
       final tables = await _tableService.getTables();
       setState(() {
@@ -64,12 +65,13 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
       setState(() {
         _tables = TableModel.dummyTables();
         _isLoading = false;
-        _errorMessage = 'Could not load tables from server. Using demo data instead.';
+        _errorMessage =
+            'Could not load tables from server. Using demo data instead.';
       });
       _animationController.forward();
     }
   }
-  
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -95,14 +97,16 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
       }
 
       // Filter by availability
-      if (_showAvailableOnly && 
+      if (_showAvailableOnly &&
           (table.status.toLowerCase() != 'available' || table.isReserved)) {
         return false;
       }
 
       // Filter by search query
       if (_searchQuery.isNotEmpty &&
-          !table.tableNumber.toLowerCase().contains(_searchQuery.toLowerCase()) &&
+          !table.tableNumber
+              .toLowerCase()
+              .contains(_searchQuery.toLowerCase()) &&
           !table.location.toLowerCase().contains(_searchQuery.toLowerCase())) {
         return false;
       }
@@ -110,7 +114,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
       return true;
     }).toList();
   }
-  
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -121,21 +125,21 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: Theme.of(context).colorScheme.primary,
-            ),
+                  primary: Theme.of(context).colorScheme.primary,
+                ),
           ),
           child: child!,
         );
       },
     );
-    
+
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
       });
     }
   }
-  
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
@@ -144,37 +148,69 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: Theme.of(context).colorScheme.primary,
-            ),
+                  primary: Theme.of(context).colorScheme.primary,
+                ),
           ),
           child: child!,
         );
       },
     );
-    
+
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
       });
     }
   }
-  
-  void _showReservationDetails() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Searching tables for ${DateFormat('EEE, MMM d').format(_selectedDate)} at ${_selectedTime.format(context)}'),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {},
-        ),
-      ),
-    );
+
+  Future<void> _findTablesWithAvailability() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      // Convert TimeOfDay to string format
+      final timeString =
+          '${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}';
+
+      final tables = await _tableService.getTablesWithAvailability(
+        date: _selectedDate,
+        timeSlot: timeString,
+      );
+
+      setState(() {
+        _tables = tables.isNotEmpty ? tables : TableModel.dummyTables();
+        _isLoading = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Found ${tables.length} tables for ${DateFormat('EEE, MMM d').format(_selectedDate)} at ${_selectedTime.format(context)}'),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+          ),
+        );
+      }
+
+      _animationController.forward();
+    } catch (e) {
+      print('Error finding tables with availability: $e');
+      setState(() {
+        _tables = TableModel.dummyTables();
+        _isLoading = false;
+        _errorMessage =
+            'Could not check table availability. Using demo data instead.';
+      });
+      _animationController.forward();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       body: _isLoading
           ? Center(
@@ -236,8 +272,12 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                     actions: [
                       IconButton(
                         icon: Icon(
-                          _showAvailableOnly ? Icons.visibility : Icons.visibility_outlined,
-                          color: _showAvailableOnly ? theme.colorScheme.primary : Colors.white,
+                          _showAvailableOnly
+                              ? Icons.visibility
+                              : Icons.visibility_outlined,
+                          color: _showAvailableOnly
+                              ? theme.colorScheme.primary
+                              : Colors.white,
                         ),
                         tooltip: 'Show available tables only',
                         onPressed: () {
@@ -248,7 +288,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                       ),
                     ],
                   ),
-                  
+
                   // Error message if any
                   if (_errorMessage != null)
                     SliverToBoxAdapter(
@@ -278,7 +318,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                         ),
                       ),
                     ),
-                  
+
                   // Reservation section
                   SliverToBoxAdapter(
                     child: Container(
@@ -320,7 +360,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                     ),
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: theme.colorScheme.primary.withOpacity(0.3),
+                                        color: theme.colorScheme.primary
+                                            .withOpacity(0.3),
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -334,9 +375,11 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                         const SizedBox(width: 8),
                                         Expanded(
                                           child: Text(
-                                            DateFormat('EEE, MMM d').format(_selectedDate),
+                                            DateFormat('EEE, MMM d')
+                                                .format(_selectedDate),
                                             style: TextStyle(
-                                              color: theme.colorScheme.onSurface,
+                                              color:
+                                                  theme.colorScheme.onSurface,
                                             ),
                                           ),
                                         ),
@@ -357,7 +400,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                     ),
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: theme.colorScheme.primary.withOpacity(0.3),
+                                        color: theme.colorScheme.primary
+                                            .withOpacity(0.3),
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -373,7 +417,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                           child: Text(
                                             _selectedTime.format(context),
                                             style: TextStyle(
-                                              color: theme.colorScheme.onSurface,
+                                              color:
+                                                  theme.colorScheme.onSurface,
                                             ),
                                           ),
                                         ),
@@ -388,11 +433,12 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton.icon(
-                              onPressed: _showReservationDetails,
+                              onPressed: _findTablesWithAvailability,
                               icon: const Icon(Icons.search),
                               label: const Text('Find Tables'),
                               style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
                               ),
                             ),
                           ),
@@ -400,7 +446,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-                  
+
                   // Search and filter section
                   SliverToBoxAdapter(
                     child: Padding(
@@ -416,7 +462,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 12),
                               filled: true,
                               fillColor: theme.colorScheme.surface,
                             ),
@@ -427,7 +474,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                             },
                           ),
                           const SizedBox(height: 16),
-                          
+
                           // Filters
                           Row(
                             children: [
@@ -463,7 +510,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                 ),
                               ),
                               const SizedBox(width: 12),
-                              
+
                               // Capacity filter
                               Expanded(
                                 child: DropdownButtonFormField<int>(
@@ -505,7 +552,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-                  
+
                   // Table count and filter info
                   SliverToBoxAdapter(
                     child: Padding(
@@ -518,8 +565,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          if (_selectedLocation != 'All' || 
-                              _selectedCapacity > 0 || 
+                          if (_selectedLocation != 'All' ||
+                              _selectedCapacity > 0 ||
                               _showAvailableOnly)
                             Expanded(
                               child: Padding(
@@ -528,9 +575,11 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                   spacing: 8,
                                   children: [
                                     if (_selectedLocation != 'All')
-                                      _buildFilterChip('Location: $_selectedLocation'),
+                                      _buildFilterChip(
+                                          'Location: $_selectedLocation'),
                                     if (_selectedCapacity > 0)
-                                      _buildFilterChip('Min Capacity: $_selectedCapacity'),
+                                      _buildFilterChip(
+                                          'Min Capacity: $_selectedCapacity'),
                                     if (_showAvailableOnly)
                                       _buildFilterChip('Available Only'),
                                   ],
@@ -541,7 +590,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-                  
+
                   // Tables grid
                   SliverPadding(
                     padding: const EdgeInsets.all(16),
@@ -560,8 +609,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                   Text(
                                     'No tables found',
                                     style: theme.textTheme.titleLarge?.copyWith(
-                                          color: Colors.grey.shade400,
-                                        ),
+                                      color: Colors.grey.shade400,
+                                    ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
@@ -575,7 +624,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                             ),
                           )
                         : SliverGrid(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               childAspectRatio: 0.75,
                               crossAxisSpacing: 16,
@@ -596,7 +646,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                                         curve: Curves.easeOut,
                                       ),
                                     );
-                                    
+
                                     return FadeTransition(
                                       opacity: animation,
                                       child: SlideTransition(
@@ -623,7 +673,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
           // Show message to select a table first
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('Please select an available table to reserve it.'),
+              content:
+                  const Text('Please select an available table to reserve it.'),
               behavior: SnackBarBehavior.floating,
               backgroundColor: theme.colorScheme.primary,
               action: SnackBarAction(
@@ -640,7 +691,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
       ),
     );
   }
-  
+
   Widget _buildFilterChip(String label) {
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -663,11 +714,11 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
 
   Widget _buildTableCard(BuildContext context, TableModel table) {
     final theme = Theme.of(context);
-    
+
     // Status color
     Color statusColor;
     String statusText;
-    
+
     switch (table.status.toLowerCase()) {
       case 'available':
         if (table.isReserved) {
@@ -720,7 +771,8 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                           table.imageUrl!,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
-                            print('Error loading table image: ${table.imageUrl} - $error');
+                            print(
+                                'Error loading table image: ${table.imageUrl} - $error');
                             return Container(
                               color: theme.colorScheme.surface,
                               child: Column(
@@ -797,7 +849,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                 ),
               ],
             ),
-            
+
             // Table details
             Padding(
               padding: const EdgeInsets.all(12),
@@ -816,7 +868,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8),
-                  
+
                   // Capacity
                   Row(
                     children: [
@@ -835,7 +887,7 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                       ),
                     ],
                   ),
-                  
+
                   // Reservation info (if reserved)
                   if (table.isReserved && table.reservationTime != null)
                     Padding(
@@ -863,18 +915,20 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                         ],
                       ),
                     ),
-                  
+
                   const SizedBox(height: 12),
-                  
+
                   // Reserve button
-                  if (table.status.toLowerCase() == 'available' && !table.isReserved)
+                  if (table.status.toLowerCase() == 'available' &&
+                      !table.isReserved)
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => TableReservationScreen(table: table),
+                              builder: (_) =>
+                                  TableReservationScreen(table: table),
                             ),
                           );
                         },
@@ -890,9 +944,10 @@ class _TablesScreenState extends State<TablesScreen> with SingleTickerProviderSt
                         child: const Text('RESERVE'),
                       ),
                     ),
-                  
+
                   // View Details button for non-available tables
-                  if (table.status.toLowerCase() != 'available' || table.isReserved)
+                  if (table.status.toLowerCase() != 'available' ||
+                      table.isReserved)
                     SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
@@ -930,4 +985,4 @@ extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
-} 
+}
