@@ -1,0 +1,360 @@
+/* General Styles */
+.book-room-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+  padding: 4rem 0;
+  color: #f0f4fc;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.cosmic-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #64ffda;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #8892b0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: var(--text-light);
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* Filters */
+.filters {
+  background: rgba(17, 34, 64, 0.7);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 3rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.cosmic-input {
+  background: rgba(10, 25, 47, 0.7);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  color: #f0f4fc;
+  padding: 0.8rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.cosmic-input:focus {
+  background: rgba(10, 25, 47, 0.9);
+  border-color: #64ffda;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+  color: #f0f4fc;
+}
+
+/* Room Listings */
+.room-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.room-card {
+  background: rgba(17, 34, 64, 0.7);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+  height: 100%;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.room-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.room-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.room-card:hover .room-image {
+  transform: scale(1.05);
+}
+
+.price-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(100, 255, 218, 0.9);
+  color: #0a192f;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.room-card .card-body {
+  padding: 1.25rem;
+}
+
+.room-title {
+  color: #64ffda;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.room-description {
+  color: #f0f4fc;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.room-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  color: #f0f4fc;
+}
+
+.feature svg {
+  color: #64ffda;
+  margin-right: 0.5rem;
+}
+
+.room-amenities {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.room-amenities > div {
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Modal Styles */
+.cosmic-modal {
+  background: rgba(10, 25, 47, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.cosmic-modal-header {
+  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.cosmic-modal-body {
+  padding: 2rem;
+}
+
+.cosmic-modal-footer {
+  border-top: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.selected-room-info {
+  text-align: center;
+}
+
+.selected-room-info h4 {
+  color: #64ffda;
+  margin-bottom: 1rem;
+}
+
+.booking-summary {
+  background: rgba(17, 34, 64, 0.7);
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.total-price {
+  color: #64ffda;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.error-alert {
+  background: rgba(255, 87, 87, 0.1);
+  border: 1px solid rgba(255, 87, 87, 0.2);
+  color: #ff5757;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Table Styles */
+.cosmic-table {
+  background: var(--card-bg);
+  color: var(--text-light);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--accent);
+  margin-top: 1rem;
+}
+
+.cosmic-table th {
+  background: var(--primary-bg);
+  color: var(--text-light);
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent);
+  padding: 1rem 0.75rem;
+}
+
+.cosmic-table td {
+  vertical-align: middle;
+  padding: 0.75rem;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-responsive {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Styles */
+.btn-cosmic-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-cosmic-primary:hover {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.btn-cosmic-secondary {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-cosmic-secondary:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .book-room-container {
+    padding: 2rem 0;
+  }
+
+  .cosmic-title {
+    font-size: 2rem;
+  }
+
+  .filters {
+    padding: 1.5rem;
+  }
+
+  .room-image-container {
+    height: 180px;
+  }
+
+  .room-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .cosmic-title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .filters {
+    padding: 1rem;
+  }
+
+  .room-image-container {
+    height: 160px;
+  }
+
+  .price-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}

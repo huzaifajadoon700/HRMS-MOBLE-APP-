@@ -17,6 +17,8 @@ class MyBookingsScreen extends StatefulWidget {
 class _MyBookingsScreenState extends State<MyBookingsScreen> {
   final BookingService _bookingService = BookingService();
   List<BookingModel> _bookings = [];
+  List<BookingModel> _upcomingBookings = [];
+  List<BookingModel> _pastBookings = [];
   bool _isLoading = true;
   String? _error;
 
@@ -35,6 +37,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
 
     try {
       final bookings = await _bookingService.getUserBookings();
+      _separateBookings(bookings);
       setState(() {
         _bookings = bookings;
         _isLoading = false;
@@ -45,8 +48,32 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
         _isLoading = false;
         // Fallback to dummy data for development
         _bookings = BookingModel.dummyBookings();
+        _separateBookings(_bookings);
       });
     }
+  }
+
+  void _separateBookings(List<BookingModel> bookings) {
+    final now = DateTime.now();
+    _upcomingBookings.clear();
+    _pastBookings.clear();
+
+    for (final booking in bookings) {
+      final checkInDate = booking.checkInDate;
+      if (checkInDate.isAfter(now) ||
+          checkInDate
+              .isAtSameMomentAs(DateTime(now.year, now.month, now.day))) {
+        _upcomingBookings.add(booking);
+      } else {
+        _pastBookings.add(booking);
+      }
+    }
+
+    // Sort upcoming bookings by check-in date (earliest first)
+    _upcomingBookings.sort((a, b) => a.checkInDate.compareTo(b.checkInDate));
+
+    // Sort past bookings by check-in date (most recent first)
+    _pastBookings.sort((a, b) => b.checkInDate.compareTo(a.checkInDate));
   }
 
   Future<void> _cancelBooking(BookingModel booking) async {
@@ -72,13 +99,14 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
 
     try {
       final result = await _bookingService.cancelBooking(booking.id);
-      
+
       if (!mounted) return;
 
       if (result['success']) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Booking cancelled successfully'),
+            content:
+                Text(result['message'] ?? 'Booking cancelled successfully'),
             backgroundColor: Colors.green,
           ),
         );
@@ -168,7 +196,8 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                           Icon(
                             Icons.hotel_outlined,
                             size: 64,
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                            color: theme.colorScheme.onSurface
+                                .withValues(alpha: 0.5),
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -179,7 +208,8 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                           Text(
                             'You haven\'t made any room bookings yet.',
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                              color: theme.colorScheme.onSurface
+                                  .withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -187,44 +217,131 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                     )
                   : RefreshIndicator(
                       onRefresh: _loadBookings,
-                      child: ListView.builder(
+                      child: SingleChildScrollView(
                         padding: const EdgeInsets.all(16),
-                        itemCount: _bookings.length,
-                        itemBuilder: (context, index) {
-                          final booking = _bookings[index];
-                          return _buildBookingCard(booking);
-                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Upcoming Bookings Section
+                            Text(
+                              'Upcoming Bookings',
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            if (_upcomingBookings.isEmpty)
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: theme.colorScheme.outline
+                                        .withValues(alpha: 0.2),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today_outlined,
+                                      size: 48,
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      'No upcoming bookings found',
+                                      style:
+                                          theme.textTheme.bodyLarge?.copyWith(
+                                        color: theme.colorScheme.onSurface
+                                            .withValues(alpha: 0.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            else
+                              ...(_upcomingBookings.map((booking) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: _buildBookingCard(booking,
+                                        isUpcoming: true),
+                                  ))),
+
+                            const SizedBox(height: 32),
+
+                            // Past Bookings Section
+                            Text(
+                              'Past Bookings',
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            if (_pastBookings.isEmpty)
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: theme.colorScheme.outline
+                                        .withValues(alpha: 0.2),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.history_outlined,
+                                      size: 48,
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      'No past bookings found',
+                                      style:
+                                          theme.textTheme.bodyLarge?.copyWith(
+                                        color: theme.colorScheme.onSurface
+                                            .withValues(alpha: 0.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            else
+                              ...(_pastBookings.map((booking) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: _buildBookingCard(booking,
+                                        isUpcoming: false),
+                                  ))),
+                          ],
+                        ),
                       ),
                     ),
     );
   }
 
-  Widget _buildBookingCard(BookingModel booking) {
+  Widget _buildBookingCard(BookingModel booking, {bool isUpcoming = true}) {
     final theme = Theme.of(context);
-    
+
     Color statusColor;
     IconData statusIcon;
-    
-    switch (booking.status.toLowerCase()) {
-      case 'confirmed':
-        statusColor = Colors.green;
-        statusIcon = Icons.check_circle;
-        break;
-      case 'pending':
-        statusColor = Colors.orange;
-        statusIcon = Icons.schedule;
-        break;
-      case 'cancelled':
-        statusColor = Colors.red;
-        statusIcon = Icons.cancel;
-        break;
-      case 'completed':
-        statusColor = Colors.blue;
-        statusIcon = Icons.done_all;
-        break;
-      default:
-        statusColor = Colors.grey;
-        statusIcon = Icons.info;
+    String displayStatus;
+
+    // Override status based on whether booking is upcoming or past
+    if (isUpcoming) {
+      statusColor = Colors.green;
+      statusIcon = Icons.check_circle;
+      displayStatus = 'CONFIRMED';
+    } else {
+      statusColor = Colors.grey;
+      statusIcon = Icons.history;
+      displayStatus = 'PAST';
     }
 
     return Card(
@@ -245,11 +362,13 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: statusColor.withValues(alpha: 0.3)),
+                    border:
+                        Border.all(color: statusColor.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -257,7 +376,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                       Icon(statusIcon, size: 16, color: statusColor),
                       const SizedBox(width: 4),
                       Text(
-                        booking.status.toUpperCase(),
+                        displayStatus,
                         style: TextStyle(
                           color: statusColor,
                           fontWeight: FontWeight.w600,
@@ -346,7 +465,8 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
             ),
 
             // Special requests
-            if (booking.specialRequests != null && booking.specialRequests!.isNotEmpty) ...[
+            if (booking.specialRequests != null &&
+                booking.specialRequests!.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(
                 'Special Requests:',
@@ -362,8 +482,8 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               ),
             ],
 
-            // Actions
-            if (booking.status.toLowerCase() == 'pending' || booking.status.toLowerCase() == 'confirmed') ...[
+            // Actions - only show cancel for upcoming bookings
+            if (isUpcoming) ...[
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

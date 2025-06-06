@@ -1,0 +1,120 @@
+/* Cosmic Theme Variables */
+:root {
+    --primary-bg: #0A192F;          /* Deep Space Blue */
+    --accent-blue: #00A3FF;         /* Neon Accent */
+    --text-light: #F0F4FC;          /* Moonlight Text */
+    --card-bg: #00051A;             /* Glassmorphic Card Background */
+    --gradient-blue: linear-gradient(135deg, #0066FF 0%, #00C2FF 100%);
+    --neon-glow: 0 0 15px rgba(0, 163, 255, 0.5);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Global Styles */
+  body {
+    background: var(--primary-bg);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Cosmic Container */
+  .cosmic-container {
+    padding: 2rem;
+  }
+  
+  /* Cosmic Alerts */
+  .cosmic-alert {
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  
+  /* Cosmic Form */
+  .cosmic-form {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--accent-blue);
+    border-radius: 12px;
+  }
+  .cosmic-form h2 {
+    margin-bottom: 1rem;
+    color: var(--accent-blue);
+  }
+  .cosmic-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--accent-blue);
+    border-radius: 8px;
+    background: var(--primary-bg);
+    color: var(--text-light);
+    transition: var(--transition);
+  }
+  .cosmic-input:focus {
+    box-shadow: var(--neon-glow);
+    border-color: var(--accent-blue);
+  }
+  
+  /* Cosmic Table */
+  .cosmic-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    margin-bottom: 2rem;
+  }
+  .cosmic-th, .cosmic-td {
+    border: 1px solid var(--accent-blue);
+    padding: 0.75rem;
+    text-align: left;
+  }
+  .cosmic-th {
+    background: var(--accent-blue);
+    color: var(--text-light);
+  }
+  
+  /* Cosmic Section Title */
+  .cosmic-section-title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-blue);
+  }
+  
+  /* Cosmic Buttons */
+  .cosmic-button {
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    background: var(--gradient-blue);
+    color: var(--text-light);
+    font-weight: 600;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .cosmic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neon-glow);
+  }
+  .ms-2 {
+    margin-left: 0.5rem;
+  }
+  
+  /* Cosmic Modal */
+  .cosmic-modal .modal-content {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--accent-blue);
+    color: var(--text-light);
+  }
+  .cosmic-modal-header {
+    background: var(--primary-bg);
+    border-bottom: 1px solid var(--accent-blue);
+    color: var(--text-light);
+  }
+  .cosmic-modal-body {
+    background: var(--card-bg);
+    padding: 1.5rem;
+  }
+  .cosmic-modal-footer {
+    background: var(--primary-bg);
+    border-top: 1px solid var(--accent-blue);
+  }
+  

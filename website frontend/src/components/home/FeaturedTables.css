@@ -1,0 +1,169 @@
+.featured-tables {
+    padding: 4rem 0;
+    background: var(--gradient-dark);
+    position: relative;
+    overflow: hidden;
+    margin-top: 80px; /* Account for fixed header */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+}
+
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.table-card-wrapper {
+    padding: 1rem;
+}
+
+.table-card {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.table-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.table-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.table-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.table-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.table-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.table-detail svg {
+    color: var(--accent-primary);
+}
+
+.error-message {
+    text-align: center;
+    color: var(--error-color);
+    padding: 2rem;
+    background: var(--gradient-error);
+    border-radius: 1rem;
+    margin: 2rem 0;
+}
+
+.no-tables {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem;
+    background: var(--gradient-glass);
+    border-radius: 1rem;
+    margin: 2rem 0;
+}
+
+/* Slick Carousel Custom Styles */
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slick-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slick-arrow.prev {
+    left: 20px;
+}
+
+.slick-arrow.next {
+    right: 20px;
+}
+
+.slick-dots {
+    bottom: 20px;
+}
+
+.slick-dots li button:before {
+    font-size: 12px;
+    color: white;
+}
+
+.slick-dots li.slick-active button:before {
+    color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+    .featured-tables {
+        padding: 3rem 0;
+        margin-top: 60px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .tables-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .table-card-wrapper {
+        padding: 0.5rem;
+    }
+}

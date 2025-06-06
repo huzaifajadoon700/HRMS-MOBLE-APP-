@@ -1,0 +1,163 @@
+/* Cosmic Theme Variables */
+:root {
+  --cosmic-bg: #0a0b1e;
+  --cosmic-card-bg: #12132d;
+  --cosmic-primary: #6e56cf;
+  --cosmic-secondary: #8b7dd8;
+  --cosmic-text: #e4e2ff;
+  --cosmic-border: #2a2b55;
+  --cosmic-shadow: rgba(110, 86, 207, 0.15);
+  --cosmic-hover: #1c1d3d;
+  --cosmic-gradient: linear-gradient(135deg, #6e56cf 0%, #8b7dd8 100%);
+  --transition-speed: 0.3s;
+}
+
+/* Container Styles */
+.add-table-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: var(--cosmic-bg);
+  min-height: 100vh;
+  color: var(--cosmic-text);
+}
+
+/* Header Styles */
+.add-table-header {
+  background: var(--cosmic-card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--cosmic-shadow);
+  margin-bottom: 2rem;
+  border: 1px solid var(--cosmic-border);
+}
+
+.add-table-header h2 {
+  color: var(--cosmic-text);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  background: var(--cosmic-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Form Styles */
+.add-table-form {
+  background: var(--cosmic-card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--cosmic-border);
+  box-shadow: 0 4px 20px var(--cosmic-shadow);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  color: var(--cosmic-text);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-control {
+  background: var(--cosmic-bg);
+  border: 1px solid var(--cosmic-border);
+  color: var(--cosmic-text);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all var(--transition-speed);
+}
+
+.form-control:focus {
+  background: var(--cosmic-hover);
+  border-color: var(--cosmic-primary);
+  box-shadow: 0 0 0 0.2rem rgba(110, 86, 207, 0.25);
+  color: var(--cosmic-text);
+}
+
+.form-control::placeholder {
+  color: rgba(228, 226, 255, 0.5);
+}
+
+/* Button Styles */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: var(--cosmic-gradient);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  transition: all var(--transition-speed);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--cosmic-shadow);
+}
+
+.btn-secondary {
+  background: var(--cosmic-hover);
+  border: 1px solid var(--cosmic-border);
+  color: var(--cosmic-text);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  transition: all var(--transition-speed);
+}
+
+.btn-secondary:hover {
+  background: var(--cosmic-card-bg);
+  border-color: var(--cosmic-primary);
+  color: var(--cosmic-text);
+}
+
+/* Select Styles */
+.form-select {
+  background-color: var(--cosmic-bg);
+  border: 1px solid var(--cosmic-border);
+  color: var(--cosmic-text);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all var(--transition-speed);
+}
+
+.form-select:focus {
+  background: var(--cosmic-hover);
+  border-color: var(--cosmic-primary);
+  box-shadow: 0 0 0 0.2rem rgba(110, 86, 207, 0.25);
+  color: var(--cosmic-text);
+}
+
+/* Textarea Styles */
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .add-table-container {
+    padding: 1rem;
+  }
+
+  .add-table-form {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+} 

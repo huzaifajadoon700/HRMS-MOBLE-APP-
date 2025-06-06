@@ -1,0 +1,115 @@
+/* Cosmic Theme Variables */
+:root {
+    --primary-bg: #0A192F;          /* Deep Space Blue */
+    --accent-blue: #00A3FF;         /* Neon Accent */
+    --text-light: #F0F4FC;          /* Moonlight Text */
+    --card-bg: #00051A;             /* Glassmorphic Card Background */
+    --gradient-blue: linear-gradient(135deg, #0066FF 0%, #00C2FF 100%);
+    --neon-glow: 0 0 15px rgba(0, 163, 255, 0.5);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Global Styles */
+  body {
+    background: var(--primary-bg);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Container */
+  .cosmic-container {
+    padding: 2rem;
+  }
+  
+  /* Titles and Subtitles */
+  .cosmic-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .cosmic-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: var(--accent-blue);
+  }
+  
+  /* Cosmic Row */
+  .cosmic-row {
+    margin-top: 2rem;
+  }
+  
+  /* Cosmic Card */
+  .cosmic-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .cosmic-card-header {
+    background: var(--primary-bg);
+    color: var(--text-light);
+    padding: 1rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid var(--accent-blue);
+  }
+  .cosmic-card-header-menu {
+    background: var(--accent-blue);
+  }
+  .cosmic-card-body {
+    padding: 1.5rem;
+  }
+  
+  /* Cosmic Button */
+  .cosmic-button {
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    background: var(--gradient-blue);
+    color: var(--text-light);
+    transition: var(--transition);
+  }
+  .cosmic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neon-glow);
+  }
+  
+  /* Cosmic List */
+  .cosmic-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cosmic-list-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--accent-blue);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: var(--transition);
+  }
+  .cosmic-list-item:hover {
+    box-shadow: var(--neon-glow);
+  }
+  
+  /* Cosmic Badges */
+  .badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  .cosmic-badge-success {
+    background: #28a745; /* Green */
+    color: var(--text-light);
+  }
+  .cosmic-badge-warning {
+    background: #ffc107; /* Amber */
+    color: var(--primary-bg);
+  }
+  
+  /* Cosmic Info Text */
+  .cosmic-info-text {
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 1rem;
+  }
+  

@@ -1,0 +1,319 @@
+/* Cosmic Theme Variables */
+:root {
+  --cosmic-bg: #0a0b1e;
+  --cosmic-card-bg: #12132d;
+  --cosmic-primary: #6e56cf;
+  --cosmic-secondary: #8b7dd8;
+  --cosmic-text: #e4e2ff;
+  --cosmic-border: #2a2b55;
+  --cosmic-shadow: rgba(110, 86, 207, 0.15);
+  --cosmic-hover: #1c1d3d;
+  --cosmic-gradient: linear-gradient(135deg, #6e56cf 0%, #8b7dd8 100%);
+  --transition-speed: 0.3s;
+}
+
+/* Container Styles */
+.update-menu-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: var(--cosmic-bg);
+  min-height: 100vh;
+  color: var(--cosmic-text);
+}
+
+/* Header Styles */
+.update-menu-header {
+  background: var(--cosmic-card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--cosmic-shadow);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--cosmic-border);
+}
+
+.update-menu-header h2 {
+  color: var(--cosmic-text);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  background: var(--cosmic-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Content Layout */
+.update-menu-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* Menu Items List */
+.menu-items-list {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.menu-items-list h3 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Menu Items Grid */
+.menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* Menu Item Card */
+.menu-item-card {
+  background: var(--cosmic-card-bg);
+  border: 1px solid var(--cosmic-border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  position: relative;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px var(--cosmic-shadow);
+  border-color: var(--cosmic-primary);
+}
+
+.menu-item-card.selected {
+  border: 2px solid var(--cosmic-primary);
+  box-shadow: 0 0 20px var(--cosmic-shadow);
+}
+
+.menu-item-image {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+  background: var(--cosmic-card-bg);
+}
+
+.menu-item-info {
+  padding: 1.2rem;
+  background: var(--cosmic-card-bg);
+}
+
+.menu-item-info h4 {
+  color: var(--cosmic-text);
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.menu-item-info p {
+  color: var(--cosmic-secondary);
+  margin: 0;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  opacity: 0.8;
+}
+
+/* Image Preview */
+.image-preview-container {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 1.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--cosmic-card-bg);
+  border: 2px dashed var(--cosmic-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+}
+
+.no-image {
+  color: var(--cosmic-text);
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.image-upload {
+  margin-top: 1rem;
+}
+
+.upload-label {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.upload-label:hover {
+  background: #357abd;
+}
+
+.file-input {
+  display: none;
+}
+
+/* Form Styles */
+.update-menu-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--cosmic-card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--cosmic-border);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--cosmic-text);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--cosmic-bg);
+  border: 1px solid var(--cosmic-border);
+  border-radius: 8px;
+  color: var(--cosmic-text);
+  font-size: 1rem;
+  transition: all var(--transition-speed);
+}
+
+.form-control:focus {
+  border-color: var(--cosmic-primary);
+  box-shadow: 0 0 0 3px var(--cosmic-shadow);
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: var(--cosmic-text);
+  opacity: 0.5;
+}
+
+/* Availability Toggle */
+.availability-toggle {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-input {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+}
+
+.toggle-text {
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all var(--transition-speed);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--cosmic-gradient);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--cosmic-shadow);
+}
+
+.btn-secondary {
+  background: var(--cosmic-card-bg);
+  color: var(--cosmic-text);
+  border: 1px solid var(--cosmic-border);
+}
+
+.btn-secondary:hover {
+  background: var(--cosmic-hover);
+  border-color: var(--cosmic-primary);
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--cosmic-bg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .update-menu-container {
+    padding: 1rem;
+  }
+
+  .menu-items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .image-preview-container {
+    width: 240px;
+    height: 240px;
+  }
+
+  .update-menu-form {
+    padding: 1.5rem;
+  }
+} 

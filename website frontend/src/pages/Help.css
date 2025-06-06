@@ -1,0 +1,113 @@
+.help-container {
+  padding: var(--spacing-xl) 0;
+  min-height: calc(100vh - 80px);
+  
+}
+
+.help-container .content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.help-container .card {
+  padding: var(--spacing-xl);
+  height: 100%;
+}
+
+.help-container .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.help-container .card-icon {
+  color: var(--accent-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.help-container .card-title {
+  font-size: var(--font-size-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.help-container .faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.help-container .faq-item {
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+}
+
+.help-container .faq-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+}
+
+.help-container .faq-question {
+  font-size: var(--font-size-lg);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.help-container .faq-answer {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.help-container .contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.help-container .contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.help-container .contact-item:hover {
+  transform: translateX(5px);
+  border-color: var(--accent-primary);
+}
+
+.help-container .contact-icon {
+  font-size: var(--font-size-xl);
+  color: var(--accent-primary);
+}
+
+.help-container .contact-note {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-top: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+  .help-container .content-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .help-container .card {
+    padding: var(--spacing-lg);
+  }
+  
+  .help-container .contact-methods {
+    gap: var(--spacing-sm);
+  }
+} 

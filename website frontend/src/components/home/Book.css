@@ -1,0 +1,128 @@
+/* Book.css */
+.booking-container {
+    --primary-bg: #0A192F;
+    --accent-blue: #00A3FF;
+    --text-light: #F0F4FC;
+    --glass-bg: rgba(10, 25, 47, 0.9);
+    padding: 2rem 0;
+  }
+  
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 163, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 51, 102, 0.3);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .input-group {
+    position: relative;
+    isolation: isolate;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-blue);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .input-label {
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+  }
+  
+  .modern-input,
+  .modern-select {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 163, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .modern-input:focus,
+  .modern-select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(0, 163, 255, 0.3);
+  }
+  
+  .modern-input:hover,
+  .modern-select:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modern-input:focus + .input-label,
+  .modern-input:not(:placeholder-shown) + .input-label {
+    transform: translateY(-180%);
+    font-size: 0.8em;
+    opacity: 1;
+    color: var(--accent-blue);
+  }
+  
+  .gradient-button {
+    background: linear-gradient(135deg, #00A3FF 0%, #6C63FF 100%);
+    border: none;
+    padding: 1.2rem 2rem;
+    color: var(--text-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+  
+  .gradient-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 163, 255, 0.3);
+  }
+  
+  .button-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .gradient-button:hover .button-icon {
+    transform: translateX(3px);
+  }
+  
+  @media (max-width: 768px) {
+    .glass-card {
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .gradient-button {
+      justify-content: center;
+      padding: 1rem;
+    }
+  }

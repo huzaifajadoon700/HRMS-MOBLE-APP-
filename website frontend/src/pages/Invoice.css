@@ -1,0 +1,211 @@
+.invoice-page {
+  padding: 2rem;
+  min-height: calc(100vh - 80px);
+  background: var(--gradient-dark);
+}
+
+.invoice-actions {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.action-button.download {
+  background: var(--gradient-primary);
+  color: var(--primary-bg);
+}
+
+.action-button.back {
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.invoice-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  color: #1a1a1a;
+}
+
+.hotel-info h1 {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.hotel-info p {
+  margin: 0.25rem 0;
+  color: #4a4a4a;
+}
+
+.invoice-details {
+  text-align: right;
+}
+
+.invoice-details h2 {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  margin-bottom: 1rem;
+}
+
+.invoice-details p {
+  margin: 0.5rem 0;
+  color: #4a4a4a;
+}
+
+.invoice-to {
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.invoice-to h3 {
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.invoice-to p {
+  margin: 0.25rem 0;
+  color: #4a4a4a;
+}
+
+.invoice-items {
+  margin-bottom: 3rem;
+}
+
+.invoice-items table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-items th {
+  background: #f8f9fa;
+  padding: 1rem;
+  text-align: left;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.invoice-items td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  color: #4a4a4a;
+}
+
+.invoice-items td p {
+  margin: 0;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.invoice-items td small {
+  color: #6c757d;
+  display: inline-block;
+  margin-top: 0.25rem;
+}
+
+.invoice-summary {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid #eee;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #4a4a4a;
+}
+
+.summary-item.total {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  border-top: 1px solid #eee;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+}
+
+.summary-item.payment {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  font-style: italic;
+}
+
+.invoice-footer {
+  margin-top: 3rem;
+  text-align: center;
+  color: #6c757d;
+}
+
+.invoice-footer p {
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+
+.invoice-footer small {
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .invoice-page {
+    padding: 1rem;
+  }
+
+  .invoice-container {
+    padding: 1.5rem;
+  }
+
+  .invoice-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .invoice-details {
+    text-align: center;
+  }
+
+  .invoice-items th,
+  .invoice-items td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .action-button {
+    width: 100%;
+    justify-content: center;
+  }
+} 

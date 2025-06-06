@@ -1,0 +1,271 @@
+.admin-view-menus {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-section h2 {
+  margin: 0;
+  color: #2d3436;
+  font-weight: 600;
+}
+
+.category-filter {
+  width: 200px;
+}
+
+.category-filter .form-select {
+  border-radius: 8px;
+  border: 1px solid #e1e8ed;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #2d3436;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-filter .form-select:hover {
+  border-color: #6c5ce7;
+}
+
+.category-filter .form-select:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.menu-card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.menu-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover .menu-image {
+  transform: scale(1.05);
+}
+
+.no-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #adb5bd;
+  gap: 0.5rem;
+}
+
+.no-image span {
+  font-size: 0.9rem;
+}
+
+.availability-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+.Card.Body {
+  padding: 1.5rem;
+}
+
+.Card.Title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+}
+
+.Card.Text {
+  color: #636e72;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.price-tag {
+  display: inline-block;
+  background: #6c5ce7;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.category-tag {
+  display: inline-block;
+  background: #e1e8ed;
+  color: #2d3436;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.action-buttons .btn {
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.action-buttons .btn svg {
+  font-size: 1.1rem;
+}
+
+.action-buttons .btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-buttons .btn-outline-primary {
+  color: #6c5ce7;
+  border-color: #6c5ce7;
+}
+
+.action-buttons .btn-outline-primary:hover {
+  background-color: #6c5ce7;
+  border-color: #6c5ce7;
+  color: white;
+}
+
+.action-buttons .btn-outline-warning {
+  color: #fdcb6e;
+  border-color: #fdcb6e;
+}
+
+.action-buttons .btn-outline-warning:hover {
+  background-color: #fdcb6e;
+  border-color: #fdcb6e;
+  color: #2d3436;
+}
+
+.action-buttons .btn-outline-danger {
+  color: #d63031;
+  border-color: #d63031;
+}
+
+.action-buttons .btn-outline-danger:hover {
+  background-color: #d63031;
+  border-color: #d63031;
+  color: white;
+}
+
+/* Modal Styles */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e1e8ed;
+  padding: 1.5rem;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  color: #636e72;
+}
+
+.modal-footer {
+  border-top: 1px solid #e1e8ed;
+  padding: 1.5rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .admin-view-menus {
+    padding: 1rem;
+  }
+
+  .header-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .category-filter {
+    width: 100%;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons .btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .action-buttons .btn svg {
+    font-size: 1rem;
+  }
+} 

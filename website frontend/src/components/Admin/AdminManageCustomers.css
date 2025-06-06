@@ -1,0 +1,105 @@
+/* Cosmic Theme Variables */
+:root {
+    --primary-bg: #0A192F;
+    --accent-blue: #00A3FF;
+    --text-light: #F0F4FC;
+    --card-bg: #00051A;
+    --gradient-blue: linear-gradient(135deg, #0066FF 0%, #00C2FF 100%);
+    --neon-glow: 0 0 15px rgba(0, 163, 255, 0.5);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Global Styles */
+  body {
+    background: var(--primary-bg);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Admin Manage Customers Container */
+  .admin-manage-customers {
+    padding: 2rem;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .cosmic-title {
+    font-size: 2rem;
+    color: var(--text-light);
+  }
+  
+  /* Cosmic Input Group */
+  .cosmic-input-group {
+    flex-grow: 1;
+    margin: 0 1rem;
+  }
+  .cosmic-input {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-blue);
+    color: var(--text-light);
+  }
+  .cosmic-input:focus {
+    box-shadow: var(--neon-glow);
+    border-color: var(--accent-blue);
+  }
+  
+  /* Cosmic Button */
+  .btn,
+  .cosmic-button {
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    background: var(--gradient-blue);
+    color: var(--text-light);
+  }
+  .btn:hover,
+  .cosmic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neon-glow);
+  }
+  
+  /* Cosmic Table */
+  .cosmic-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    color: var(--text-light);
+  }
+  .cosmic-table th,
+  .cosmic-table td {
+    padding: 1rem;
+    border: 1px solid rgba(0, 163, 255, 0.2);
+  }
+  .cosmic-table th {
+    background: var(--accent-blue);
+    color: var(--text-light);
+  }
+  
+  /* Cosmic Modal */
+  .cosmic-modal .modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-blue);
+    border-radius: 12px;
+    color: var(--text-light);
+  }
+  .cosmic-modal-header {
+    background: var(--primary-bg);
+    border-bottom: 1px solid var(--accent-blue);
+    color: var(--text-light);
+  }
+  .cosmic-modal-body {
+    background: var(--card-bg);
+    color: var(--text-light);
+  }
+  .cosmic-modal-footer {
+    background: var(--primary-bg);
+    border-top: 1px solid var(--accent-blue);
+  }
+  

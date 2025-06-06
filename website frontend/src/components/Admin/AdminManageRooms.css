@@ -1,0 +1,899 @@
+/* Cosmic Theme for AdminManageRooms Component */
+
+/* Container for the Admin Manage Rooms Page */
+.admin-manage-rooms {
+    min-height: 100vh;
+    background: var(--primary-bg);
+    color: var(--text-light);
+    padding: 2rem;
+}
+
+.admin-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.admin-title {
+    color: var(--accent-blue);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(0, 163, 255, 0.5);
+}
+
+.admin-subtitle {
+    color: rgba(240, 244, 252, 0.7);
+    font-size: 1.1rem;
+}
+
+/* Page Title */
+.page-title {
+    color: var(--accent-blue);
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0, 163, 255, 0.3);
+}
+
+/* Add Room Button */
+.add-room-button {
+    font-weight: 600;
+    transition: var(--transition);
+    background: var(--gradient-blue);
+    border: none;
+    color: var(--text-light);
+}
+.add-room-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neon-glow);
+}
+
+/* Form Card Styles */
+.room-form-card {
+    position: sticky;
+    top: 2rem;
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 163, 255, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    height: fit-content;
+}
+.room-form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--cosmic-shadow-hover);
+}
+.form-title {
+    color: var(--accent-blue);
+    margin-bottom: 1.5rem;
+}
+
+/* Table Styles */
+.rooms-table {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 163, 255, 0.3);
+    color: var(--text-light);
+}
+.rooms-table th {
+    background: var(--accent-blue);
+    color: var(--text-light);
+    font-weight: 600;
+}
+.rooms-table td {
+    vertical-align: middle;
+    border-color: rgba(0, 163, 255, 0.2);
+}
+
+/* Room Image */
+.room-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--accent-blue);
+}
+
+/* Modal Styles */
+.modal-content {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--accent-blue);
+    color: var(--text-light);
+}
+.modal-header {
+    background: var(--primary-bg);
+    border-bottom: 1px solid var(--accent-blue);
+    color: var(--text-light);
+}
+.modal-title {
+    font-weight: 700;
+}
+.modal-footer {
+    background: var(--primary-bg);
+    border-top: 1px solid var(--accent-blue);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cosmic-card {
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(0, 163, 255, 0.2) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: var(--neon-glow);
+}
+
+.cosmic-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cosmic-card-header {
+    background: rgba(0, 163, 255, 0.03) !important;
+    border-bottom: 1px solid rgba(0, 163, 255, 0.1) !important;
+    padding: 1rem 1.5rem !important;
+}
+
+.cosmic-card-header h5 {
+    color: var(--accent-blue);
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(0, 163, 255, 0.3);
+}
+
+.cosmic-card-body {
+    padding: 1.5rem !important;
+}
+
+.cosmic-table {
+    width: 100%;
+    background: transparent !important;
+    margin: 0;
+}
+
+.cosmic-table thead th {
+    background: rgba(0, 163, 255, 0.1) !important;
+    color: var(--accent-blue) !important;
+    border-bottom: 2px solid rgba(0, 163, 255, 0.2) !important;
+    padding: 1rem !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cosmic-table tbody td {
+    background: rgba(10, 25, 47, 0.3) !important;
+    color: var(--text-light) !important;
+    border: 1px solid rgba(0, 163, 255, 0.1) !important;
+    padding: 1rem !important;
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.cosmic-table tbody tr:hover td {
+    background: rgba(0, 163, 255, 0.05) !important;
+}
+
+.cosmic-room-image {
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 163, 255, 0.2);
+    transition: var(--transition);
+}
+
+.cosmic-room-image:hover {
+    transform: scale(1.05);
+    box-shadow: var(--neon-glow);
+}
+
+.cosmic-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.cosmic-badge.available {
+    background: rgba(0, 255, 0, 0.1);
+    color: #00ff00;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.cosmic-badge.unavailable {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4444;
+    border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-label {
+    color: var(--cosmic-text);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.spinner-border {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-width: 0.15em;
+}
+
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(0, 163, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 163, 255, 0.2);
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #adb5bd;
+}
+
+.empty-state-text {
+    color: var(--accent-blue);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 163, 255, 0.3);
+}
+
+.empty-state-subtext {
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.cosmic-input {
+    background: rgba(0, 163, 255, 0.05) !important;
+    border: 1px solid rgba(0, 163, 255, 0.2) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+
+.cosmic-input:focus {
+    background: rgba(0, 163, 255, 0.1) !important;
+    border-color: var(--accent-blue) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 163, 255, 0.25) !important;
+}
+
+.cosmic-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.cosmic-input option {
+    background: var(--card-bg);
+    color: #ffffff;
+}
+
+.cosmic-button {
+    background: linear-gradient(45deg, var(--cosmic-primary), var(--cosmic-accent));
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cosmic-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--cosmic-button-shadow-hover);
+    background: linear-gradient(45deg, var(--cosmic-accent), var(--cosmic-primary));
+}
+
+.cosmic-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.image-upload-container {
+    position: relative;
+    padding: 2rem;
+    margin: 1rem 0;
+    border: 2px dashed var(--cosmic-border);
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.image-upload-container:hover {
+    border-color: var(--cosmic-primary);
+    background: rgba(var(--cosmic-primary-rgb), 0.05);
+}
+
+.image-preview {
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--cosmic-shadow);
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.preview-image:hover {
+    transform: scale(1.05);
+}
+
+/* Form group spacing */
+.form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+/* Icon styling in labels */
+.form-label svg {
+    color: var(--cosmic-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-title {
+        font-size: 2rem;
+    }
+    
+    .admin-subtitle {
+        font-size: 1rem;
+    }
+    
+    .room-form-card {
+        margin: 0 1rem;
+    }
+
+    .cosmic-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .cosmic-room-image {
+        width: 80px;
+        height: 48px;
+    }
+
+    .cosmic-action-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 992px) {
+    .admin-manage-rooms {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .room-form-card {
+        padding: 1.5rem;
+    }
+
+    .room-preview-card {
+        margin-top: 2rem;
+        position: static;
+    }
+
+    .preview-image-large {
+        height: 200px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .admin-manage-rooms {
+        max-width: 95%;
+    }
+    
+    .room-form-card {
+        padding: 3rem;
+    }
+}
+
+@media (min-width: 1600px) {
+    .admin-manage-rooms {
+        max-width: 90%;
+    }
+}
+
+/* Form validation states */
+.was-validated .cosmic-input:valid {
+    border-color: var(--cosmic-success);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.was-validated .cosmic-input:invalid {
+    border-color: var(--cosmic-danger);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Text muted styling */
+.text-muted {
+    color: var(--cosmic-text-muted) !important;
+    font-size: 0.875rem;
+}
+
+/* Room Preview Card Styles */
+.room-preview-card {
+    background: var(--cosmic-card-bg);
+    border: 1px solid var(--cosmic-border);
+    border-radius: 1rem;
+    box-shadow: var(--cosmic-shadow);
+    height: 100%;
+    position: sticky;
+    top: 1rem;
+    width: 100%;
+    padding: 2rem;
+}
+
+.preview-title {
+    color: var(--cosmic-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, var(--cosmic-primary), var(--cosmic-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.preview-image-large {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: var(--cosmic-shadow);
+}
+
+.preview-details {
+    padding: 1.5rem;
+    background: rgba(var(--cosmic-primary-rgb), 0.05);
+    border-radius: 0.5rem;
+    border: 1px solid var(--cosmic-border);
+    margin-top: 1.5rem;
+}
+
+.preview-details h5 {
+    color: var(--cosmic-primary);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.preview-details .room-type {
+    color: var(--cosmic-text-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.preview-details .price {
+    color: var(--cosmic-accent);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.preview-details .description {
+    color: var(--cosmic-text);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.status-badge.available {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.status-badge.occupied {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.status-badge.maintenance {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.empty-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    background: rgba(var(--cosmic-primary-rgb), 0.05);
+    border-radius: 0.5rem;
+    border: 2px dashed var(--cosmic-border);
+    color: var(--cosmic-text-secondary);
+}
+
+.empty-preview svg {
+    margin-bottom: 1rem;
+    color: var(--cosmic-primary);
+    opacity: 0.5;
+}
+
+.empty-preview p {
+    margin: 0;
+    text-align: center;
+}
+
+/* Adjust form layout for wider space */
+.form-row {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+}
+
+.form-col {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Adjust textarea for wider layout */
+textarea.cosmic-input {
+    min-height: 150px;
+}
+
+/* Image upload container adjustments */
+.image-upload-container {
+    padding: 2rem;
+    margin: 1rem 0;
+}
+
+/* Adjust textarea for wider layout */
+
+/* Action Buttons */
+.cosmic-action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.cosmic-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 163, 255, 0.2);
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cosmic-btn:hover {
+    background: var(--gradient-blue);
+    border-color: transparent;
+    box-shadow: var(--neon-glow);
+    transform: translateY(-1px);
+}
+
+.cosmic-btn.edit {
+    color: #00ff00;
+    border-color: rgba(0, 255, 0, 0.2);
+}
+
+.cosmic-btn.delete {
+    color: #ff4444;
+    border-color: rgba(255, 0, 0, 0.2);
+}
+
+/* Loading Spinner */
+.cosmic-spinner {
+    color: var(--accent-blue) !important;
+}
+
+/* Modal Styles */
+.cosmic-modal .modal-content {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 163, 255, 0.2);
+    border-radius: 12px;
+    color: var(--text-light);
+}
+
+.cosmic-modal .modal-header {
+    background: rgba(0, 163, 255, 0.03);
+    border-bottom: 1px solid rgba(0, 163, 255, 0.1);
+    padding: 1rem 1.5rem;
+}
+
+.cosmic-modal .modal-title {
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px rgba(0, 163, 255, 0.3);
+}
+
+.cosmic-modal .modal-body {
+    padding: 1.5rem;
+}
+
+.cosmic-modal .modal-footer {
+    background: rgba(0, 163, 255, 0.03);
+    border-top: 1px solid rgba(0, 163, 255, 0.1);
+    padding: 1rem 1.5rem;
+}
+
+/* Room Grid Layout */
+.room-grid {
+    padding: 1rem;
+}
+
+/* Room Card Styles */
+.room-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--neon-glow);
+    transition: var(--transition);
+    height: 100%;
+    border: 1px solid rgba(0, 163, 255, 0.2);
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 163, 255, 0.6);
+}
+
+.room-card-image {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.room-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.room-card:hover .room-card-image img {
+    transform: scale(1.05);
+}
+
+.room-status {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+}
+
+.room-status.available {
+    background: rgba(0, 255, 0, 0.15);
+    color: #4dff4d;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.room-status.unavailable {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff6666;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.room-card-content {
+    padding: 1.5rem;
+    background: var(--card-bg);
+}
+
+.room-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.room-number {
+    color: var(--accent-blue);
+    font-size: 1.4rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 163, 255, 0.3);
+}
+
+.room-price {
+    background: var(--gradient-blue);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.room-type {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.room-description {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.room-amenities {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 163, 255, 0.2);
+}
+
+.amenity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.amenity-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 5px rgba(0, 163, 255, 0.3));
+    color: var(--accent-blue);
+}
+
+.amenity-text {
+    color: #ffffff;
+    font-size: 0.8rem;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+    color: #ffffff;
+}
+
+.cosmic-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 163, 255, 0.1);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .room-card-image {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-manage-rooms {
+        padding: 1rem;
+    }
+
+    .admin-title {
+        font-size: 2rem;
+    }
+
+    .room-grid {
+        padding: 0.5rem;
+    }
+
+    .room-card-content {
+        padding: 1rem;
+    }
+
+    .room-amenities {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.room-card.selected {
+    border: 2px solid var(--accent-blue);
+    box-shadow: 0 0 25px rgba(0, 163, 255, 0.6);
+    transform: translateY(-5px);
+}
+
+.room-card.selected:hover {
+    transform: translateY(-5px);
+}
+
+.current-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 163, 255, 0.2);
+}
+
+.current-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Make the form card sticky on larger screens */
+@media (min-width: 992px) {
+    .room-form-card {
+        position: sticky;
+        top: 2rem;
+    }
+}

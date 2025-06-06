@@ -1,0 +1,167 @@
+/* Cosmic Theme Variables */
+:root {
+  --primary-bg: #2c3e50;          /* Dark Blue-Gray Background */
+  --accent: #34495e;              /* Accent Color */
+  --text-light: #F0F4FC;          /* Light Text */
+  --card-bg: rgba(52, 73, 94, 0.5); /* Glassmorphic Background with Transparency */
+  --gradient: linear-gradient(135deg, #34495e, #2c3e50);
+  --neon-glow: 0 0 15px rgba(52, 73, 94, 0.5);
+  --transition: all 0.3s ease;
+}
+
+/* Global Styles */
+body {
+  background: var(--primary-bg);
+  color: var(--text-light);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Admin Manage Tables Container */
+.admin-manage-tables {
+  padding: 2rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.cosmic-title {
+  font-size: 2rem;
+  color: var(--text-light);
+}
+
+/* Cosmic Button */
+.btn,
+.cosmic-button,
+.cosmic-btn-add,
+.cosmic-btn-update {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  transition: var(--transition);
+  background: var(--gradient);
+  color: var(--text-light);
+}
+.btn:hover,
+.cosmic-button:hover,
+.cosmic-btn-add:hover,
+.cosmic-btn-update:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--neon-glow);
+}
+
+/* Cosmic Card with Glassmorphism */
+.card.cosmic-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(52, 73, 94, 0.3);
+  margin-bottom: 2rem;
+}
+.cosmic-card-header {
+  background: var(--primary-bg);
+  border-bottom: 1px solid var(--accent);
+  color: var(--text-light);
+  padding: 1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.cosmic-card-body {
+  padding: 1.5rem;
+  color: var(--text-light);
+}
+
+/* Cosmic Input Fields */
+.cosmic-input {
+  background: var(--card-bg);
+  border: 1px solid var(--accent);
+  color: var(--text-light);
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+.cosmic-input:focus {
+  box-shadow: var(--neon-glow);
+  border-color: var(--accent);
+}
+
+/* Cosmic Table */
+.cosmic-table-container {
+  margin-top: 2rem;
+}
+.cosmic-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  color: var(--text-light);
+}
+.cosmic-table th,
+.cosmic-table td {
+  padding: 1rem;
+  border: 1px solid rgba(52, 73, 94, 0.3);
+}
+.cosmic-table th {
+  background: var(--accent);
+  color: var(--text-light);
+  text-align: left;
+}
+
+/* Cosmic Badge */
+.badge.cosmic-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.badge.cosmic-badge.available {
+  background: var(--gradient);
+}
+.badge.cosmic-badge.unavailable {
+  background: rgba(255, 0, 0, 0.7);
+}
+
+/* Cosmic Table Image */
+.cosmic-table-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+}
+
+/* Cosmic Modal */
+.cosmic-modal .modal-content {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  color: var(--text-light);
+}
+.cosmic-modal-header {
+  background: var(--primary-bg);
+  border-bottom: 1px solid var(--accent);
+  color: var(--text-light);
+}
+.cosmic-modal-body {
+  background: var(--card-bg);
+  color: var(--text-light);
+}
+.cosmic-modal-footer {
+  background: var(--primary-bg);
+  border-top: 1px solid var(--accent);
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+.mt-3 {
+  margin-top: 1rem;
+}
+.ms-2 {
+  margin-left: 0.5rem;
+}
