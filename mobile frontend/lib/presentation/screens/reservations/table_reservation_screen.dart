@@ -110,7 +110,8 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
     if (!_isAvailable) return;
 
     // Navigate to payment screen first
-    final paymentResult = await Navigator.of(context).push<bool>(
+    final paymentResult =
+        await Navigator.of(context).push<Map<String, dynamic>?>(
       MaterialPageRoute(
         builder: (_) => PaymentScreen(
           amount: _reservationFee,
@@ -121,10 +122,12 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
       ),
     );
 
-    if (paymentResult != true) {
+    if (paymentResult == null || paymentResult['success'] != true) {
       // Payment was cancelled or failed
       return;
     }
+
+    final paymentIntentId = paymentResult['paymentIntentId'] as String?;
 
     setState(() {
       _isLoading = true;
@@ -151,6 +154,7 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
         email: user?.email ?? '',
         phone: user?.phoneNumber ?? '',
         paymentMethod: 'card',
+        paymentMethodId: paymentIntentId,
       );
 
       if (!mounted) return;

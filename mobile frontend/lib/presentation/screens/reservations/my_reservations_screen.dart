@@ -16,6 +16,8 @@ class MyReservationsScreen extends StatefulWidget {
 class _MyReservationsScreenState extends State<MyReservationsScreen> {
   final ReservationService _reservationService = ReservationService();
   List<ReservationModel> _reservations = [];
+  List<ReservationModel> _upcomingReservations = [];
+  List<ReservationModel> _pastReservations = [];
   bool _isLoading = true;
   String? _error;
 
@@ -34,6 +36,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
 
     try {
       final reservations = await _reservationService.getUserReservations();
+      _separateReservations(reservations);
       setState(() {
         _reservations = reservations;
         _isLoading = false;
@@ -44,8 +47,34 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
         _isLoading = false;
         // Fallback to dummy data for development
         _reservations = ReservationModel.dummyReservations();
+        _separateReservations(_reservations);
       });
     }
+  }
+
+  void _separateReservations(List<ReservationModel> reservations) {
+    final now = DateTime.now();
+    _upcomingReservations.clear();
+    _pastReservations.clear();
+
+    for (final reservation in reservations) {
+      final reservationDate = reservation.reservationDate;
+      if (reservationDate.isAfter(now) ||
+          reservationDate
+              .isAtSameMomentAs(DateTime(now.year, now.month, now.day))) {
+        _upcomingReservations.add(reservation);
+      } else {
+        _pastReservations.add(reservation);
+      }
+    }
+
+    // Sort upcoming reservations by date (earliest first)
+    _upcomingReservations
+        .sort((a, b) => a.reservationDate.compareTo(b.reservationDate));
+
+    // Sort past reservations by date (most recent first)
+    _pastReservations
+        .sort((a, b) => b.reservationDate.compareTo(a.reservationDate));
   }
 
   Future<void> _cancelReservation(ReservationModel reservation) async {
@@ -53,7 +82,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Cancel Reservation'),
-        content: const Text('Are you sure you want to cancel this reservation?'),
+        content:
+            const Text('Are you sure you want to cancel this reservation?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -70,14 +100,16 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
     if (confirmed != true) return;
 
     try {
-      final result = await _reservationService.cancelReservation(reservation.id);
-      
+      final result =
+          await _reservationService.cancelReservation(reservation.id);
+
       if (!mounted) return;
 
       if (result['success']) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Reservation cancelled successfully'),
+            content:
+                Text(result['message'] ?? 'Reservation cancelled successfully'),
             backgroundColor: Colors.green,
           ),
         );
@@ -167,7 +199,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                           Icon(
                             Icons.table_bar_outlined,
                             size: 64,
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                            color: theme.colorScheme.onSurface
+                                .withValues(alpha: 0.5),
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -178,7 +211,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                           Text(
                             'You haven\'t made any table reservations yet.',
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                              color: theme.colorScheme.onSurface
+                                  .withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -186,52 +220,134 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                     )
                   : RefreshIndicator(
                       onRefresh: _loadReservations,
-                      child: ListView.builder(
+                      child: SingleChildScrollView(
                         padding: const EdgeInsets.all(16),
-                        itemCount: _reservations.length,
-                        itemBuilder: (context, index) {
-                          final reservation = _reservations[index];
-                          return _buildReservationCard(reservation);
-                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Upcoming Reservations Section
+                            Text(
+                              'Upcoming Reservations',
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            if (_upcomingReservations.isEmpty)
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: theme.colorScheme.outline
+                                        .withValues(alpha: 0.2),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today_outlined,
+                                      size: 48,
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      'No upcoming reservations found',
+                                      style:
+                                          theme.textTheme.bodyLarge?.copyWith(
+                                        color: theme.colorScheme.onSurface
+                                            .withValues(alpha: 0.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            else
+                              ...(_upcomingReservations.map((reservation) =>
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: _buildReservationCard(reservation,
+                                        isUpcoming: true),
+                                  ))),
+
+                            const SizedBox(height: 32),
+
+                            // Past Reservations Section
+                            Text(
+                              'Past Reservations',
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            if (_pastReservations.isEmpty)
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: theme.colorScheme.outline
+                                        .withValues(alpha: 0.2),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.history_outlined,
+                                      size: 48,
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      'No past reservations found',
+                                      style:
+                                          theme.textTheme.bodyLarge?.copyWith(
+                                        color: theme.colorScheme.onSurface
+                                            .withValues(alpha: 0.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            else
+                              ...(_pastReservations.map((reservation) =>
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: _buildReservationCard(reservation,
+                                        isUpcoming: false),
+                                  ))),
+                          ],
+                        ),
                       ),
                     ),
     );
   }
 
-  Widget _buildReservationCard(ReservationModel reservation) {
+  Widget _buildReservationCard(ReservationModel reservation,
+      {bool isUpcoming = true}) {
     final theme = Theme.of(context);
-    
+
     Color statusColor;
     IconData statusIcon;
-    
-    switch (reservation.status.toLowerCase()) {
-      case 'confirmed':
-        statusColor = Colors.green;
-        statusIcon = Icons.check_circle;
-        break;
-      case 'pending':
-        statusColor = Colors.orange;
-        statusIcon = Icons.schedule;
-        break;
-      case 'cancelled':
-        statusColor = Colors.red;
-        statusIcon = Icons.cancel;
-        break;
-      case 'completed':
-        statusColor = Colors.blue;
-        statusIcon = Icons.done_all;
-        break;
-      case 'seated':
-        statusColor = Colors.purple;
-        statusIcon = Icons.event_seat;
-        break;
-      case 'no_show':
-        statusColor = Colors.red;
-        statusIcon = Icons.person_off;
-        break;
-      default:
-        statusColor = Colors.grey;
-        statusIcon = Icons.info;
+    String displayStatus;
+
+    // Override status based on whether reservation is upcoming or past
+    if (isUpcoming) {
+      statusColor = Colors.green;
+      statusIcon = Icons.check_circle;
+      displayStatus = 'CONFIRMED';
+    } else {
+      statusColor = Colors.grey;
+      statusIcon = Icons.history;
+      displayStatus = 'PAST';
     }
 
     return Card(
@@ -252,11 +368,13 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: statusColor.withValues(alpha: 0.3)),
+                    border:
+                        Border.all(color: statusColor.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -264,7 +382,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                       Icon(statusIcon, size: 16, color: statusColor),
                       const SizedBox(width: 4),
                       Text(
-                        reservation.statusDisplayText,
+                        displayStatus,
                         style: TextStyle(
                           color: statusColor,
                           fontWeight: FontWeight.w600,
@@ -307,7 +425,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  DateFormat('EEEE, MMM dd, yyyy').format(reservation.reservationDate),
+                  DateFormat('EEEE, MMM dd, yyyy')
+                      .format(reservation.reservationDate),
                   style: theme.textTheme.bodyMedium,
                 ),
               ],
@@ -349,7 +468,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
             ),
 
             // Occasion
-            if (reservation.occasion != null && reservation.occasion!.isNotEmpty) ...[
+            if (reservation.occasion != null &&
+                reservation.occasion!.isNotEmpty) ...[
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -368,7 +488,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
             ],
 
             // Special requests
-            if (reservation.specialRequests != null && reservation.specialRequests!.isNotEmpty) ...[
+            if (reservation.specialRequests != null &&
+                reservation.specialRequests!.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(
                 'Special Requests:',
@@ -384,8 +505,8 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
               ),
             ],
 
-            // Actions
-            if (reservation.status.toLowerCase() == 'pending' || reservation.status.toLowerCase() == 'confirmed') ...[
+            // Actions - only show cancel for upcoming reservations
+            if (isUpcoming) ...[
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

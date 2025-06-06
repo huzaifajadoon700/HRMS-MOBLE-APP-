@@ -75,7 +75,9 @@ class ReservationService {
         'fullName': fullName ?? '',
         'email': email ?? '',
         'specialRequests': specialRequests ?? '',
-        if (paymentMethodId != null) 'paymentMethodId': paymentMethodId,
+        if (paymentMethodId != null)
+          'paymentIntentId':
+              paymentMethodId, // Use as payment intent ID instead
       };
 
       print('Creating reservation with data: $reservationData');
@@ -281,37 +283,71 @@ class ReservationService {
   }
 
   ReservationModel _mapApiToReservationModel(Map<String, dynamic> apiData) {
-    return ReservationModel(
-      id: apiData['_id'],
-      userId: apiData['userId'],
-      tableId: apiData['tableId'],
-      reservationDate: DateTime.parse(apiData['reservationDate']),
-      timeSlot: apiData['timeSlot'],
-      partySize: apiData['partySize'],
-      status: apiData['status'] ?? 'pending',
-      specialRequests: apiData['specialRequests'],
-      occasion: apiData['occasion'],
-      createdAt: DateTime.parse(apiData['createdAt']),
-      updatedAt: DateTime.parse(apiData['updatedAt']),
-      table: apiData['table'] != null
+    // Handle tableId - it could be a string or an object (when populated)
+    String tableId;
+    TableModel? table;
+
+    if (apiData['tableId'] is String) {
+      tableId = apiData['tableId'];
+      table = apiData['table'] != null
           ? _mapApiToTableModel(apiData['table'])
-          : null,
+          : null;
+    } else if (apiData['tableId'] is Map<String, dynamic>) {
+      // tableId is populated with table data
+      final tableData = apiData['tableId'] as Map<String, dynamic>;
+      tableId = tableData['_id'] ?? tableData['id'] ?? '';
+      table = _mapApiToTableModel(tableData);
+    } else {
+      tableId = apiData['tableId']?.toString() ?? '';
+      table = null;
+    }
+
+    // Handle userId - it could be a string or an object (when populated)
+    String userId;
+    if (apiData['userId'] is String) {
+      userId = apiData['userId'];
+    } else if (apiData['userId'] is Map<String, dynamic>) {
+      final userData = apiData['userId'] as Map<String, dynamic>;
+      userId = userData['_id'] ?? userData['id'] ?? '';
+    } else {
+      userId = apiData['userId']?.toString() ?? '';
+    }
+
+    return ReservationModel(
+      id: apiData['_id'] ?? apiData['id'] ?? '',
+      userId: userId,
+      tableId: tableId,
+      reservationDate: DateTime.parse(apiData['reservationDate']),
+      timeSlot: apiData['timeSlot'] ?? apiData['time'] ?? '',
+      partySize: apiData['partySize'] ?? apiData['guests'] ?? 1,
+      status: apiData['status'] ?? 'pending',
+      specialRequests: apiData['specialRequests']?.toString(),
+      occasion: apiData['occasion']?.toString(),
+      createdAt: apiData['createdAt'] != null
+          ? DateTime.parse(apiData['createdAt'])
+          : DateTime.now(),
+      updatedAt: apiData['updatedAt'] != null
+          ? DateTime.parse(apiData['updatedAt'])
+          : DateTime.now(),
+      table: table,
     );
   }
 
   TableModel _mapApiToTableModel(Map<String, dynamic> apiData) {
     return TableModel(
-      id: apiData['_id'] ?? apiData['id'],
-      tableNumber: apiData['tableNumber'],
-      capacity: apiData['capacity'],
-      location: apiData['location'] ?? 'Main Dining',
-      status: apiData['status'] ?? 'available',
-      isReserved: apiData['isReserved'] ?? false,
-      reservedBy: apiData['reservedBy'],
+      id: apiData['_id'] ?? apiData['id'] ?? '',
+      tableNumber: apiData['tableNumber']?.toString() ?? '',
+      capacity: apiData['capacity'] is int
+          ? apiData['capacity']
+          : int.tryParse(apiData['capacity']?.toString() ?? '0') ?? 0,
+      location: apiData['location']?.toString() ?? 'Main Dining',
+      status: apiData['status']?.toString() ?? 'available',
+      isReserved: apiData['isReserved'] == true,
+      reservedBy: apiData['reservedBy']?.toString(),
       reservationTime: apiData['reservationTime'] != null
-          ? DateTime.parse(apiData['reservationTime'])
+          ? DateTime.tryParse(apiData['reservationTime'].toString())
           : null,
-      imageUrl: apiData['image'] ?? apiData['imageUrl'],
+      imageUrl: apiData['image']?.toString() ?? apiData['imageUrl']?.toString(),
     );
   }
 }
