@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import '../core/constants/app_constants.dart';
 import '../data/models/booking_model.dart';
 import '../data/models/room_model.dart';
@@ -75,7 +76,9 @@ class BookingService {
         'basePrice': calculatedBasePrice,
         'taxAmount': taxAmount,
         'numberOfNights': nights,
-        if (paymentMethodId != null) 'paymentMethodId': paymentMethodId,
+        if (paymentMethodId != null)
+          'paymentIntentId':
+              paymentMethodId, // Use as payment intent ID instead
       };
 
       print('Creating booking with data: $bookingData');
@@ -242,18 +245,43 @@ class BookingService {
     required DateTime checkOutDate,
   }) async {
     try {
+      print('Checking room availability for room: $roomId');
+      print('Check-in: ${checkInDate.toIso8601String().split('T')[0]}');
+      print('Check-out: ${checkOutDate.toIso8601String().split('T')[0]}');
+
       final response =
           await _dio!.get('/api/rooms/availability', queryParameters: {
-        'roomId': roomId,
-        'checkInDate': checkInDate.toIso8601String(),
-        'checkOutDate': checkOutDate.toIso8601String(),
+        'checkInDate': checkInDate.toIso8601String().split('T')[0], // Date only
+        'checkOutDate':
+            checkOutDate.toIso8601String().split('T')[0], // Date only
       });
 
+      print('Availability response status: ${response.statusCode}');
+      print('Availability response data: ${response.data}');
+
       if (response.statusCode == 200) {
-        return {
-          'available': response.data['available'],
-          'message': response.data['message'],
-        };
+        final List<dynamic> availabilityResults = response.data;
+
+        // Find the specific room in the results
+        final roomAvailability = availabilityResults.firstWhere(
+          (result) => result['room']['_id'] == roomId,
+          orElse: () => null,
+        );
+
+        if (roomAvailability != null) {
+          final isAvailable = roomAvailability['isAvailable'] ?? false;
+          return {
+            'available': isAvailable,
+            'message': isAvailable
+                ? 'Room is available for the selected dates!'
+                : 'This room is already booked for the selected dates. Please choose different dates.',
+          };
+        } else {
+          return {
+            'available': false,
+            'message': 'Room not found',
+          };
+        }
       }
 
       return {
@@ -261,11 +289,13 @@ class BookingService {
         'message': 'Unable to check availability',
       };
     } on DioException catch (e) {
+      print('Availability check error: ${e.response?.data}');
       return {
         'available': false,
-        'message': e.response?.data['message'] ?? 'Network error occurred',
+        'message': e.response?.data['error'] ?? 'Network error occurred',
       };
     } catch (e) {
+      print('Unexpected availability check error: $e');
       return {
         'available': false,
         'message': 'An unexpected error occurred',
@@ -274,34 +304,190 @@ class BookingService {
   }
 
   BookingModel _mapApiToBookingModel(Map<String, dynamic> apiData) {
-    return BookingModel(
-      id: apiData['_id'] ?? apiData['id'],
-      userId: apiData['userId'],
-      roomId: apiData['roomId'],
-      roomNumber:
-          apiData['roomNumber'] ?? apiData['room']?['roomNumber'] ?? 'N/A',
-      roomType: apiData['roomType'] ?? apiData['room']?['type'] ?? 'standard',
-      checkInDate: DateTime.parse(apiData['checkInDate']),
-      checkOutDate: DateTime.parse(apiData['checkOutDate']),
-      numberOfGuests: apiData['guests'] ?? apiData['numberOfGuests'] ?? 1,
-      totalAmount: (apiData['totalAmount'] ?? 0).toDouble(),
-      status: apiData['status'] ?? 'pending',
-      paymentMethod: apiData['paymentMethod'] ?? 'credit_card',
-      paymentId: apiData['paymentId'],
-      isPaid: apiData['isPaid'] ?? (apiData['paymentStatus'] == 'paid'),
-      specialRequests: apiData['specialRequests'],
-      bookingDate:
-          DateTime.parse(apiData['createdAt'] ?? apiData['bookingDate']),
-      cancellationReason: apiData['cancellationReason'],
-      cancellationDate: apiData['cancellationDate'] != null
-          ? DateTime.parse(apiData['cancellationDate'])
-          : null,
-      isRefunded: apiData['isRefunded'] ?? false,
-      refundAmount: apiData['refundAmount']?.toDouble(),
-      guestName: apiData['guestName'] ?? apiData['user']?['name'] ?? 'Guest',
-      adults: apiData['adults'] ?? (apiData['guests'] ?? 1),
-      children: apiData['children'] ?? 0,
-    );
+    try {
+      print('Mapping booking data: $apiData');
+
+      // Safe string extraction
+      String safeString(dynamic value, String defaultValue) {
+        if (value == null) return defaultValue;
+        if (value is String) return value;
+        if (value is Map) return defaultValue; // Handle nested objects
+        return value.toString();
+      }
+
+      // Safe number extraction
+      double safeDouble(dynamic value, double defaultValue) {
+        if (value == null) return defaultValue;
+        if (value is double) return value;
+        if (value is int) return value.toDouble();
+        if (value is String) {
+          return double.tryParse(value) ?? defaultValue;
+        }
+        return defaultValue;
+      }
+
+      // Safe int extraction
+      int safeInt(dynamic value, int defaultValue) {
+        if (value == null) return defaultValue;
+        if (value is int) return value;
+        if (value is double) return value.toInt();
+        if (value is String) {
+          return int.tryParse(value) ?? defaultValue;
+        }
+        return defaultValue;
+      }
+
+      // Safe DateTime parsing
+      DateTime safeDateTime(dynamic value, DateTime defaultValue) {
+        if (value == null) return defaultValue;
+        if (value is String) {
+          try {
+            return DateTime.parse(value).toLocal();
+          } catch (e) {
+            debugPrint('Error parsing date: $value, error: $e');
+            return defaultValue;
+          }
+        }
+        return defaultValue;
+      }
+
+      // Safe nullable DateTime parsing
+      DateTime? safeNullableDateTime(dynamic value) {
+        if (value == null) return null;
+        if (value is String) {
+          try {
+            return DateTime.parse(value).toLocal();
+          } catch (e) {
+            debugPrint('Error parsing nullable date: $value, error: $e');
+            return null;
+          }
+        }
+        return null;
+      }
+
+      // Safe nullable double parsing
+      double? safeNullableDouble(dynamic value) {
+        if (value == null) return null;
+        if (value is double) return value;
+        if (value is int) return value.toDouble();
+        if (value is String) {
+          return double.tryParse(value);
+        }
+        return null;
+      }
+
+      return BookingModel(
+        id: safeString(apiData['_id'] ?? apiData['id'], 'unknown'),
+        userId: safeString(apiData['userId'], 'unknown'),
+        roomId: safeString(apiData['roomId'], 'unknown'),
+        roomNumber: _extractRoomNumber(apiData),
+        roomType: safeString(
+            apiData['roomType'] ?? apiData['room']?['type'], 'standard'),
+        checkInDate: safeDateTime(apiData['checkInDate'], DateTime.now()),
+        checkOutDate: safeDateTime(apiData['checkOutDate'],
+            DateTime.now().add(const Duration(days: 1))),
+        numberOfGuests:
+            safeInt(apiData['guests'] ?? apiData['numberOfGuests'], 1),
+        totalAmount:
+            safeDouble(apiData['totalPrice'] ?? apiData['totalAmount'], 0.0),
+        status: _mapBookingStatus(apiData),
+        paymentMethod: safeString(
+            apiData['payment'] ?? apiData['paymentMethod'], 'credit_card'),
+        paymentId: apiData['paymentId'] as String?,
+        isPaid: _determinePaymentStatus(apiData),
+        specialRequests: apiData['specialRequests'] as String?,
+        bookingDate: safeDateTime(
+            apiData['createdAt'] ?? apiData['bookingDate'], DateTime.now()),
+        cancellationReason: apiData['cancellationReason'] as String?,
+        cancellationDate: safeNullableDateTime(apiData['cancellationDate']),
+        isRefunded: apiData['isRefunded'] ?? false,
+        refundAmount: safeNullableDouble(apiData['refundAmount']),
+        guestName: safeString(
+            apiData['fullName'] ??
+                apiData['guestName'] ??
+                apiData['user']?['name'],
+            'Guest'),
+        adults: safeInt(apiData['adults'] ?? apiData['guests'], 1),
+        children: safeInt(apiData['children'], 0),
+      );
+    } catch (e) {
+      print('Error mapping booking data: $e');
+      print('API Data: $apiData');
+      rethrow;
+    }
+  }
+
+  // Helper method to map booking status from API response
+  String _mapBookingStatus(Map<String, dynamic> apiData) {
+    final status = apiData['status']?.toString().toLowerCase() ?? 'pending';
+    final paymentStatus = apiData['paymentStatus']?.toString().toLowerCase();
+    final isPaid = apiData['isPaid'] ?? false;
+
+    // If payment is successful, booking should be confirmed
+    if (paymentStatus == 'succeeded' || paymentStatus == 'paid' || isPaid) {
+      return 'confirmed';
+    }
+
+    // Map various status values
+    switch (status) {
+      case 'confirmed':
+      case 'active':
+      case 'booked':
+        return 'confirmed';
+      case 'cancelled':
+      case 'canceled':
+        return 'cancelled';
+      case 'completed':
+      case 'finished':
+      case 'checked-out':
+        return 'completed';
+      case 'checked-in':
+        return 'checked-in';
+      case 'pending':
+      default:
+        return 'pending';
+    }
+  }
+
+  // Helper method to determine payment status
+  bool _determinePaymentStatus(Map<String, dynamic> apiData) {
+    final paymentStatus = apiData['paymentStatus']?.toString().toLowerCase();
+    final isPaid = apiData['isPaid'];
+
+    // Check explicit isPaid field first
+    if (isPaid != null) {
+      return isPaid == true;
+    }
+
+    // Check payment status
+    if (paymentStatus != null) {
+      return paymentStatus == 'succeeded' ||
+          paymentStatus == 'paid' ||
+          paymentStatus == 'completed';
+    }
+
+    // Default to false if no clear payment status
+    return false;
+  }
+
+  // Helper method to extract room number from API response
+  String _extractRoomNumber(Map<String, dynamic> apiData) {
+    // Try different possible locations for room number
+    if (apiData['roomNumber'] != null && apiData['roomNumber'] != '000') {
+      return apiData['roomNumber'].toString();
+    }
+
+    // Check nested room object
+    if (apiData['room'] != null && apiData['room']['roomNumber'] != null) {
+      return apiData['room']['roomNumber'].toString();
+    }
+
+    // Check roomId object (if populated)
+    if (apiData['roomId'] is Map && apiData['roomId']['roomNumber'] != null) {
+      return apiData['roomId']['roomNumber'].toString();
+    }
+
+    return 'N/A';
   }
 
   RoomModel _mapApiToRoomModel(Map<String, dynamic> apiData) {

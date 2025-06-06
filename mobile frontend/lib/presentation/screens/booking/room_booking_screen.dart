@@ -8,6 +8,7 @@ import '../../../services/booking_service.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/loading_widget.dart';
 import '../payment/payment_screen.dart';
+import '../payment/payment_confirmation_screen.dart';
 
 class RoomBookingScreen extends StatefulWidget {
   final RoomModel room;
@@ -52,6 +53,7 @@ class _RoomBookingScreenState extends State<RoomBookingScreen> {
   Future<void> _checkAvailability() async {
     setState(() {
       _isCheckingAvailability = true;
+      _availabilityMessage = 'Checking availability...';
     });
 
     try {
@@ -62,16 +64,38 @@ class _RoomBookingScreenState extends State<RoomBookingScreen> {
       );
 
       setState(() {
-        _isAvailable = result['available'];
-        _availabilityMessage = result['message'];
+        _isAvailable = result['available'] ?? false;
+        _availabilityMessage =
+            result['message'] ?? 'Unknown availability status';
         _isCheckingAvailability = false;
       });
+
+      // Show a snackbar with the result
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(_availabilityMessage ?? 'Availability checked'),
+            backgroundColor: _isAvailable ? Colors.green : Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     } catch (e) {
       setState(() {
         _isAvailable = false;
-        _availabilityMessage = 'Error checking availability';
+        _availabilityMessage = 'Error checking availability: ${e.toString()}';
         _isCheckingAvailability = false;
       });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(_availabilityMessage ?? 'Error occurred'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     }
   }
 
@@ -79,8 +103,13 @@ class _RoomBookingScreenState extends State<RoomBookingScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (!_isAvailable) return;
 
+    // Get user details from auth provider (before async operations)
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final user = authProvider.user;
+
     // Navigate to payment screen first
-    final paymentResult = await Navigator.of(context).push<bool>(
+    final paymentResult =
+        await Navigator.of(context).push<Map<String, dynamic>?>(
       MaterialPageRoute(
         builder: (_) => PaymentScreen(
           amount: _totalAmount,
@@ -92,20 +121,18 @@ class _RoomBookingScreenState extends State<RoomBookingScreen> {
       ),
     );
 
-    if (paymentResult != true) {
+    if (paymentResult == null || paymentResult['success'] != true) {
       // Payment was cancelled or failed
       return;
     }
+
+    final paymentIntentId = paymentResult['paymentIntentId'] as String?;
 
     setState(() {
       _isLoading = true;
     });
 
     try {
-      // Get user details from auth provider (before async operations)
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final user = authProvider.user;
-
       final result = await _bookingService.createBooking(
         roomId: widget.room.id,
         checkInDate: _selectedCheckInDate,
@@ -120,19 +147,32 @@ class _RoomBookingScreenState extends State<RoomBookingScreen> {
         email: user?.email ?? '',
         phone: user?.phoneNumber ?? '',
         paymentMethod: 'card',
+        paymentMethodId: paymentIntentId,
         basePrice: widget.room.pricePerNight,
       );
 
       if (!mounted) return;
 
       if (result['success']) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['message'] ?? 'Booking created successfully!'),
-            backgroundColor: Colors.green,
+        // Navigate to payment confirmation screen
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => PaymentConfirmationScreen(
+              paymentDetails: paymentResult,
+              bookingDetails: {
+                'roomType': widget.room.roomType,
+                'roomNumber': widget.room.roomNumber,
+                'checkInDate':
+                    DateFormat('MMM dd, yyyy').format(_selectedCheckInDate),
+                'checkOutDate':
+                    DateFormat('MMM dd, yyyy').format(_selectedCheckOutDate),
+                'guests': _guests,
+                'numberOfNights': _numberOfNights,
+                'totalPrice': _totalAmount,
+              },
+            ),
           ),
         );
-        Navigator.of(context).pop(true); // Return true to indicate success
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

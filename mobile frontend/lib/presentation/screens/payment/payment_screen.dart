@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/payment_service.dart';
@@ -45,63 +45,88 @@ class _PaymentScreenState extends State<PaymentScreen> {
     });
 
     try {
-      Map<String, dynamic> result;
-
-      if (_selectedPaymentMethod == 'card') {
-        result = await _paymentService.processCardPayment(
-          amount: widget.amount,
-          currency: 'usd',
-          description: widget.description,
-          metadata: {
-            'type': widget.type,
-            'itemId': widget.itemId,
-          },
-        );
-      } else {
+      if (_selectedPaymentMethod == 'cash') {
         // For cash payments, just mark as pending
-        result = {
+        final result = {
           'success': true,
           'message': 'Cash payment selected - pay on delivery/arrival',
+          'paymentMethodId': null, // No payment method ID for cash
         };
-      }
 
-      if (!mounted) return;
-
-      if (result['success']) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['message'] ?? 'Payment successful!'),
-            backgroundColor: Colors.green,
-          ),
-        );
-
-        if (widget.onSuccess != null) {
-          widget.onSuccess!();
-        } else {
-          Navigator.of(context).pop(true);
-        }
+        _handlePaymentResult(result);
       } else {
-        if (result['cancelled'] == true) {
-          // User cancelled payment
-          if (widget.onCancel != null) {
-            widget.onCancel!();
-          } else {
-            Navigator.of(context).pop(false);
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['message'] ?? 'Payment failed'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
+        // For card payments, show card input dialog
+        setState(() {
+          _isLoading = false;
+        });
+        await _processStripePayment();
       }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      Navigator.of(context).pop({
+        'success': false,
+        'message': 'An unexpected error occurred: ${e.toString()}',
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _processStripePayment() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      // Create payment intent and get client secret
+      final result = await _paymentService.processCardPayment(
+        amount: widget.amount,
+        currency: 'usd',
+        description: widget.description,
+        metadata: {
+          'type': widget.type,
+          'itemId': widget.itemId,
+        },
+      );
+
+      if (!mounted) return;
+
+      if (result['success']) {
+        if (result['requiresCardInput'] == true) {
+          // Show card input dialog for web
+          setState(() {
+            _isLoading = false;
+          });
+          await _showCardInputDialog(
+            clientSecret: result['clientSecret'],
+            amount: widget.amount,
+          );
+        } else {
+          // Mobile payment sheet completed successfully
+          _handlePaymentResult({
+            'success': true,
+            'paymentMethodId': result['paymentIntentId'],
+            'message': result['message'],
+          });
+        }
+      } else {
+        _handlePaymentResult(result);
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Payment error: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );
@@ -112,6 +137,210 @@ class _PaymentScreenState extends State<PaymentScreen> {
         });
       }
     }
+  }
+
+  void _handlePaymentResult(Map<String, dynamic> result) {
+    if (result['success']) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result['message'] ?? 'Payment successful!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      if (widget.onSuccess != null) {
+        widget.onSuccess!();
+      } else {
+        // Return payment result with payment method ID
+        Navigator.of(context).pop({
+          'success': true,
+          'paymentMethodId':
+              result['paymentMethodId'] ?? result['paymentIntentId'],
+          'message': result['message'],
+        });
+      }
+    } else {
+      if (result['cancelled'] == true) {
+        // User cancelled payment
+        if (widget.onCancel != null) {
+          widget.onCancel!();
+        } else {
+          Navigator.of(context).pop({
+            'success': false,
+            'cancelled': true,
+            'message': 'Payment cancelled',
+          });
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['message'] ?? 'Payment failed'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        Navigator.of(context).pop({
+          'success': false,
+          'message': result['message'] ?? 'Payment failed',
+        });
+      }
+    }
+  }
+
+  Future<void> _showCardInputDialog({
+    required String clientSecret,
+    required double amount,
+  }) async {
+    final cardNumberController = TextEditingController();
+    final expiryController = TextEditingController();
+    final cvcController = TextEditingController();
+    bool isProcessing = false;
+
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Enter Card Details'),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Please enter your card information to complete the payment.',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: cardNumberController,
+                      decoration: const InputDecoration(
+                        labelText: 'Card Number',
+                        hintText: '4242 4242 4242 4242',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(16),
+                        _CardNumberInputFormatter(),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: expiryController,
+                            decoration: const InputDecoration(
+                              labelText: 'MM/YY',
+                              hintText: '12/25',
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(4),
+                              _ExpiryDateInputFormatter(),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: TextField(
+                            controller: cvcController,
+                            decoration: const InputDecoration(
+                              labelText: 'CVC',
+                              hintText: '123',
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(3),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Test Cards:\n4242 4242 4242 4242\n5555 5555 5555 4444',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isProcessing
+                      ? null
+                      : () {
+                          Navigator.of(context).pop();
+                        },
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: isProcessing
+                      ? null
+                      : () async {
+                          setState(() {
+                            isProcessing = true;
+                          });
+
+                          final paymentService = PaymentService();
+                          final expiry = expiryController.text.split('/');
+
+                          final result =
+                              await paymentService.confirmCardPayment(
+                            clientSecret: clientSecret,
+                            cardNumber: cardNumberController.text,
+                            expiryMonth: expiry.isNotEmpty ? expiry[0] : '12',
+                            expiryYear: expiry.length > 1 ? expiry[1] : '25',
+                            cvc: cvcController.text,
+                          );
+
+                          if (!mounted) return;
+
+                          if (result['success']) {
+                            Navigator.of(context).pop();
+                            _handlePaymentResult({
+                              'success': true,
+                              'paymentMethodId': result['paymentMethodId'] ??
+                                  result['paymentIntentId'],
+                              'message': result['message'],
+                            });
+                          } else {
+                            setState(() {
+                              isProcessing = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text(result['message'] ?? 'Payment failed'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
+                  child: isProcessing
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text('Pay \$${amount.toStringAsFixed(2)}'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -244,9 +473,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           const Text('Credit/Debit Card'),
                         ],
                       ),
-                      subtitle: Text(kIsWeb
-                          ? 'Simulated payment for web development'
-                          : 'Pay securely with Stripe'),
+                      subtitle: const Text('Pay securely with Stripe'),
                       value: 'card',
                       groupValue: _selectedPaymentMethod,
                       onChanged: (value) {
@@ -365,7 +592,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         if (widget.onCancel != null) {
                           widget.onCancel!();
                         } else {
-                          Navigator.of(context).pop(false);
+                          Navigator.of(context).pop({
+                            'success': false,
+                            'cancelled': true,
+                            'message': 'Payment cancelled by user',
+                          });
                         }
                       },
                       style: OutlinedButton.styleFrom(
@@ -383,6 +614,53 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ],
               ),
             ),
+    );
+  }
+}
+
+// Input formatters for card details
+class _CardNumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final text = newValue.text.replaceAll(' ', '');
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < text.length; i++) {
+      if (i > 0 && i % 4 == 0) {
+        buffer.write(' ');
+      }
+      buffer.write(text[i]);
+    }
+
+    return TextEditingValue(
+      text: buffer.toString(),
+      selection: TextSelection.collapsed(offset: buffer.length),
+    );
+  }
+}
+
+class _ExpiryDateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final text = newValue.text.replaceAll('/', '');
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < text.length; i++) {
+      if (i == 2) {
+        buffer.write('/');
+      }
+      buffer.write(text[i]);
+    }
+
+    return TextEditingValue(
+      text: buffer.toString(),
+      selection: TextSelection.collapsed(offset: buffer.length),
     );
   }
 }

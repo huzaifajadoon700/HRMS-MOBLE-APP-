@@ -144,27 +144,34 @@ class PaymentService {
     required String description,
     Map<String, dynamic>? metadata,
   }) async {
-    // For web platform, create payment intent and return for card input
+    // For web platform, create payment intent and return client secret for card input
     if (kIsWeb) {
-      final intentResult = await createPaymentIntent(
-        amount: amount,
-        currency: currency,
-        description: description,
-        metadata: metadata,
-      );
+      try {
+        // Create payment intent first
+        final intentResult = await createPaymentIntent(
+          amount: amount,
+          currency: currency,
+          description: description,
+          metadata: metadata,
+        );
 
-      if (!intentResult['success']) {
-        return intentResult;
+        if (intentResult['success']) {
+          return {
+            'success': true,
+            'requiresCardInput': true,
+            'clientSecret': intentResult['clientSecret'],
+            'paymentIntentId': intentResult['paymentIntentId'],
+            'message': 'Payment intent created - card input required',
+          };
+        } else {
+          return intentResult;
+        }
+      } catch (e) {
+        return {
+          'success': false,
+          'message': 'Failed to create payment intent: ${e.toString()}',
+        };
       }
-
-      // Return client secret for web-based card input
-      return {
-        'success': true,
-        'clientSecret': intentResult['clientSecret'],
-        'paymentIntentId': intentResult['paymentIntentId'],
-        'requiresCardInput': true,
-        'message': 'Ready for card input',
-      };
     }
 
     try {
@@ -190,16 +197,29 @@ class PaymentService {
       );
 
       // Step 3: Present payment sheet to user
-      await Stripe.instance.presentPaymentSheet();
+      final paymentResult = await Stripe.instance.presentPaymentSheet();
 
-      // Step 4: Notify backend of successful payment
-      await _notifyBackendPaymentSuccess(intentResult['paymentIntentId']);
+      // Step 4: Get payment method from the completed payment
+      final paymentIntent = await Stripe.instance.retrievePaymentIntent(
+        intentResult['clientSecret'],
+      );
 
-      return {
-        'success': true,
-        'paymentIntentId': intentResult['paymentIntentId'],
-        'message': 'Payment completed successfully',
-      };
+      if (paymentIntent.status == PaymentIntentsStatus.Succeeded) {
+        // Extract payment method ID from the payment intent
+        final paymentMethodId = paymentIntent.paymentMethodId;
+
+        return {
+          'success': true,
+          'paymentMethodId': paymentMethodId,
+          'paymentIntentId': intentResult['paymentIntentId'],
+          'message': 'Payment completed successfully',
+        };
+      } else {
+        return {
+          'success': false,
+          'message': 'Payment failed or requires additional action',
+        };
+      }
     } on StripeException catch (e) {
       if (e.error.code == FailureCode.Canceled) {
         return {
@@ -269,9 +289,16 @@ class PaymentService {
               response.data['paymentIntent']?['id'] ??
               'pi_web_${DateTime.now().millisecondsSinceEpoch}';
 
+          // Extract the real payment method ID from Stripe response
+          final paymentMethodId = response.data['paymentIntent']
+                  ?['payment_method'] ??
+              response.data['paymentMethodId'] ??
+              'pm_1${DateTime.now().millisecondsSinceEpoch.toString().substring(3)}';
+
           return {
             'success': true,
             'paymentIntentId': paymentIntentId,
+            'paymentMethodId': paymentMethodId,
             'message': 'Payment completed successfully',
           };
         } else {

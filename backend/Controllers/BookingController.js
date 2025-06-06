@@ -1,14 +1,36 @@
 const Booking = require("../Models/Booking");
 const Room = require("../Models/Room");
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Create a new booking
 exports.createBooking = async (req, res) => {
   try {
-    const { roomId, roomType, roomNumber, checkInDate, checkOutDate, guests, payment, totalPrice, fullName, email, phone, specialRequests, paymentMethodId } = req.body;
+    const {
+      roomId,
+      roomType,
+      roomNumber,
+      checkInDate,
+      checkOutDate,
+      guests,
+      payment,
+      totalPrice,
+      fullName,
+      email,
+      phone,
+      specialRequests,
+      paymentMethodId,
+      paymentIntentId,
+    } = req.body;
     const userId = req.user._id;
 
-    if (!roomId || !checkInDate || !checkOutDate || !guests || !payment || !totalPrice) {
+    if (
+      !roomId ||
+      !checkInDate ||
+      !checkOutDate ||
+      !guests ||
+      !payment ||
+      !totalPrice
+    ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -16,59 +38,77 @@ exports.createBooking = async (req, res) => {
     const overlappingBooking = await Booking.findOne({
       roomId,
       $or: [
-        { 
+        {
           checkInDate: { $lte: checkInDate },
-          checkOutDate: { $gte: checkInDate }
+          checkOutDate: { $gte: checkInDate },
         },
-        { 
+        {
           checkInDate: { $lte: checkOutDate },
-          checkOutDate: { $gte: checkOutDate }
+          checkOutDate: { $gte: checkOutDate },
         },
-        { 
+        {
           checkInDate: { $gte: checkInDate },
-          checkOutDate: { $lte: checkOutDate }
-        }
-      ]
+          checkOutDate: { $lte: checkOutDate },
+        },
+      ],
     });
 
     if (overlappingBooking) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: "Room is already booked for the selected dates",
-        message: "This room is not available for the selected dates. Please choose different dates or select another room."
+        message:
+          "This room is not available for the selected dates. Please choose different dates or select another room.",
       });
     }
 
     // Process payment with Stripe
     let paymentIntent;
-    if (payment === 'card' && paymentMethodId) {
+    if (payment === "card") {
       try {
-        // First create the payment intent
-        paymentIntent = await stripe.paymentIntents.create({
-          amount: totalPrice * 100, // Convert to cents
-          currency: 'usd',
-          payment_method_types: ['card'],
-          metadata: {
-            roomId,
-            roomNumber,
-            checkInDate,
-            checkOutDate,
-            guests
+        if (paymentIntentId) {
+          // Payment was already processed on frontend, just verify the payment intent
+          paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+          if (paymentIntent.status !== "succeeded") {
+            throw new Error(
+              "Payment verification failed: " + paymentIntent.status
+            );
           }
-        });
+        } else if (paymentMethodId) {
+          // Legacy flow - create and confirm payment intent
+          paymentIntent = await stripe.paymentIntents.create({
+            amount: totalPrice * 100, // Convert to cents
+            currency: "usd",
+            payment_method_types: ["card"],
+            metadata: {
+              roomId,
+              roomNumber,
+              checkInDate,
+              checkOutDate,
+              guests,
+            },
+          });
 
-        // Then confirm the payment intent with the payment method
-        paymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
-          payment_method: paymentMethodId
-        });
+          paymentIntent = await stripe.paymentIntents.confirm(
+            paymentIntent.id,
+            {
+              payment_method: paymentMethodId,
+            }
+          );
 
-        if (paymentIntent.status !== 'succeeded') {
-          throw new Error('Payment failed: ' + paymentIntent.status);
+          if (paymentIntent.status !== "succeeded") {
+            throw new Error("Payment failed: " + paymentIntent.status);
+          }
+        } else {
+          throw new Error(
+            "Payment method or payment intent ID required for card payments"
+          );
         }
       } catch (error) {
-        console.error('Stripe payment error:', error);
-        return res.status(400).json({ 
-          error: 'Payment failed',
-          message: error.message 
+        console.error("Stripe payment error:", error);
+        return res.status(400).json({
+          error: "Payment failed",
+          message: error.message,
         });
       }
     }
@@ -88,18 +128,18 @@ exports.createBooking = async (req, res) => {
       phone,
       specialRequests,
       paymentIntentId: paymentIntent?.id,
-      paymentStatus: paymentIntent?.status || 'pending'
+      paymentStatus: paymentIntent?.status || "pending",
     });
 
     await booking.save();
-    
+
     // Update room status to 'Booked'
-    await Room.findByIdAndUpdate(roomId, { status: 'Booked' });
-    
-    res.status(201).json({ 
-      message: "Booking confirmed", 
+    await Room.findByIdAndUpdate(roomId, { status: "Booked" });
+
+    res.status(201).json({
+      message: "Booking confirmed",
       booking,
-      paymentIntent: paymentIntent
+      paymentIntent: paymentIntent,
     });
   } catch (error) {
     console.error("Error creating booking:", error);
@@ -133,12 +173,14 @@ exports.updateBooking = async (req, res) => {
   try {
     const bookingId = req.params.id;
     const userId = req.user._id; // Get the user ID from the authenticated request
-    const isAdmin = req.user.isAdmin || req.user.role === 'admin'; // Check if user is admin
+    const isAdmin = req.user.isAdmin || req.user.role === "admin"; // Check if user is admin
 
     // Ensure the booking belongs to the logged-in user
     const booking = await Booking.findOne({ _id: bookingId, userId });
     if (!booking) {
-      return res.status(404).json({ error: "Booking not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ error: "Booking not found or unauthorized" });
     }
 
     // Check if check-in date is in the past
@@ -147,9 +189,9 @@ exports.updateBooking = async (req, res) => {
     today.setHours(0, 0, 0, 0); // Set to beginning of today
 
     if (checkInDate < today && !isAdmin) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: "Cannot modify past booking",
-        message: "Bookings for past dates cannot be modified"
+        message: "Bookings for past dates cannot be modified",
       });
     }
 
@@ -176,8 +218,8 @@ exports.deleteBooking = async (req, res) => {
   try {
     const bookingId = req.params.id;
     const userId = req.user._id; // Get the user ID from the authenticated request
-    const isAdmin = req.user.isAdmin || req.user.role === 'admin'; // Check if user is admin
-    
+    const isAdmin = req.user.isAdmin || req.user.role === "admin"; // Check if user is admin
+
     console.log("Attempting to delete booking with ID:", bookingId);
 
     if (!bookingId) {
@@ -197,16 +239,18 @@ exports.deleteBooking = async (req, res) => {
     today.setHours(0, 0, 0, 0); // Set to beginning of today
 
     if (checkInDate < today && !isAdmin) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: "Cannot cancel past booking",
-        message: "Bookings for past dates cannot be canceled"
+        message: "Bookings for past dates cannot be canceled",
       });
     }
 
     // Check if user owns this booking or is an admin
     if (!isAdmin && existingBooking.userId.toString() !== userId.toString()) {
       console.log("User not authorized to delete this booking");
-      return res.status(403).json({ message: "You are not authorized to delete this booking" });
+      return res
+        .status(403)
+        .json({ message: "You are not authorized to delete this booking" });
     }
 
     // Get the roomId before deleting the booking
@@ -222,36 +266,35 @@ exports.deleteBooking = async (req, res) => {
     }
 
     // Check if there are any other active bookings for this room
-    const otherActiveBookings = await Booking.findOne({ 
+    const otherActiveBookings = await Booking.findOne({
       roomId,
       // Active bookings have checkout date in the future
-      checkOutDate: { $gte: new Date().toISOString().split('T')[0] }
+      checkOutDate: { $gte: new Date().toISOString().split("T")[0] },
     });
 
     // If no other active bookings, update room status to 'Available'
     if (!otherActiveBookings) {
-      await Room.findByIdAndUpdate(roomId, { status: 'Available' });
+      await Room.findByIdAndUpdate(roomId, { status: "Available" });
     }
 
     console.log("Successfully deleted booking with ID:", bookingId);
-    res.status(200).json({ 
+    res.status(200).json({
       success: true,
       message: "Booking deleted successfully",
-      deletedBooking: existingBooking
+      deletedBooking: existingBooking,
     });
-
   } catch (error) {
     console.error("Error in deleteBooking:", error);
     if (error.name === "CastError") {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        message: "Invalid booking ID format" 
+        message: "Invalid booking ID format",
       });
     }
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
       message: "Error deleting booking",
-      error: error.message 
+      error: error.message,
     });
   }
 };
@@ -261,29 +304,31 @@ exports.getBookingById = async (req, res) => {
   try {
     const bookingId = req.params.id;
     const userId = req.user._id;
-    const isAdmin = req.user.isAdmin || req.user.role === 'admin';
-    
+    const isAdmin = req.user.isAdmin || req.user.role === "admin";
+
     console.log("Fetching booking with ID:", bookingId);
     console.log("User making request:", userId);
-    
+
     // Find the booking by ID
     const booking = await Booking.findById(bookingId);
-    
+
     if (!booking) {
       console.log("Booking not found with ID:", bookingId);
       return res.status(404).json({ error: "Booking not found" });
     }
-    
+
     console.log("Found booking:", booking);
-    
+
     // Check if the booking belongs to the user or the user is an admin
     if (!isAdmin && booking.userId.toString() !== userId.toString()) {
       console.log("User not authorized to access this booking");
       console.log("Booking user ID:", booking.userId);
       console.log("Current user ID:", userId);
-      return res.status(403).json({ error: "You don't have permission to access this booking" });
+      return res
+        .status(403)
+        .json({ error: "You don't have permission to access this booking" });
     }
-    
+
     res.status(200).json(booking);
   } catch (error) {
     console.error("Error getting booking by ID:", error);
