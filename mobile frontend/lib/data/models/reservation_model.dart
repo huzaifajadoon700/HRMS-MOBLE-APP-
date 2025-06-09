@@ -6,6 +6,7 @@ class ReservationModel {
   final String tableId;
   final DateTime reservationDate;
   final String timeSlot;
+  final String? endTime;
   final int partySize;
   final String status;
   final String? specialRequests;
@@ -20,6 +21,7 @@ class ReservationModel {
     required this.tableId,
     required this.reservationDate,
     required this.timeSlot,
+    this.endTime,
     required this.partySize,
     required this.status,
     this.specialRequests,
@@ -35,8 +37,9 @@ class ReservationModel {
       userId: json['userId'] as String,
       tableId: json['tableId'] as String,
       reservationDate: DateTime.parse(json['reservationDate'] as String),
-      timeSlot: json['timeSlot'] as String,
-      partySize: json['partySize'] as int,
+      timeSlot: json['timeSlot'] ?? json['time'] as String,
+      endTime: json['endTime'] as String?,
+      partySize: json['partySize'] ?? json['guests'] as int,
       status: json['status'] as String,
       specialRequests: json['specialRequests'] as String?,
       occasion: json['occasion'] as String?,
@@ -53,6 +56,7 @@ class ReservationModel {
       'tableId': tableId,
       'reservationDate': reservationDate.toIso8601String(),
       'timeSlot': timeSlot,
+      'endTime': endTime,
       'partySize': partySize,
       'status': status,
       'specialRequests': specialRequests,
@@ -69,6 +73,7 @@ class ReservationModel {
     String? tableId,
     DateTime? reservationDate,
     String? timeSlot,
+    String? endTime,
     int? partySize,
     String? status,
     String? specialRequests,
@@ -83,6 +88,7 @@ class ReservationModel {
       tableId: tableId ?? this.tableId,
       reservationDate: reservationDate ?? this.reservationDate,
       timeSlot: timeSlot ?? this.timeSlot,
+      endTime: endTime ?? this.endTime,
       partySize: partySize ?? this.partySize,
       status: status ?? this.status,
       specialRequests: specialRequests ?? this.specialRequests,
@@ -129,6 +135,7 @@ class ReservationModel {
         tableId: 'table1',
         reservationDate: now.add(const Duration(days: 1)),
         timeSlot: '19:00',
+        endTime: '21:00',
         partySize: 2,
         status: 'confirmed',
         specialRequests: 'Window seat preferred',
@@ -154,6 +161,7 @@ class ReservationModel {
         tableId: 'table2',
         reservationDate: now.subtract(const Duration(days: 3)),
         timeSlot: '20:30',
+        endTime: '22:30',
         partySize: 4,
         status: 'completed',
         specialRequests: null,
@@ -179,6 +187,7 @@ class ReservationModel {
         tableId: 'table3',
         reservationDate: now.add(const Duration(days: 7)),
         timeSlot: '18:00',
+        endTime: '20:00',
         partySize: 6,
         status: 'pending',
         specialRequests: 'High chair needed',

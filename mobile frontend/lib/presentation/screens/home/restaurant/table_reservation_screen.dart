@@ -185,7 +185,7 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
 
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:8080/api/tables/availability').replace(
+        Uri.parse('http://192.168.10.6:8080/api/tables/availability').replace(
           queryParameters: {
             'reservationDate': DateFormat('yyyy-MM-dd').format(_selectedDate),
             'time':
@@ -352,7 +352,7 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
       print('Sending reservation data: ${json.encode(reservationData)}');
 
       final response = await http.post(
-        Uri.parse('http://localhost:8080/api/reservations'),
+        Uri.parse('http://192.168.10.6:8080/api/reservations'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${authProvider.token}',

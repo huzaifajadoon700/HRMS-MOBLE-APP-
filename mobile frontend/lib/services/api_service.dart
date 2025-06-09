@@ -31,7 +31,8 @@ class APIService {
     }
     // For Android emulator, use 10.0.2.2 to access localhost
     else if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8080';
+      // For real Android devices, use the computer's IP address
+      return 'http://192.168.10.6:8080';
     }
     // For iOS simulator, use localhost
     else if (Platform.isIOS) {
@@ -41,10 +42,6 @@ class APIService {
     else {
       return 'http://localhost:8080';
     }
-
-    // Use your computer's IP address for real device testing
-    // This allows your phone to connect to the backend running on your computer
-    // return 'http://192.168.10.4:8080';
 
     // For production backend, uncomment and update this with your real backend URL
     // return 'https://api.yourrealdomain.com';

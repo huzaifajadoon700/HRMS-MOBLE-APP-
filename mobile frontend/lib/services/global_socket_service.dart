@@ -11,7 +11,7 @@ class GlobalSocketService {
   final Set<Function(Map<String, dynamic>)> _globalCallbacks = {};
   bool _isConnected = false;
 
-  static const String _socketServer = 'http://localhost:8080';
+  static const String _socketServer = 'http://192.168.10.6:8080';
 
   bool get isConnected => _isConnected;
 

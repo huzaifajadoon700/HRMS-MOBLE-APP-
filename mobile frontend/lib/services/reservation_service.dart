@@ -319,6 +319,7 @@ class ReservationService {
       tableId: tableId,
       reservationDate: DateTime.parse(apiData['reservationDate']),
       timeSlot: apiData['timeSlot'] ?? apiData['time'] ?? '',
+      endTime: apiData['endTime']?.toString(),
       partySize: apiData['partySize'] ?? apiData['guests'] ?? 1,
       status: apiData['status'] ?? 'pending',
       specialRequests: apiData['specialRequests']?.toString(),
@@ -358,6 +359,7 @@ class ReservationModel {
   final String tableId;
   final DateTime reservationDate;
   final String timeSlot;
+  final String? endTime;
   final int partySize;
   final String status;
   final String? specialRequests;
@@ -372,6 +374,7 @@ class ReservationModel {
     required this.tableId,
     required this.reservationDate,
     required this.timeSlot,
+    this.endTime,
     required this.partySize,
     required this.status,
     this.specialRequests,
@@ -413,6 +416,7 @@ class ReservationModel {
         tableId: 'table1',
         reservationDate: DateTime.now().add(const Duration(days: 1)),
         timeSlot: '19:00',
+        endTime: '21:00',
         partySize: 4,
         status: 'confirmed',
         specialRequests: 'Window seat preferred',

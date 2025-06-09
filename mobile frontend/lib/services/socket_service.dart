@@ -11,7 +11,7 @@ class SocketService {
   final Set<Function(Map<String, dynamic>)> _callbacks = {};
   bool _isConnected = false;
 
-  static const String _socketServer = 'http://localhost:8080';
+  static const String _socketServer = 'http://192.168.10.6:8080';
 
   bool get isConnected => _isConnected;
   String? get activeOrderId => _activeOrderId;

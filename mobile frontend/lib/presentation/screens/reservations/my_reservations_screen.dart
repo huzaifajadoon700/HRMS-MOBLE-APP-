@@ -443,7 +443,9 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  reservation.timeSlot,
+                  reservation.endTime != null
+                      ? '${reservation.timeSlot} - ${reservation.endTime}'
+                      : reservation.timeSlot,
                   style: theme.textTheme.bodyMedium,
                 ),
               ],

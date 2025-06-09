@@ -10,12 +10,12 @@ const app = express();
 const server = http.createServer(app);
 
 // Import and initialize socket.io
-const socketModule = require('./socket');
+const socketModule = require("./socket");
 const io = socketModule.init(server);
 
 // 🔹 CORS Setup for Express
 const corsOptions = {
-  origin: "*",  // Allow all origins during development
+  origin: "*", // Allow all origins during development
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, 'uploads');
+const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
@@ -44,8 +44,8 @@ const orderRoutes = require("./Routes/orderRoutes");
 const reservationRoutes = require("./Routes/ReservationRoutes");
 const userRoutes = require("./Routes/UserRoutes");
 const feedbackRoutes = require("./Routes/feedbackRoutes");
-const adminRoutes = require('./Routes/AdminRoutes');
-const paymentRoutes = require('./Routes/paymentRoutes');
+const adminRoutes = require("./Routes/AdminRoutes");
+const paymentRoutes = require("./Routes/paymentRoutes");
 
 // 📌 Serve Uploaded Files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -69,16 +69,18 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/payment", paymentRoutes);
 
 // Health check route to test the server
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'ok',
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
     timestamp: new Date().toISOString(),
-    message: 'Server is running'
+    message: "Server is running",
   });
 });
 
 // 🔹 Start Server
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-  console.log(`🌍 Server running on port ${PORT}`);
+const HOST = process.env.HOST || "0.0.0.0"; // Bind to all interfaces
+server.listen(PORT, HOST, () => {
+  console.log(`🌍 Server running on ${HOST}:${PORT}`);
+  console.log(`📱 Mobile devices can connect to: http://192.168.10.6:${PORT}`);
 });
