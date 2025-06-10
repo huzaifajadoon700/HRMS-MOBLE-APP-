@@ -5,7 +5,7 @@ import '../core/constants/api_constants.dart';
 import '../core/constants/app_constants.dart';
 
 class RecommendationService {
-  static const String baseUrl = ApiConstants.baseUrl;
+  static String get baseUrl => ApiConstants.baseUrl;
 
   // Get authorization headers
   static Future<Map<String, String>> _getHeaders() async {

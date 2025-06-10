@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../services/recommendation_service.dart';
 import '../../presentation/screens/orders/menu_ordering_page.dart';
+import '../../core/config/environment.dart';
 
 class MostPopularItemsSection extends StatefulWidget {
   const MostPopularItemsSection({Key? key}) : super(key: key);
@@ -70,9 +71,10 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
     }
     if (imagePath.startsWith('http')) return imagePath;
     final cleanPath = imagePath.replaceAll(RegExp(r'^/+'), '');
+    final baseUrl = Environment.currentApiUrl;
     return cleanPath.contains('uploads')
-        ? 'http://localhost:8080/$cleanPath'
-        : 'http://localhost:8080/uploads/$cleanPath';
+        ? '$baseUrl/$cleanPath'
+        : '$baseUrl/uploads/$cleanPath';
   }
 
   String _formatPrice(dynamic price) {

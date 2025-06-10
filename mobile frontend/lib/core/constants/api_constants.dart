@@ -1,34 +1,37 @@
+import '../config/environment.dart';
+
 class ApiConstants {
   // Private constructor to prevent instantiation
   ApiConstants._();
 
   // API Configuration - Backend Server
-  static const String baseUrl = 'http://localhost:8080/api';
+  static String get baseUrl => '${Environment.currentApiUrl}/api';
 
   // Authentication Endpoints
-  static const String loginEndpoint = 'http://localhost:8080/auth/login';
-  static const String registerEndpoint = 'http://localhost:8080/auth/signup';
-  static const String googleAuthEndpoint =
-      'http://localhost:8080/auth/google/google';
+  static String get loginEndpoint => '${Environment.currentApiUrl}/auth/login';
+  static String get registerEndpoint =>
+      '${Environment.currentApiUrl}/auth/signup';
+  static String get googleAuthEndpoint =>
+      '${Environment.currentApiUrl}/auth/google/google';
 
   // API Endpoints
-  static const String roomsEndpoint = '$baseUrl/rooms';
-  static const String tablesEndpoint = '$baseUrl/tables';
-  static const String menuEndpoint = '$baseUrl/menus';
-  static const String ordersEndpoint = '$baseUrl/orders';
-  static const String bookingsEndpoint = '$baseUrl/bookings';
-  static const String reservationsEndpoint = '$baseUrl/reservations';
-  static const String usersEndpoint = '$baseUrl/user';
-  static const String adminEndpoint = '$baseUrl/admin';
-  static const String feedbackEndpoint = '$baseUrl/feedback';
-  static const String paymentEndpoint = '$baseUrl/payment';
-  static const String staffEndpoint = '$baseUrl/staff';
-  static const String shiftEndpoint = '$baseUrl/shift';
+  static String get roomsEndpoint => '$baseUrl/rooms';
+  static String get tablesEndpoint => '$baseUrl/tables';
+  static String get menuEndpoint => '$baseUrl/menus';
+  static String get ordersEndpoint => '$baseUrl/orders';
+  static String get bookingsEndpoint => '$baseUrl/bookings';
+  static String get reservationsEndpoint => '$baseUrl/reservations';
+  static String get usersEndpoint => '$baseUrl/user';
+  static String get adminEndpoint => '$baseUrl/admin';
+  static String get feedbackEndpoint => '$baseUrl/feedback';
+  static String get paymentEndpoint => '$baseUrl/payment';
+  static String get staffEndpoint => '$baseUrl/staff';
+  static String get shiftEndpoint => '$baseUrl/shift';
 
   // Recommendation Endpoints
-  static const String foodRecommendationsEndpoint =
+  static String get foodRecommendationsEndpoint =>
       '$baseUrl/food-recommendations';
-  static const String tableRecommendationsEndpoint = '$baseUrl/tables';
+  static String get tableRecommendationsEndpoint => '$baseUrl/tables';
 
   // Shared Preferences Keys
   static const String tokenKey = 'token';

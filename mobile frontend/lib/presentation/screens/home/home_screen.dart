@@ -19,6 +19,8 @@ import '../../../services/room_service.dart';
 import '../../../services/table_service.dart';
 import '../../../data/models/menu_item_model.dart';
 import '../../../data/models/room_model.dart';
+import '../../../widgets/debug/recommendation_debug_widget.dart';
+import '../../../core/config/environment.dart';
 import '../../../data/models/table_model.dart';
 import '../../../services/api_service.dart';
 
@@ -67,6 +69,22 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         actions: [
+          // Debug button (only in development)
+          if (!Environment.isProduction)
+            IconButton(
+              icon: const Icon(
+                Icons.bug_report,
+                color: Colors.orange,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const RecommendationDebugWidget(),
+                  ),
+                );
+              },
+              tooltip: 'Debug Recommendations',
+            ),
           IconButton(
             icon: Icon(
               Icons.brightness_6,
