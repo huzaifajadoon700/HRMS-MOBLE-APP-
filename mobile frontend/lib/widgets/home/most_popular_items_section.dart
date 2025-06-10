@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../services/recommendation_service.dart';
 
 class MostPopularItemsSection extends StatefulWidget {
   const MostPopularItemsSection({Key? key}) : super(key: key);
 
   @override
-  State<MostPopularItemsSection> createState() => _MostPopularItemsSectionState();
+  State<MostPopularItemsSection> createState() =>
+      _MostPopularItemsSectionState();
 }
 
 class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
@@ -27,36 +29,31 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
         _error = null;
       });
 
-      final response = await http.get(
-        Uri.parse('http://localhost:8080/api/menus'),
-      );
+      // Use RecommendationService to get popular food items
+      final response =
+          await RecommendationService.getPopularFoodItems(count: 3);
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        if (data is List) {
-          // Get top 3 items with highest ratings/popularity
-          final topItems = data
-              .map<Map<String, dynamic>>((item) => {
-                    '_id': item['_id'] ?? '',
-                    'name': item['name'] ?? '',
-                    'category': item['category'] ?? '',
-                    'price': item['price'] ?? 0,
-                    'image': item['image'] ?? '',
-                    'rating': item['rating'] ?? 4.5,
-                    'description': item['description'] ?? '',
-                  })
-              .toList();
-          
-          // Sort by rating and take top 3
-          topItems.sort((a, b) => (b['rating'] as double).compareTo(a['rating'] as double));
-          
-          setState(() {
-            _menuItems = topItems.take(3).toList();
-            _isLoading = false;
-          });
-        }
+      if (response['success'] == true) {
+        final popularItems = response['popularItems'] ?? [];
+        final topItems = popularItems.map<Map<String, dynamic>>((item) {
+          final menuItem = item['menuItem'] ?? item;
+          return {
+            '_id': menuItem['_id'] ?? '',
+            'name': menuItem['name'] ?? '',
+            'category': menuItem['category'] ?? '',
+            'price': menuItem['price'] ?? 0,
+            'image': menuItem['image'] ?? '',
+            'rating': menuItem['averageRating'] ?? menuItem['rating'] ?? 4.5,
+            'description': menuItem['description'] ?? '',
+          };
+        }).toList();
+
+        setState(() {
+          _menuItems = topItems.take(3).toList();
+          _isLoading = false;
+        });
       } else {
-        throw Exception('Failed to load menu items');
+        throw Exception('Failed to load popular items');
       }
     } catch (e) {
       setState(() {
@@ -78,7 +75,8 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
   }
 
   String _formatPrice(dynamic price) {
-    final priceNum = price is String ? double.tryParse(price) ?? 0 : price.toDouble();
+    final priceNum =
+        price is String ? double.tryParse(price) ?? 0 : price.toDouble();
     return 'Rs ${priceNum.toStringAsFixed(0)}';
   }
 
@@ -290,7 +288,8 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                       top: 8,
                       left: 8,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 3),
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.7),
                           borderRadius: BorderRadius.circular(8),
@@ -322,7 +321,8 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                       top: 8,
                       right: 8,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 3),
                         decoration: BoxDecoration(
                           color: const Color(0xFFBB86FC).withOpacity(0.9),
                           borderRadius: BorderRadius.circular(8),
@@ -367,7 +367,8 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
 
                       // Category
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: const Color(0xFFBB86FC).withOpacity(0.1),
                           borderRadius: BorderRadius.circular(6),
@@ -388,7 +389,8 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
 
                       // Description
                       Text(
-                        item['description'] ?? 'A delicious menu item that will satisfy your taste buds.',
+                        item['description'] ??
+                            'A delicious menu item that will satisfy your taste buds.',
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.8),
                           fontSize: 8,
@@ -404,7 +406,8 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                         children: [
                           _buildFeatureIcon(Icons.access_time, '15 min'),
                           const SizedBox(width: 4),
-                          _buildFeatureIcon(Icons.local_fire_department, 'Spicy'),
+                          _buildFeatureIcon(
+                              Icons.local_fire_department, 'Spicy'),
                           const SizedBox(width: 4),
                           _buildFeatureIcon(Icons.favorite, 'Popular'),
                         ],
@@ -416,10 +419,12 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/order-food', arguments: item);
+                            Navigator.pushNamed(context, '/order-food',
+                                arguments: item);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFBB86FC).withOpacity(0.8),
+                            backgroundColor:
+                                const Color(0xFFBB86FC).withOpacity(0.8),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 6),
                             shape: RoundedRectangleBorder(

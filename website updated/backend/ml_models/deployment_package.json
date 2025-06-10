@@ -1,0 +1,24 @@
+{
+  "model_info": {
+    "algorithm": "TruncatedSVD",
+    "components": 25,
+    "performance": {
+      "rmse": 0.6137184320229662,
+      "mae": 0.4336,
+      "training_time": 0.63
+    }
+  },
+  "history_system": {
+    "tracking_period": "30 days",
+    "auto_cleanup": true,
+    "real_time_updates": true
+  },
+  "api_endpoints": {
+    "recommendations": "/api/recommendations/<user_id>",
+    "record_interaction": "/api/user/interaction",
+    "user_history": "/api/user/<user_id>/history",
+    "analytics": "/api/analytics/users"
+  },
+  "deployment_ready": true,
+  "created_at": "2025-05-31T15:07:44.220114"
+}

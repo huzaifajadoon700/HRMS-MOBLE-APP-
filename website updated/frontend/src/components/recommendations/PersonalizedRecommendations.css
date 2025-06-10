@@ -1,0 +1,375 @@
+/* Enhanced Personalized Recommendations Styles */
+.personalized-recommendations {
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 50%, #ffffff 100%);
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.personalized-recommendations::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23007bff" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="%2328a745" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+}
+
+/* Loading State */
+.personalized-recommendations.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.loading-container {
+  text-align: center;
+  color: #6c757d;
+}
+
+.loading-container p {
+  margin-top: 1rem;
+  font-size: 16px;
+}
+
+/* Enhanced Header */
+.recommendations-header {
+  margin-bottom: 3rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.title-section {
+  flex: 1;
+}
+
+.recommendations-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.recommendations-title svg {
+  color: #007bff;
+  width: 32px;
+  height: 32px;
+}
+
+.recommendations-subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+  transform: translateY(-1px);
+}
+
+.refresh-btn svg.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1.5rem;
+}
+
+.recommendation-tabs {
+  width: 100%;
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #6c757d;
+  border-right: 1px solid #e9ecef;
+}
+
+.tab-btn:last-child {
+  border-right: none;
+}
+
+.tab-btn:hover {
+  background: #f8f9fa;
+  color: #007bff;
+  transform: translateY(-1px);
+}
+
+.tab-btn.btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+}
+
+.tab-btn.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+}
+
+/* Alert */
+.recommendations-alert {
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  color: #856404;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alert-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* No Recommendations */
+.no-recommendations {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background: white;
+  border-radius: 16px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.no-recommendations-content {
+  text-align: center;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.no-recommendations-icon {
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.no-recommendations-content h4 {
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.no-recommendations-content p {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Recommendations Grid */
+.recommendations-grid {
+  margin: 0 -0.75rem;
+}
+
+.recommendation-col {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Load More Section */
+.load-more-section {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.load-more-section .btn {
+  padding: 0.75rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.load-more-section .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+/* Pakistani Theme */
+.personalized-recommendations.pakistani-theme {
+  background: linear-gradient(135deg, #e8f5e8 0%, #ffffff 100%);
+}
+
+.personalized-recommendations.pakistani-theme .recommendations-title svg {
+  color: #28a745;
+}
+
+.personalized-recommendations.pakistani-theme .tab-btn.btn-primary {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.personalized-recommendations.pakistani-theme .tab-btn.btn-primary:hover {
+  background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .recommendation-col {
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .personalized-recommendations {
+    padding: 1rem 0;
+  }
+  
+  .recommendations-header {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .recommendations-title {
+    font-size: 1.5rem;
+  }
+  
+  .recommendations-subtitle {
+    font-size: 1rem;
+  }
+  
+  .recommendation-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-btn {
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .tab-btn:last-child {
+    border-bottom: none;
+  }
+  
+  .recommendation-col {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .recommendations-grid {
+    margin: 0 -0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .recommendations-header {
+    padding: 1rem;
+  }
+  
+  .recommendations-title {
+    font-size: 1.25rem;
+  }
+  
+  .recommendations-title svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .tab-btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .no-recommendations-content {
+    padding: 1.5rem;
+  }
+}
+
+/* Animation for grid items */
+.recommendation-col {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.recommendation-col:nth-child(1) { animation-delay: 0.1s; }
+.recommendation-col:nth-child(2) { animation-delay: 0.2s; }
+.recommendation-col:nth-child(3) { animation-delay: 0.3s; }
+.recommendation-col:nth-child(4) { animation-delay: 0.4s; }
+.recommendation-col:nth-child(5) { animation-delay: 0.5s; }
+.recommendation-col:nth-child(6) { animation-delay: 0.6s; }
+.recommendation-col:nth-child(7) { animation-delay: 0.7s; }
+.recommendation-col:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects for the entire section */
+.personalized-recommendations:hover .recommendations-header {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Success state for fresh recommendations */
+.personalized-recommendations.fresh-recommendations .recommendations-header {
+  border: 2px solid rgba(40, 167, 69, 0.2);
+  background: linear-gradient(135deg, #d4edda 0%, #ffffff 100%);
+}

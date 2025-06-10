@@ -1,0 +1,336 @@
+/* Modern Home Page Styles */
+
+/* Hero Section */
+.modern-hero-section {
+  margin-bottom: 4rem;
+}
+
+.hero-background {
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.hero-background:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 80px rgba(0, 212, 170, 0.2);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.modern-hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #00D4AA 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modern-hero-subtitle {
+  font-size: 1.25rem;
+  color: #CBD5E1;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Hero Stats */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-icon {
+  color: #00D4AA;
+  width: 24px;
+  height: 24px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Section Headers */
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00D4AA 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #94A3B8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Modern Service Cards */
+.modern-service-card {
+  background: rgba(17, 34, 64, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 212, 170, 0.2);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  position: relative;
+}
+
+.modern-service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00D4AA, #FFD700, #00D4AA);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-service-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 25px 80px rgba(0, 212, 170, 0.3);
+  border-color: rgba(0, 212, 170, 0.5);
+}
+
+.modern-service-card:hover::before {
+  opacity: 1;
+}
+
+/* Service Card Variants */
+.room-service:hover {
+  box-shadow: 0 25px 80px rgba(0, 212, 170, 0.3);
+}
+
+.dining-service:hover {
+  box-shadow: 0 25px 80px rgba(255, 215, 0, 0.3);
+}
+
+.food-service:hover {
+  box-shadow: 0 25px 80px rgba(255, 107, 107, 0.3);
+}
+
+/* Service Image */
+.service-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-service-card:hover .service-image {
+  transform: scale(1.1);
+}
+
+.service-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.8), rgba(255, 215, 0, 0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-service-card:hover .service-overlay {
+  opacity: 1;
+}
+
+.service-icon {
+  color: white;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Service Content */
+.service-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-bottom: 1rem;
+}
+
+.service-description {
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+/* Feature Tags */
+.service-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.feature-tag {
+  background: rgba(0, 212, 170, 0.1);
+  color: #00D4AA;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+/* Service Button */
+.service-btn {
+  background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.service-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 212, 170, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.service-btn:hover::before {
+  left: 100%;
+}
+
+.btn-icon {
+  transition: transform 0.3s ease;
+}
+
+.service-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* Recommendations Section */
+.recommendations-section {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(0, 212, 170, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .modern-hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-stats {
+    gap: 2rem;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .service-image-container {
+    height: 200px;
+  }
+  
+  .service-content {
+    padding: 1.5rem;
+  }
+  
+  .modern-service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .modern-hero-title {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+}

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../presentation/screens/bookings/room_booking_page.dart';
+import '../../services/recommendation_service.dart';
 
 class FeaturedRoomsSection extends StatefulWidget {
   const FeaturedRoomsSection({Key? key}) : super(key: key);
@@ -38,31 +39,27 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
       List<Map<String, dynamic>> rooms = [];
 
       if (token != null && userId != null) {
-        // Try to get personalized recommendations
+        // Try to get personalized recommendations using RecommendationService
         try {
-          final response = await http.get(
-            Uri.parse(
-                'http://localhost:8080/api/rooms/recommendations/$userId?count=3'),
-            headers: {'Authorization': 'Bearer $token'},
+          final response = await RecommendationService.getRoomRecommendations(
+            userId: userId,
+            count: 3,
           );
 
-          if (response.statusCode == 200) {
-            final data = json.decode(response.body);
-            if (data['success'] == true) {
-              final recommendations = data['recommendations'] ?? [];
-              rooms = recommendations.map<Map<String, dynamic>>((item) {
-                final room = item['roomDetails'] ?? item;
-                return {
-                  '_id': room['_id'] ?? '',
-                  'roomNumber': room['roomNumber'] ?? '',
-                  'roomType': room['roomType'] ?? '',
-                  'price': room['price'] ?? 0,
-                  'image': room['image'] ?? '',
-                  'averageRating': room['averageRating'] ?? 4.5,
-                  'recommendationReason': item['reason'] ?? 'popularity',
-                };
-              }).toList();
-            }
+          if (response['success'] == true) {
+            final recommendations = response['recommendations'] ?? [];
+            rooms = recommendations.map<Map<String, dynamic>>((item) {
+              final room = item['roomDetails'] ?? item;
+              return {
+                '_id': room['_id'] ?? '',
+                'roomNumber': room['roomNumber'] ?? '',
+                'roomType': room['roomType'] ?? '',
+                'price': room['price'] ?? 0,
+                'image': room['image'] ?? '',
+                'averageRating': room['averageRating'] ?? 4.5,
+                'recommendationReason': item['reason'] ?? 'popularity',
+              };
+            }).toList();
           }
         } catch (e) {
           print('Error fetching recommendations: $e');
@@ -72,26 +69,22 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
       // Fallback to popular rooms if no recommendations
       if (rooms.isEmpty) {
         try {
-          final response = await http.get(
-            Uri.parse('http://localhost:8080/api/rooms/popular?count=3'),
-          );
+          final response =
+              await RecommendationService.getPopularRooms(count: 3);
 
-          if (response.statusCode == 200) {
-            final data = json.decode(response.body);
-            if (data['success'] == true) {
-              final popularRooms = data['popularRooms'] ?? [];
-              rooms = popularRooms
-                  .map<Map<String, dynamic>>((room) => {
-                        '_id': room['_id'] ?? '',
-                        'roomNumber': room['roomNumber'] ?? '',
-                        'roomType': room['roomType'] ?? '',
-                        'price': room['price'] ?? 0,
-                        'image': room['image'] ?? '',
-                        'averageRating': room['averageRating'] ?? 4.5,
-                        'recommendationReason': 'popularity',
-                      })
-                  .toList();
-            }
+          if (response['success'] == true) {
+            final popularRooms = response['popularRooms'] ?? [];
+            rooms = popularRooms
+                .map<Map<String, dynamic>>((room) => {
+                      '_id': room['_id'] ?? '',
+                      'roomNumber': room['roomNumber'] ?? '',
+                      'roomType': room['roomType'] ?? '',
+                      'price': room['price'] ?? 0,
+                      'image': room['image'] ?? '',
+                      'averageRating': room['averageRating'] ?? 4.5,
+                      'recommendationReason': 'popularity',
+                    })
+                .toList();
           }
         } catch (e) {
           print('Error fetching popular rooms: $e');
@@ -124,7 +117,7 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
       }
 
       setState(() {
-        _rooms = rooms;
+        _rooms = rooms.take(3).toList(); // Ensure maximum 3 rooms
         _isLoading = false;
       });
     } catch (e) {
@@ -351,7 +344,7 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
           ),
-          itemCount: _rooms.length,
+          itemCount: _rooms.length > 3 ? 3 : _rooms.length, // Limit to 3 rooms
           itemBuilder: (context, index) {
             final room = _rooms[index];
             return _buildRoomCard(room);

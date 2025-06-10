@@ -50,7 +50,7 @@ class RecommendationService {
       final headers = await _getHeaders();
       final response = await http.get(
         Uri.parse(
-            '$baseUrl/recommendations/recommendations/$currentUserId?count=$count'),
+            '$baseUrl/food-recommendations/recommendations/$currentUserId?count=$count'),
         headers: headers,
       );
 
@@ -115,7 +115,7 @@ class RecommendationService {
   }) async {
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl/recommendations/popular?count=$count'),
+        Uri.parse('$baseUrl/food-recommendations/popular?count=$count'),
       );
 
       if (response.statusCode == 200) {
@@ -162,7 +162,7 @@ class RecommendationService {
 
       final headers = await _getHeaders();
       final response = await http.post(
-        Uri.parse('$baseUrl/recommendations/interaction'),
+        Uri.parse('$baseUrl/food-recommendations/interaction'),
         headers: headers,
         body: json.encode({
           'userId': userId,
@@ -191,7 +191,7 @@ class RecommendationService {
 
       final headers = await _getHeaders();
       final response = await http.post(
-        Uri.parse('$baseUrl/recommendations/rate'),
+        Uri.parse('$baseUrl/food-recommendations/rate'),
         headers: headers,
         body: json.encode({
           'userId': userId,
@@ -217,7 +217,7 @@ class RecommendationService {
 
       final headers = await _getHeaders();
       final response = await http.post(
-        Uri.parse('$baseUrl/recommendations/order-interaction'),
+        Uri.parse('$baseUrl/food-recommendations/order-interaction'),
         headers: headers,
         body: json.encode({
           'userId': userId,

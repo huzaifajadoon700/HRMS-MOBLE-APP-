@@ -1,0 +1,195 @@
+/* General Reset */
+body,
+ul,
+li,
+a {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Wrapper */
+.main-content {
+  flex: 1;
+  padding-top: 80px; /* Space for fixed header */
+  min-height: calc(100vh - 160px); /* Account for header and footer */
+}
+
+/* Full width override for specific pages */
+.main-content.full-width {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Page Container */
+.page-container {
+  padding: 2rem 0;
+  min-height: calc(100vh - 160px);
+}
+
+/* Full width page container */
+.page-container.full-width {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Form Container */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link.active {
+  color : #fea116;
+  border-radius: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  margin-right: 30px;
+  padding: 25px 0;
+  color: #FFFFFF;
+  font-size: 15px;
+  text-transform: uppercase;
+  outline: none;
+  border-radius: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.carousel-caption {
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+.bg-image {
+  background-image: url('../public/assets/img/carousel-1.jpg');
+}
+
+.app {
+  text-align: center;
+}
+.h1 {
+  color: rgb(0, 0, 0);
+}
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+  url("C:\Users\mhuza\Documents\backup21feb\frontend\public\images\card.webp") 
+  no-repeat center center/cover;
+  color: rgb(255, 255, 255);
+  padding: 100px 20px;
+ 
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.hero-btn:hover {
+  background-color: #0056b3;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 50px 20px;
+}
+
+.feature {
+  max-width: 280px;
+  margin: 20px;
+  text-align: left;
+}
+
+.feature img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.feature h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.footer {
+  background: #f8f9fa;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact,
+.social {
+  font-size: 0.9rem;
+}
+
+.social a {
+  margin: 0 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.social a:hover {
+  text-decoration: underline;
+}
+
+/* Global override to remove all rounded borders from navigation */
+.navbar *,
+.navbar .nav-link,
+.navbar .navbar-nav .nav-link,
+.navbar .nav-item,
+.navbar .dropdown,
+.navbar .btn,
+.navbar-nav .nav-link,
+.nav-link {
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+.navbar *:hover,
+.navbar .nav-link:hover,
+.navbar .navbar-nav .nav-link:hover,
+.navbar .nav-item:hover,
+.navbar .dropdown:hover,
+.navbar .btn:hover,
+.navbar-nav .nav-link:hover,
+.nav-link:hover {
+  border-radius: 0 !important;
+  border: none !important;
+}

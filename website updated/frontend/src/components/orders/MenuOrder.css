@@ -1,0 +1,146 @@
+.menu-order-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.menu-item {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.menu-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.menu-item h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.menu-item p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.menu-item .price {
+    font-weight: 600;
+    color: #5469d4;
+    font-size: 1.1em;
+}
+
+.add-button {
+    width: 100%;
+    padding: 8px;
+    background-color: #5469d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+    background-color: #4051b5;
+}
+
+.order-summary {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.quantity-button:hover {
+    background: #e9ecef;
+}
+
+.order-total {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+    text-align: right;
+    font-size: 1.2em;
+}
+
+.order-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #5469d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.order-button:hover {
+    background-color: #4051b5;
+}
+
+.order-button:disabled {
+    background-color: #aab7c4;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+} 

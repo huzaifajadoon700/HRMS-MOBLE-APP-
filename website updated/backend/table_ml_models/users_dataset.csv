@@ -1,0 +1,1001 @@
+user_id,accessibility_needs,age_group,avg_party_size,avg_rating_given,avg_spending,dining_frequency,loyalty_score,preferred_group_size,preferred_occasion,preferred_time,prefers_private,prefers_quiet,prefers_window,spending_level,total_bookings
+U0001,False,56-65,0.0,4.1,511.6,Bi-weekly,96.9,8,Friends,Lunch,False,True,False,Premium,0
+U0002,False,36-45,0.0,3.4,481.83,Occasionally,5.8,4,Romantic,Lunch,False,True,False,Mid-range,0
+U0003,False,26-35,0.0,3.7,412.41,Bi-weekly,3.2,2,Business,Late Dinner,True,True,True,Mid-range,0
+U0004,False,26-35,0.0,2.7,349.68,Monthly,41.8,4,Celebration,Lunch,False,False,False,Premium,0
+U0005,False,56-65,0.0,3.9,364.68,Occasionally,41.5,2,Romantic,Early Dinner,False,False,True,Premium,0
+U0006,False,26-35,0.0,5.0,448.25,Weekly,85.0,6,Romantic,Lunch,False,False,True,Premium,0
+U0007,False,26-35,0.0,4.3,370.21,Monthly,52.0,2,Family,Lunch,False,True,False,Mid-range,0
+U0008,True,46-55,0.0,3.4,512.33,Monthly,75.5,6,Casual,Late Dinner,True,False,True,Mid-range,0
+U0009,False,36-45,0.0,3.8,267.39,Occasionally,51.4,2,Casual,Late Dinner,False,True,True,Budget,0
+U0010,False,46-55,0.0,4.6,446.96,Monthly,45.9,4,Family,Lunch,False,True,False,Premium,0
+U0011,False,65+,0.0,4.3,359.63,Monthly,18.2,2,Family,Prime Dinner,True,True,True,Budget,0
+U0012,False,26-35,0.0,3.2,560.84,Occasionally,17.7,4,Celebration,Late Dinner,True,True,True,Budget,0
+U0013,False,18-25,0.0,3.4,503.38,Bi-weekly,87.4,4,Business,Early Dinner,True,False,False,Mid-range,0
+U0014,False,56-65,0.0,4.2,366.44,Weekly,61.8,2,Romantic,Late Dinner,False,True,True,Mid-range,0
+U0015,False,26-35,0.0,3.9,576.75,Monthly,53.3,4,Casual,Prime Dinner,False,False,False,Budget,0
+U0016,False,26-35,0.0,3.2,367.62,Bi-weekly,59.4,2,Business,Prime Dinner,True,True,True,Mid-range,0
+U0017,False,46-55,0.0,4.6,495.39,Occasionally,60.8,4,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0018,False,26-35,0.0,3.8,311.07,Monthly,8.8,2,Romantic,Lunch,False,True,True,Budget,0
+U0019,False,46-55,0.0,4.0,685.1,Weekly,72.3,6,Family,Prime Dinner,False,False,False,Budget,0
+U0020,False,46-55,0.0,4.4,415.75,Occasionally,73.6,4,Business,Prime Dinner,False,True,False,Premium,0
+U0021,False,36-45,0.0,5.0,761.57,Occasionally,54.9,6,Casual,Lunch,False,False,True,Mid-range,0
+U0022,False,26-35,0.0,2.4,351.48,Occasionally,93.0,2,Celebration,Lunch,False,False,True,Mid-range,0
+U0023,True,46-55,0.0,4.5,415.95,Rarely,75.1,2,Family,Lunch,False,True,False,Budget,0
+U0024,False,46-55,0.0,4.4,279.94,Occasionally,45.2,2,Family,Prime Dinner,False,False,True,Mid-range,0
+U0025,False,46-55,0.0,2.2,576.51,Occasionally,33.3,4,Romantic,Prime Dinner,False,False,True,Mid-range,0
+U0026,False,46-55,0.0,5.0,325.01,Occasionally,24.8,2,Celebration,Lunch,True,False,False,Mid-range,0
+U0027,False,46-55,0.0,3.8,417.68,Weekly,79.7,4,Business,Lunch,True,True,False,Premium,0
+U0028,False,18-25,0.0,3.2,477.79,Bi-weekly,18.2,4,Business,Prime Dinner,True,False,True,Mid-range,0
+U0029,False,56-65,0.0,4.5,484.06,Monthly,10.2,4,Business,Early Dinner,True,False,True,Mid-range,0
+U0030,False,56-65,0.0,5.0,444.53,Occasionally,92.6,2,Business,Lunch,False,False,True,Mid-range,0
+U0031,False,36-45,0.0,3.5,526.37,Bi-weekly,33.5,8,Casual,Late Dinner,False,False,False,Budget,0
+U0032,False,46-55,0.0,3.9,386.47,Weekly,58.7,2,Friends,Lunch,False,False,True,Premium,0
+U0033,False,18-25,0.0,3.5,285.51,Rarely,51.5,2,Romantic,Prime Dinner,False,True,True,Budget,0
+U0034,False,65+,0.0,3.5,594.92,Monthly,42.7,4,Casual,Late Dinner,False,True,True,Mid-range,0
+U0035,False,46-55,0.0,5.0,495.87,Monthly,48.1,4,Romantic,Lunch,True,False,True,Mid-range,0
+U0036,False,36-45,0.0,5.0,369.07,Occasionally,2.5,2,Celebration,Prime Dinner,False,True,True,Premium,0
+U0037,False,26-35,0.0,3.6,544.82,Occasionally,65.3,4,Romantic,Lunch,True,True,False,Budget,0
+U0038,False,26-35,0.0,4.4,233.23,Weekly,29.3,2,Casual,Late Dinner,False,False,True,Premium,0
+U0039,False,56-65,0.0,2.8,312.62,Weekly,82.5,2,Celebration,Prime Dinner,False,False,False,Budget,0
+U0040,False,26-35,0.0,4.9,555.54,Weekly,78.0,6,Celebration,Early Dinner,True,True,False,Mid-range,0
+U0041,False,18-25,0.0,4.1,505.95,Monthly,98.4,8,Romantic,Early Dinner,False,True,True,Budget,0
+U0042,False,36-45,0.0,3.9,366.85,Bi-weekly,65.1,2,Family,Early Dinner,True,True,True,Premium,0
+U0043,False,46-55,0.0,2.5,283.6,Bi-weekly,51.9,2,Celebration,Prime Dinner,False,False,True,Premium,0
+U0044,False,18-25,0.0,3.0,416.56,Bi-weekly,71.9,4,Family,Lunch,True,True,True,Mid-range,0
+U0045,False,26-35,0.0,4.0,482.47,Monthly,59.7,4,Casual,Early Dinner,True,True,True,Mid-range,0
+U0046,False,26-35,0.0,3.5,318.27,Occasionally,81.9,2,Romantic,Late Dinner,False,False,False,Mid-range,0
+U0047,False,46-55,0.0,2.9,336.49,Occasionally,54.2,2,Business,Late Dinner,True,True,False,Mid-range,0
+U0048,False,56-65,0.0,3.8,444.32,Occasionally,5.2,6,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0049,False,46-55,0.0,3.8,537.9,Weekly,42.2,4,Romantic,Prime Dinner,True,False,True,Mid-range,0
+U0050,False,46-55,0.0,3.9,317.65,Occasionally,48.1,2,Family,Early Dinner,False,False,False,Mid-range,0
+U0051,False,56-65,0.0,4.2,435.04,Monthly,23.3,4,Friends,Prime Dinner,False,False,False,Mid-range,0
+U0052,True,18-25,0.0,4.7,342.31,Occasionally,8.9,2,Celebration,Lunch,True,False,True,Mid-range,0
+U0053,False,18-25,0.0,4.0,454.72,Monthly,29.7,4,Friends,Prime Dinner,False,True,True,Mid-range,0
+U0054,False,56-65,0.0,3.9,461.08,Occasionally,95.0,4,Romantic,Lunch,False,False,True,Premium,0
+U0055,False,46-55,0.0,4.1,502.5,Weekly,60.8,4,Casual,Late Dinner,False,False,True,Mid-range,0
+U0056,False,36-45,0.0,4.4,332.57,Bi-weekly,88.4,2,Business,Lunch,True,False,True,Budget,0
+U0057,False,56-65,0.0,4.2,428.21,Rarely,59.3,2,Business,Prime Dinner,False,False,True,Mid-range,0
+U0058,False,36-45,0.0,2.8,565.98,Weekly,65.5,6,Family,Prime Dinner,False,False,False,Budget,0
+U0059,False,36-45,0.0,4.7,375.4,Weekly,57.1,4,Casual,Late Dinner,False,True,True,Mid-range,0
+U0060,False,46-55,0.0,4.0,565.74,Monthly,33.4,6,Romantic,Early Dinner,True,False,True,Mid-range,0
+U0061,False,26-35,0.0,4.2,356.66,Rarely,0.1,2,Family,Early Dinner,False,False,False,Budget,0
+U0062,False,36-45,0.0,3.9,437.95,Occasionally,0.9,2,Business,Late Dinner,True,True,True,Budget,0
+U0063,False,46-55,0.0,4.1,315.24,Bi-weekly,6.8,2,Business,Lunch,False,True,False,Premium,0
+U0064,False,26-35,0.0,4.3,347.33,Occasionally,96.9,2,Business,Early Dinner,False,False,True,Mid-range,0
+U0065,True,46-55,0.0,3.9,580.95,Bi-weekly,94.4,6,Celebration,Prime Dinner,True,True,False,Premium,0
+U0066,False,18-25,0.0,3.0,480.37,Occasionally,86.8,4,Celebration,Lunch,True,False,False,Budget,0
+U0067,False,65+,0.0,4.8,408.83,Weekly,20.0,4,Celebration,Prime Dinner,False,False,True,Premium,0
+U0068,False,56-65,0.0,4.7,483.89,Occasionally,45.4,4,Friends,Late Dinner,True,True,True,Mid-range,0
+U0069,True,36-45,0.0,5.0,565.72,Weekly,24.8,6,Friends,Lunch,False,False,True,Premium,0
+U0070,False,36-45,0.0,5.0,370.16,Bi-weekly,46.5,2,Casual,Early Dinner,False,False,True,Mid-range,0
+U0071,False,46-55,0.0,3.5,660.18,Monthly,10.3,8,Casual,Late Dinner,False,False,False,Mid-range,0
+U0072,False,36-45,0.0,4.3,441.13,Weekly,88.3,4,Friends,Late Dinner,True,False,False,Mid-range,0
+U0073,False,18-25,0.0,4.2,453.91,Occasionally,70.6,2,Business,Early Dinner,True,False,False,Mid-range,0
+U0074,False,18-25,0.0,3.4,347.89,Rarely,48.4,2,Romantic,Early Dinner,False,False,False,Premium,0
+U0075,False,46-55,0.0,5.0,480.39,Monthly,47.9,4,Casual,Early Dinner,False,True,True,Mid-range,0
+U0076,True,36-45,0.0,4.9,489.21,Monthly,65.3,4,Celebration,Late Dinner,True,False,True,Premium,0
+U0077,False,26-35,0.0,4.9,359.93,Monthly,62.9,4,Friends,Early Dinner,True,True,True,Mid-range,0
+U0078,False,46-55,0.0,3.8,431.64,Occasionally,59.8,4,Business,Lunch,False,False,True,Mid-range,0
+U0079,False,46-55,0.0,3.6,650.17,Occasionally,60.2,8,Business,Early Dinner,False,True,True,Mid-range,0
+U0080,False,36-45,0.0,5.0,424.65,Monthly,57.9,4,Celebration,Lunch,False,False,True,Budget,0
+U0081,False,46-55,0.0,2.9,417.88,Weekly,23.5,4,Romantic,Lunch,False,False,True,Mid-range,0
+U0082,False,56-65,0.0,3.6,346.27,Monthly,25.3,2,Celebration,Early Dinner,False,True,True,Mid-range,0
+U0083,False,26-35,0.0,3.8,596.38,Monthly,27.0,4,Celebration,Late Dinner,False,False,False,Mid-range,0
+U0084,False,18-25,0.0,3.8,525.62,Monthly,4.2,6,Celebration,Lunch,False,False,False,Budget,0
+U0085,False,18-25,0.0,5.0,561.72,Rarely,14.0,8,Family,Early Dinner,False,False,False,Premium,0
+U0086,False,18-25,0.0,3.9,518.04,Monthly,86.8,4,Business,Late Dinner,False,False,True,Mid-range,0
+U0087,False,26-35,0.0,4.9,461.08,Occasionally,21.6,6,Business,Prime Dinner,False,False,False,Mid-range,0
+U0088,False,46-55,0.0,4.9,559.81,Monthly,87.1,4,Business,Early Dinner,False,False,True,Mid-range,0
+U0089,False,46-55,0.0,3.8,466.42,Monthly,81.8,4,Friends,Early Dinner,False,True,False,Mid-range,0
+U0090,False,18-25,0.0,5.0,436.48,Monthly,54.6,2,Romantic,Late Dinner,False,False,True,Mid-range,0
+U0091,False,36-45,0.0,3.6,531.67,Weekly,34.1,4,Casual,Early Dinner,False,False,True,Mid-range,0
+U0092,False,26-35,0.0,4.0,417.34,Monthly,1.8,4,Friends,Late Dinner,False,False,False,Mid-range,0
+U0093,False,26-35,0.0,4.0,524.28,Weekly,25.7,4,Friends,Prime Dinner,False,False,True,Budget,0
+U0094,False,26-35,0.0,3.2,446.14,Monthly,12.2,6,Family,Late Dinner,True,False,False,Mid-range,0
+U0095,False,26-35,0.0,5.0,377.48,Occasionally,55.0,2,Celebration,Prime Dinner,True,True,True,Mid-range,0
+U0096,False,18-25,0.0,3.9,629.78,Occasionally,36.1,8,Casual,Early Dinner,False,False,False,Mid-range,0
+U0097,False,56-65,0.0,3.5,566.61,Occasionally,42.4,4,Family,Lunch,False,False,False,Mid-range,0
+U0098,False,26-35,0.0,4.3,579.57,Bi-weekly,63.8,6,Romantic,Prime Dinner,True,True,True,Mid-range,0
+U0099,False,26-35,0.0,4.8,300.8,Occasionally,60.3,2,Romantic,Early Dinner,False,False,False,Budget,0
+U0100,False,26-35,0.0,3.6,491.14,Rarely,61.7,6,Friends,Late Dinner,False,False,True,Mid-range,0
+U0101,False,36-45,0.0,2.9,424.6,Occasionally,5.2,4,Friends,Prime Dinner,False,True,True,Mid-range,0
+U0102,False,26-35,0.0,3.8,535.84,Monthly,20.1,8,Casual,Late Dinner,True,False,False,Budget,0
+U0103,False,36-45,0.0,4.7,395.95,Weekly,24.4,4,Friends,Lunch,False,False,True,Mid-range,0
+U0104,False,46-55,0.0,4.6,310.39,Weekly,26.3,2,Romantic,Lunch,True,False,False,Premium,0
+U0105,False,26-35,0.0,4.0,482.51,Weekly,99.2,6,Romantic,Lunch,False,True,True,Mid-range,0
+U0106,False,56-65,0.0,4.7,433.06,Bi-weekly,79.0,6,Business,Early Dinner,False,True,False,Premium,0
+U0107,False,26-35,0.0,4.0,394.19,Weekly,60.6,4,Business,Prime Dinner,False,True,False,Mid-range,0
+U0108,False,46-55,0.0,4.7,678.74,Bi-weekly,96.3,4,Romantic,Early Dinner,True,True,True,Budget,0
+U0109,False,36-45,0.0,5.0,510.59,Rarely,15.2,4,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0110,False,18-25,0.0,5.0,568.84,Occasionally,14.2,4,Business,Early Dinner,False,True,False,Premium,0
+U0111,False,18-25,0.0,4.4,391.06,Monthly,42.6,2,Friends,Lunch,False,False,False,Mid-range,0
+U0112,False,18-25,0.0,5.0,543.16,Occasionally,1.1,4,Celebration,Prime Dinner,False,False,False,Mid-range,0
+U0113,False,36-45,0.0,3.0,366.8,Monthly,6.5,2,Celebration,Early Dinner,False,True,False,Mid-range,0
+U0114,False,18-25,0.0,4.4,285.23,Monthly,24.3,2,Family,Prime Dinner,True,True,True,Mid-range,0
+U0115,False,46-55,0.0,3.8,518.15,Occasionally,93.0,4,Celebration,Early Dinner,True,False,True,Mid-range,0
+U0116,False,26-35,0.0,3.7,515.66,Occasionally,15.0,6,Business,Late Dinner,True,False,False,Premium,0
+U0117,True,46-55,0.0,2.9,491.25,Monthly,35.0,4,Celebration,Late Dinner,True,False,True,Budget,0
+U0118,True,46-55,0.0,3.2,290.02,Occasionally,8.2,2,Family,Early Dinner,True,False,False,Budget,0
+U0119,False,65+,0.0,4.4,584.88,Bi-weekly,4.2,6,Romantic,Lunch,False,True,True,Mid-range,0
+U0120,False,65+,0.0,5.0,493.14,Occasionally,4.4,2,Business,Early Dinner,False,False,True,Mid-range,0
+U0121,False,18-25,0.0,4.2,482.55,Monthly,64.6,2,Family,Early Dinner,True,False,False,Mid-range,0
+U0122,False,26-35,0.0,3.9,608.47,Occasionally,72.8,6,Romantic,Late Dinner,False,True,False,Premium,0
+U0123,False,46-55,0.0,4.7,371.76,Occasionally,21.4,2,Casual,Early Dinner,True,False,True,Premium,0
+U0124,False,36-45,0.0,4.5,471.37,Occasionally,87.3,4,Family,Lunch,False,False,True,Mid-range,0
+U0125,True,36-45,0.0,5.0,344.36,Occasionally,20.4,2,Business,Early Dinner,False,True,False,Budget,0
+U0126,False,36-45,0.0,3.7,439.98,Occasionally,3.5,4,Family,Early Dinner,True,False,True,Mid-range,0
+U0127,False,46-55,0.0,3.3,604.95,Bi-weekly,72.2,8,Romantic,Late Dinner,False,True,True,Mid-range,0
+U0128,False,56-65,0.0,2.3,314.41,Monthly,9.3,2,Celebration,Early Dinner,False,True,False,Mid-range,0
+U0129,False,36-45,0.0,3.8,436.68,Monthly,32.2,4,Celebration,Late Dinner,False,False,True,Budget,0
+U0130,False,36-45,0.0,4.1,436.86,Bi-weekly,12.2,4,Friends,Early Dinner,False,True,False,Premium,0
+U0131,False,46-55,0.0,3.9,456.22,Bi-weekly,17.8,2,Romantic,Prime Dinner,True,False,False,Premium,0
+U0132,True,46-55,0.0,5.0,446.73,Rarely,2.4,4,Romantic,Early Dinner,False,True,True,Mid-range,0
+U0133,False,46-55,0.0,4.4,460.58,Bi-weekly,45.8,4,Celebration,Prime Dinner,False,True,True,Premium,0
+U0134,False,36-45,0.0,3.6,321.71,Bi-weekly,13.5,2,Business,Prime Dinner,True,False,False,Mid-range,0
+U0135,False,46-55,0.0,3.3,583.92,Occasionally,75.9,8,Casual,Late Dinner,True,True,True,Budget,0
+U0136,False,36-45,0.0,3.3,372.2,Occasionally,41.1,2,Celebration,Late Dinner,True,True,False,Budget,0
+U0137,False,26-35,0.0,3.9,382.1,Occasionally,98.0,2,Family,Late Dinner,False,False,True,Budget,0
+U0138,True,18-25,0.0,5.0,301.04,Occasionally,72.0,2,Romantic,Prime Dinner,True,False,False,Mid-range,0
+U0139,False,36-45,0.0,5.0,399.68,Weekly,22.6,4,Romantic,Lunch,False,True,True,Premium,0
+U0140,False,46-55,0.0,4.8,321.67,Monthly,29.1,2,Casual,Late Dinner,False,True,False,Budget,0
+U0141,False,46-55,0.0,4.6,379.6,Bi-weekly,1.8,2,Family,Late Dinner,False,False,True,Mid-range,0
+U0142,False,18-25,0.0,4.6,347.17,Occasionally,9.4,2,Casual,Prime Dinner,False,False,False,Premium,0
+U0143,False,26-35,0.0,3.6,328.6,Bi-weekly,9.4,2,Family,Early Dinner,True,False,True,Mid-range,0
+U0144,False,26-35,0.0,3.6,302.15,Occasionally,16.6,2,Romantic,Prime Dinner,False,False,True,Budget,0
+U0145,False,36-45,0.0,3.6,551.31,Monthly,79.9,6,Family,Late Dinner,False,False,True,Mid-range,0
+U0146,False,65+,0.0,4.8,333.46,Occasionally,32.3,2,Family,Early Dinner,True,False,True,Mid-range,0
+U0147,True,65+,0.0,3.4,476.54,Rarely,85.8,4,Family,Lunch,False,False,False,Mid-range,0
+U0148,False,46-55,0.0,4.5,580.35,Monthly,82.8,4,Friends,Lunch,False,False,True,Mid-range,0
+U0149,False,26-35,0.0,3.1,484.5,Bi-weekly,57.7,4,Business,Early Dinner,False,False,False,Mid-range,0
+U0150,True,46-55,0.0,5.0,669.33,Occasionally,68.2,6,Family,Prime Dinner,False,False,True,Budget,0
+U0151,False,26-35,0.0,5.0,523.28,Occasionally,90.4,8,Family,Late Dinner,True,True,True,Premium,0
+U0152,False,26-35,0.0,3.6,407.28,Occasionally,46.0,2,Business,Prime Dinner,True,False,True,Premium,0
+U0153,False,56-65,0.0,4.6,308.41,Monthly,29.2,2,Casual,Prime Dinner,False,False,True,Budget,0
+U0154,False,56-65,0.0,3.7,597.59,Occasionally,87.3,6,Friends,Lunch,False,False,True,Premium,0
+U0155,True,18-25,0.0,4.6,540.63,Occasionally,59.9,4,Romantic,Early Dinner,False,False,True,Budget,0
+U0156,False,18-25,0.0,3.3,594.31,Occasionally,28.5,6,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0157,False,36-45,0.0,3.6,551.8,Bi-weekly,86.9,6,Celebration,Prime Dinner,False,True,True,Mid-range,0
+U0158,False,18-25,0.0,4.0,441.11,Rarely,60.7,2,Friends,Early Dinner,False,False,False,Mid-range,0
+U0159,False,36-45,0.0,4.1,462.2,Monthly,74.4,4,Friends,Prime Dinner,False,True,True,Mid-range,0
+U0160,False,36-45,0.0,4.4,354.64,Occasionally,97.2,2,Romantic,Early Dinner,True,False,True,Mid-range,0
+U0161,True,26-35,0.0,3.8,365.81,Monthly,80.3,2,Family,Late Dinner,True,True,True,Budget,0
+U0162,False,36-45,0.0,3.4,363.91,Monthly,50.7,2,Casual,Lunch,True,True,False,Mid-range,0
+U0163,False,56-65,0.0,4.2,447.99,Monthly,60.8,4,Family,Prime Dinner,False,True,True,Budget,0
+U0164,True,26-35,0.0,4.4,532.09,Occasionally,60.4,8,Business,Lunch,True,False,True,Budget,0
+U0165,False,46-55,0.0,4.9,315.87,Bi-weekly,41.3,2,Friends,Early Dinner,False,False,True,Budget,0
+U0166,False,36-45,0.0,3.4,546.71,Occasionally,63.8,6,Celebration,Early Dinner,True,True,True,Mid-range,0
+U0167,True,46-55,0.0,4.6,548.21,Monthly,80.8,6,Casual,Late Dinner,False,False,True,Premium,0
+U0168,False,26-35,0.0,3.8,513.86,Monthly,86.2,6,Casual,Late Dinner,True,False,True,Mid-range,0
+U0169,True,36-45,0.0,3.8,354.22,Bi-weekly,39.3,2,Family,Late Dinner,False,False,True,Mid-range,0
+U0170,False,36-45,0.0,3.9,421.47,Monthly,63.7,2,Friends,Lunch,True,True,True,Premium,0
+U0171,False,26-35,0.0,5.0,473.64,Weekly,14.1,4,Romantic,Lunch,True,False,True,Mid-range,0
+U0172,False,36-45,0.0,3.6,526.72,Weekly,2.3,4,Family,Lunch,False,True,True,Mid-range,0
+U0173,False,46-55,0.0,2.8,422.13,Monthly,34.0,2,Celebration,Early Dinner,False,False,True,Budget,0
+U0174,False,36-45,0.0,2.8,337.24,Bi-weekly,19.5,4,Business,Lunch,False,False,True,Mid-range,0
+U0175,False,18-25,0.0,3.8,342.48,Monthly,40.2,2,Friends,Prime Dinner,True,True,True,Mid-range,0
+U0176,False,65+,0.0,5.0,640.39,Occasionally,54.3,4,Romantic,Late Dinner,True,True,True,Mid-range,0
+U0177,False,26-35,0.0,3.5,588.94,Rarely,87.7,6,Family,Early Dinner,False,False,True,Mid-range,0
+U0178,False,56-65,0.0,4.7,445.49,Bi-weekly,56.3,4,Friends,Late Dinner,False,False,True,Mid-range,0
+U0179,False,36-45,0.0,5.0,659.81,Occasionally,47.6,6,Family,Early Dinner,False,False,True,Mid-range,0
+U0180,True,65+,0.0,4.3,326.79,Weekly,97.2,2,Romantic,Lunch,True,True,True,Budget,0
+U0181,False,26-35,0.0,3.6,619.11,Occasionally,73.3,6,Casual,Lunch,False,False,True,Budget,0
+U0182,False,36-45,0.0,4.8,579.56,Occasionally,63.3,8,Business,Late Dinner,True,True,True,Premium,0
+U0183,False,18-25,0.0,3.2,541.39,Weekly,68.7,6,Friends,Late Dinner,True,False,False,Premium,0
+U0184,False,18-25,0.0,4.8,515.12,Monthly,68.2,4,Casual,Late Dinner,True,False,True,Mid-range,0
+U0185,False,18-25,0.0,2.7,308.04,Occasionally,15.2,2,Casual,Late Dinner,True,False,False,Budget,0
+U0186,False,26-35,0.0,3.4,494.64,Weekly,12.3,4,Romantic,Lunch,False,False,False,Mid-range,0
+U0187,False,56-65,0.0,4.4,565.78,Monthly,55.3,4,Business,Late Dinner,True,True,False,Mid-range,0
+U0188,True,36-45,0.0,4.4,585.96,Bi-weekly,74.9,6,Business,Late Dinner,False,True,True,Mid-range,0
+U0189,True,26-35,0.0,4.7,437.15,Weekly,31.6,4,Business,Early Dinner,False,False,True,Budget,0
+U0190,False,18-25,0.0,3.3,395.44,Monthly,37.7,2,Family,Early Dinner,False,False,False,Mid-range,0
+U0191,False,65+,0.0,4.8,549.36,Weekly,96.6,4,Business,Lunch,True,False,False,Mid-range,0
+U0192,False,46-55,0.0,5.0,524.7,Rarely,95.7,4,Casual,Lunch,True,False,False,Budget,0
+U0193,False,36-45,0.0,4.3,425.61,Monthly,21.2,4,Business,Late Dinner,False,True,True,Mid-range,0
+U0194,False,46-55,0.0,4.2,551.83,Monthly,73.9,6,Romantic,Late Dinner,True,False,True,Mid-range,0
+U0195,False,26-35,0.0,4.2,266.13,Occasionally,10.0,2,Casual,Early Dinner,False,True,True,Mid-range,0
+U0196,False,46-55,0.0,5.0,503.35,Bi-weekly,90.6,6,Business,Early Dinner,False,False,True,Mid-range,0
+U0197,False,26-35,0.0,3.4,678.42,Occasionally,38.3,6,Business,Late Dinner,True,False,True,Mid-range,0
+U0198,True,26-35,0.0,4.1,610.72,Bi-weekly,30.0,4,Celebration,Lunch,False,False,True,Mid-range,0
+U0199,False,36-45,0.0,3.7,499.87,Rarely,22.8,6,Romantic,Late Dinner,False,False,False,Premium,0
+U0200,False,26-35,0.0,3.9,489.09,Monthly,64.5,4,Friends,Early Dinner,False,False,True,Mid-range,0
+U0201,False,36-45,0.0,4.0,398.89,Occasionally,90.6,2,Business,Late Dinner,False,False,False,Mid-range,0
+U0202,True,26-35,0.0,4.3,568.38,Occasionally,14.7,6,Friends,Early Dinner,False,False,False,Budget,0
+U0203,False,18-25,0.0,3.8,458.65,Occasionally,80.7,4,Casual,Lunch,False,False,True,Premium,0
+U0204,False,36-45,0.0,3.7,523.45,Monthly,98.1,4,Casual,Prime Dinner,True,False,True,Budget,0
+U0205,False,46-55,0.0,2.7,460.15,Occasionally,43.7,2,Casual,Lunch,False,False,False,Budget,0
+U0206,False,36-45,0.0,4.4,459.78,Weekly,52.1,4,Business,Early Dinner,False,False,False,Budget,0
+U0207,False,65+,0.0,4.4,358.91,Occasionally,60.3,2,Casual,Late Dinner,False,True,True,Mid-range,0
+U0208,False,46-55,0.0,4.3,334.07,Occasionally,80.8,2,Friends,Early Dinner,True,True,False,Premium,0
+U0209,False,26-35,0.0,5.0,484.73,Bi-weekly,48.2,4,Friends,Lunch,False,False,True,Budget,0
+U0210,False,36-45,0.0,2.8,405.68,Weekly,57.4,2,Family,Lunch,False,True,False,Mid-range,0
+U0211,False,36-45,0.0,3.1,514.14,Occasionally,43.1,6,Business,Lunch,False,True,False,Premium,0
+U0212,False,46-55,0.0,4.6,539.59,Monthly,40.1,4,Friends,Early Dinner,False,True,True,Premium,0
+U0213,True,46-55,0.0,2.9,639.72,Occasionally,29.5,6,Business,Late Dinner,False,True,True,Budget,0
+U0214,False,56-65,0.0,5.0,368.15,Monthly,51.6,2,Family,Late Dinner,False,False,False,Budget,0
+U0215,True,36-45,0.0,5.0,358.63,Weekly,20.1,2,Celebration,Lunch,False,False,True,Mid-range,0
+U0216,False,26-35,0.0,3.3,489.8,Weekly,84.8,4,Family,Early Dinner,False,False,True,Mid-range,0
+U0217,False,36-45,0.0,5.0,374.88,Monthly,66.1,2,Romantic,Late Dinner,False,True,True,Premium,0
+U0218,False,18-25,0.0,2.6,325.8,Monthly,60.2,4,Family,Early Dinner,True,False,False,Mid-range,0
+U0219,False,26-35,0.0,4.9,637.62,Occasionally,46.2,6,Casual,Lunch,False,False,True,Mid-range,0
+U0220,False,56-65,0.0,4.8,579.01,Occasionally,97.9,4,Casual,Lunch,False,False,True,Budget,0
+U0221,False,56-65,0.0,3.7,556.86,Occasionally,79.8,4,Celebration,Prime Dinner,False,True,True,Mid-range,0
+U0222,False,36-45,0.0,4.2,335.46,Occasionally,71.8,2,Family,Lunch,True,False,False,Premium,0
+U0223,False,56-65,0.0,4.6,350.26,Bi-weekly,67.3,6,Family,Prime Dinner,True,True,False,Mid-range,0
+U0224,True,46-55,0.0,3.7,491.85,Bi-weekly,54.9,4,Family,Early Dinner,False,False,True,Premium,0
+U0225,False,26-35,0.0,3.6,329.64,Monthly,68.5,2,Romantic,Early Dinner,True,False,True,Mid-range,0
+U0226,False,26-35,0.0,2.6,441.15,Weekly,75.1,2,Friends,Lunch,True,False,False,Mid-range,0
+U0227,False,18-25,0.0,3.8,356.18,Bi-weekly,73.8,2,Business,Lunch,True,True,True,Premium,0
+U0228,False,46-55,0.0,3.3,376.03,Monthly,65.7,2,Friends,Prime Dinner,True,True,True,Budget,0
+U0229,False,65+,0.0,3.0,271.18,Occasionally,1.5,2,Celebration,Prime Dinner,False,True,True,Premium,0
+U0230,False,65+,0.0,4.7,408.26,Bi-weekly,94.7,4,Romantic,Late Dinner,False,True,True,Mid-range,0
+U0231,False,18-25,0.0,3.8,536.15,Bi-weekly,58.3,6,Casual,Prime Dinner,False,True,True,Premium,0
+U0232,False,26-35,0.0,4.0,573.04,Monthly,0.8,8,Friends,Lunch,False,True,False,Premium,0
+U0233,False,36-45,0.0,4.2,563.67,Weekly,67.1,4,Romantic,Late Dinner,False,False,True,Premium,0
+U0234,True,46-55,0.0,2.8,479.02,Bi-weekly,7.7,4,Celebration,Prime Dinner,False,False,True,Budget,0
+U0235,False,56-65,0.0,3.9,394.15,Monthly,28.3,4,Casual,Early Dinner,False,False,True,Mid-range,0
+U0236,False,46-55,0.0,2.1,400.55,Monthly,33.4,4,Family,Early Dinner,True,False,True,Budget,0
+U0237,False,56-65,0.0,5.0,475.04,Rarely,14.4,6,Business,Late Dinner,False,False,False,Mid-range,0
+U0238,False,46-55,0.0,4.0,485.4,Monthly,92.7,4,Family,Early Dinner,True,True,True,Budget,0
+U0239,False,18-25,0.0,4.6,489.22,Occasionally,81.4,4,Business,Lunch,True,True,True,Budget,0
+U0240,False,46-55,0.0,4.3,358.25,Bi-weekly,82.9,2,Friends,Late Dinner,False,False,True,Budget,0
+U0241,False,46-55,0.0,3.6,486.84,Monthly,52.2,6,Celebration,Late Dinner,True,True,True,Mid-range,0
+U0242,False,46-55,0.0,4.8,385.47,Occasionally,69.4,2,Family,Early Dinner,False,False,True,Mid-range,0
+U0243,False,26-35,0.0,5.0,299.1,Bi-weekly,88.2,2,Celebration,Early Dinner,False,False,True,Mid-range,0
+U0244,False,18-25,0.0,3.5,383.39,Occasionally,33.6,4,Business,Lunch,True,True,True,Budget,0
+U0245,False,46-55,0.0,3.5,500.39,Monthly,54.7,8,Romantic,Prime Dinner,False,False,False,Mid-range,0
+U0246,False,36-45,0.0,3.2,415.27,Weekly,39.2,6,Romantic,Lunch,False,True,True,Budget,0
+U0247,False,56-65,0.0,5.0,556.04,Bi-weekly,25.3,4,Celebration,Lunch,False,False,True,Budget,0
+U0248,False,18-25,0.0,4.8,503.06,Occasionally,45.1,4,Romantic,Lunch,False,False,True,Premium,0
+U0249,False,26-35,0.0,4.7,511.95,Occasionally,96.8,6,Family,Prime Dinner,False,True,False,Budget,0
+U0250,False,18-25,0.0,2.2,312.63,Occasionally,22.0,2,Business,Lunch,False,False,False,Premium,0
+U0251,True,26-35,0.0,4.5,293.87,Monthly,48.4,2,Casual,Late Dinner,False,False,False,Mid-range,0
+U0252,False,18-25,0.0,3.1,648.28,Occasionally,51.8,6,Romantic,Late Dinner,False,False,False,Mid-range,0
+U0253,False,18-25,0.0,4.4,459.29,Occasionally,65.4,4,Celebration,Prime Dinner,False,True,False,Budget,0
+U0254,False,56-65,0.0,5.0,520.57,Monthly,24.2,4,Business,Late Dinner,True,False,True,Mid-range,0
+U0255,False,26-35,0.0,4.9,613.84,Monthly,27.2,6,Friends,Prime Dinner,False,True,False,Budget,0
+U0256,False,46-55,0.0,4.5,618.91,Bi-weekly,59.5,6,Casual,Lunch,False,True,True,Mid-range,0
+U0257,False,26-35,0.0,3.6,618.33,Occasionally,26.0,6,Friends,Late Dinner,False,True,True,Mid-range,0
+U0258,False,18-25,0.0,3.9,375.33,Occasionally,32.5,2,Celebration,Late Dinner,False,False,True,Budget,0
+U0259,False,56-65,0.0,4.9,448.23,Rarely,80.7,6,Business,Late Dinner,True,False,True,Budget,0
+U0260,False,56-65,0.0,3.4,378.49,Rarely,31.3,2,Celebration,Lunch,False,True,True,Budget,0
+U0261,False,46-55,0.0,5.0,372.88,Bi-weekly,86.4,2,Casual,Late Dinner,False,False,True,Mid-range,0
+U0262,False,36-45,0.0,4.8,547.16,Monthly,37.9,8,Family,Prime Dinner,False,True,True,Mid-range,0
+U0263,False,26-35,0.0,4.5,362.6,Occasionally,83.3,4,Celebration,Prime Dinner,False,False,False,Mid-range,0
+U0264,True,26-35,0.0,4.0,282.6,Occasionally,55.5,2,Family,Lunch,False,True,False,Mid-range,0
+U0265,True,46-55,0.0,4.4,335.41,Occasionally,70.0,4,Friends,Early Dinner,True,False,False,Mid-range,0
+U0266,False,46-55,0.0,5.0,702.04,Occasionally,92.1,8,Family,Late Dinner,False,False,True,Mid-range,0
+U0267,False,36-45,0.0,4.3,351.92,Monthly,21.1,2,Casual,Late Dinner,False,False,True,Budget,0
+U0268,False,56-65,0.0,4.6,533.25,Occasionally,62.3,2,Celebration,Prime Dinner,True,False,False,Budget,0
+U0269,False,65+,0.0,3.5,643.91,Monthly,21.1,6,Casual,Early Dinner,False,True,False,Mid-range,0
+U0270,False,26-35,0.0,3.9,346.06,Monthly,44.0,2,Business,Late Dinner,False,True,False,Budget,0
+U0271,False,26-35,0.0,4.2,313.24,Occasionally,7.6,2,Celebration,Early Dinner,False,False,True,Budget,0
+U0272,False,65+,0.0,4.2,324.07,Bi-weekly,31.2,2,Family,Late Dinner,False,True,True,Mid-range,0
+U0273,False,18-25,0.0,3.6,641.8,Bi-weekly,54.7,6,Romantic,Prime Dinner,True,True,False,Premium,0
+U0274,False,65+,0.0,3.1,296.75,Occasionally,65.6,2,Celebration,Lunch,False,False,True,Mid-range,0
+U0275,False,36-45,0.0,4.0,507.57,Occasionally,73.6,4,Romantic,Prime Dinner,False,True,False,Mid-range,0
+U0276,False,36-45,0.0,5.0,459.23,Occasionally,16.5,4,Friends,Prime Dinner,True,False,True,Premium,0
+U0277,False,56-65,0.0,3.6,427.52,Monthly,8.7,4,Casual,Late Dinner,True,False,True,Premium,0
+U0278,False,36-45,0.0,5.0,555.86,Occasionally,26.3,6,Casual,Late Dinner,False,True,True,Mid-range,0
+U0279,True,18-25,0.0,4.7,638.31,Occasionally,4.0,6,Friends,Late Dinner,False,True,True,Mid-range,0
+U0280,False,26-35,0.0,4.0,268.32,Bi-weekly,43.0,2,Family,Lunch,True,False,False,Mid-range,0
+U0281,False,36-45,0.0,5.0,646.8,Rarely,91.1,6,Celebration,Early Dinner,True,True,True,Premium,0
+U0282,True,36-45,0.0,4.2,307.19,Monthly,44.9,2,Friends,Early Dinner,True,False,False,Mid-range,0
+U0283,False,26-35,0.0,5.0,441.06,Weekly,12.5,4,Casual,Lunch,False,True,True,Mid-range,0
+U0284,False,46-55,0.0,3.5,439.03,Bi-weekly,52.5,4,Celebration,Late Dinner,True,True,True,Premium,0
+U0285,False,46-55,0.0,3.1,531.16,Bi-weekly,84.8,2,Romantic,Lunch,True,False,False,Premium,0
+U0286,False,56-65,0.0,4.9,462.5,Occasionally,62.3,4,Business,Lunch,False,False,True,Budget,0
+U0287,False,65+,0.0,4.5,344.61,Monthly,6.2,2,Family,Late Dinner,False,True,False,Budget,0
+U0288,False,18-25,0.0,3.8,411.49,Bi-weekly,75.1,4,Casual,Lunch,False,False,True,Mid-range,0
+U0289,False,46-55,0.0,2.6,397.4,Monthly,88.5,6,Celebration,Prime Dinner,True,True,True,Mid-range,0
+U0290,False,56-65,0.0,2.8,332.58,Rarely,12.0,2,Romantic,Early Dinner,False,True,True,Budget,0
+U0291,False,46-55,0.0,3.7,388.22,Monthly,21.8,2,Business,Early Dinner,False,False,False,Budget,0
+U0292,False,18-25,0.0,3.9,414.75,Monthly,8.3,2,Family,Early Dinner,False,False,True,Mid-range,0
+U0293,False,26-35,0.0,4.6,351.73,Occasionally,61.7,2,Celebration,Prime Dinner,True,True,True,Mid-range,0
+U0294,False,56-65,0.0,4.8,458.53,Bi-weekly,3.2,6,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0295,False,46-55,0.0,2.5,345.06,Bi-weekly,82.4,2,Friends,Lunch,False,False,True,Mid-range,0
+U0296,False,46-55,0.0,4.8,331.32,Monthly,91.3,2,Casual,Prime Dinner,False,False,True,Budget,0
+U0297,False,36-45,0.0,4.2,299.83,Bi-weekly,53.2,2,Casual,Lunch,False,False,True,Mid-range,0
+U0298,True,18-25,0.0,4.4,495.41,Monthly,41.8,4,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0299,False,18-25,0.0,4.3,526.96,Occasionally,37.3,6,Friends,Prime Dinner,False,True,True,Budget,0
+U0300,False,26-35,0.0,5.0,384.48,Bi-weekly,15.7,2,Celebration,Early Dinner,False,False,True,Mid-range,0
+U0301,False,46-55,0.0,4.2,563.46,Weekly,63.0,4,Friends,Late Dinner,False,False,True,Premium,0
+U0302,False,36-45,0.0,4.6,431.72,Occasionally,54.0,4,Celebration,Lunch,True,False,False,Mid-range,0
+U0303,False,46-55,0.0,4.3,290.73,Monthly,55.9,2,Casual,Late Dinner,True,True,True,Mid-range,0
+U0304,False,46-55,0.0,3.8,450.74,Occasionally,40.0,4,Friends,Lunch,False,True,False,Mid-range,0
+U0305,False,46-55,0.0,4.4,482.85,Bi-weekly,22.3,8,Family,Lunch,True,False,False,Mid-range,0
+U0306,True,26-35,0.0,3.1,416.89,Monthly,39.3,4,Friends,Early Dinner,False,False,False,Budget,0
+U0307,False,18-25,0.0,3.7,465.61,Weekly,86.8,4,Friends,Late Dinner,False,True,True,Budget,0
+U0308,True,56-65,0.0,3.6,304.83,Monthly,78.7,2,Family,Late Dinner,False,True,True,Mid-range,0
+U0309,False,26-35,0.0,3.8,474.72,Weekly,55.0,4,Celebration,Late Dinner,False,False,True,Premium,0
+U0310,True,18-25,0.0,4.6,528.8,Monthly,45.0,6,Romantic,Prime Dinner,False,True,False,Budget,0
+U0311,False,26-35,0.0,4.4,386.5,Occasionally,21.6,2,Casual,Early Dinner,False,False,False,Mid-range,0
+U0312,False,26-35,0.0,5.0,494.33,Bi-weekly,82.7,6,Celebration,Late Dinner,True,True,True,Mid-range,0
+U0313,False,36-45,0.0,4.2,494.28,Monthly,87.5,6,Family,Early Dinner,False,True,True,Premium,0
+U0314,True,46-55,0.0,3.4,431.76,Bi-weekly,99.0,4,Business,Early Dinner,True,False,True,Budget,0
+U0315,False,18-25,0.0,2.7,500.16,Monthly,61.9,4,Friends,Prime Dinner,False,True,False,Budget,0
+U0316,True,46-55,0.0,2.3,578.9,Monthly,81.8,4,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0317,False,18-25,0.0,4.7,504.11,Occasionally,32.4,8,Romantic,Prime Dinner,False,False,True,Budget,0
+U0318,False,46-55,0.0,4.4,469.85,Monthly,94.3,4,Business,Late Dinner,True,True,True,Budget,0
+U0319,False,26-35,0.0,3.8,384.18,Occasionally,92.9,4,Celebration,Early Dinner,True,False,False,Budget,0
+U0320,False,26-35,0.0,2.3,376.57,Monthly,49.3,2,Romantic,Early Dinner,False,False,False,Premium,0
+U0321,True,36-45,0.0,2.7,329.33,Occasionally,91.7,2,Friends,Lunch,True,False,True,Mid-range,0
+U0322,False,36-45,0.0,4.8,439.82,Bi-weekly,68.0,4,Friends,Early Dinner,False,False,False,Mid-range,0
+U0323,True,56-65,0.0,3.3,302.7,Bi-weekly,66.5,2,Family,Late Dinner,False,False,False,Budget,0
+U0324,False,36-45,0.0,4.9,365.33,Monthly,72.9,2,Friends,Lunch,True,False,False,Premium,0
+U0325,False,46-55,0.0,5.0,372.92,Bi-weekly,38.4,2,Family,Lunch,False,True,True,Mid-range,0
+U0326,False,46-55,0.0,4.2,302.88,Rarely,8.8,2,Romantic,Late Dinner,False,True,False,Budget,0
+U0327,False,18-25,0.0,4.3,387.76,Occasionally,12.8,4,Business,Lunch,False,False,False,Mid-range,0
+U0328,False,36-45,0.0,3.2,445.69,Occasionally,2.6,4,Romantic,Prime Dinner,False,False,False,Premium,0
+U0329,False,26-35,0.0,4.9,573.67,Monthly,8.6,4,Casual,Prime Dinner,True,True,False,Budget,0
+U0330,False,18-25,0.0,5.0,569.22,Bi-weekly,25.2,4,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0331,False,26-35,0.0,4.4,469.6,Occasionally,35.9,6,Family,Late Dinner,False,True,False,Mid-range,0
+U0332,False,56-65,0.0,5.0,418.76,Weekly,75.6,2,Romantic,Lunch,False,False,True,Mid-range,0
+U0333,False,36-45,0.0,4.0,594.21,Monthly,10.6,6,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0334,False,18-25,0.0,3.4,551.3,Rarely,39.7,6,Casual,Late Dinner,False,True,False,Premium,0
+U0335,False,36-45,0.0,3.7,514.94,Monthly,16.3,4,Romantic,Early Dinner,False,True,True,Budget,0
+U0336,False,46-55,0.0,4.6,459.22,Weekly,25.4,4,Casual,Early Dinner,True,True,True,Budget,0
+U0337,False,26-35,0.0,3.4,592.69,Monthly,94.0,4,Casual,Lunch,True,True,True,Mid-range,0
+U0338,False,46-55,0.0,4.1,439.89,Monthly,94.1,6,Casual,Early Dinner,False,False,False,Mid-range,0
+U0339,False,18-25,0.0,4.1,868.25,Occasionally,48.1,8,Celebration,Early Dinner,False,True,True,Mid-range,0
+U0340,False,46-55,0.0,4.4,293.95,Rarely,64.4,2,Romantic,Early Dinner,True,False,True,Budget,0
+U0341,False,26-35,0.0,4.3,515.47,Weekly,35.3,4,Family,Early Dinner,True,True,True,Mid-range,0
+U0342,False,46-55,0.0,5.0,540.83,Monthly,60.5,6,Casual,Early Dinner,False,False,True,Mid-range,0
+U0343,False,26-35,0.0,3.5,611.97,Occasionally,44.2,4,Celebration,Early Dinner,False,False,False,Budget,0
+U0344,False,26-35,0.0,4.2,340.19,Bi-weekly,19.4,2,Family,Early Dinner,False,False,False,Mid-range,0
+U0345,True,36-45,0.0,5.0,355.49,Weekly,4.6,2,Celebration,Prime Dinner,True,False,False,Premium,0
+U0346,False,56-65,0.0,4.5,352.13,Occasionally,35.8,2,Romantic,Early Dinner,False,True,True,Budget,0
+U0347,False,65+,0.0,3.1,551.11,Occasionally,49.0,6,Business,Early Dinner,True,False,True,Mid-range,0
+U0348,False,36-45,0.0,5.0,402.22,Weekly,39.3,2,Casual,Lunch,False,False,True,Budget,0
+U0349,False,26-35,0.0,5.0,316.81,Weekly,84.4,2,Business,Early Dinner,False,True,True,Mid-range,0
+U0350,True,26-35,0.0,5.0,522.57,Occasionally,19.5,8,Celebration,Late Dinner,False,False,False,Mid-range,0
+U0351,False,46-55,0.0,3.6,427.97,Bi-weekly,67.6,4,Romantic,Prime Dinner,False,True,True,Mid-range,0
+U0352,False,36-45,0.0,5.0,291.91,Monthly,43.4,2,Friends,Late Dinner,False,False,True,Mid-range,0
+U0353,False,18-25,0.0,4.6,410.01,Monthly,19.9,2,Family,Late Dinner,False,False,True,Mid-range,0
+U0354,False,26-35,0.0,3.0,335.43,Bi-weekly,41.2,2,Family,Early Dinner,False,True,False,Mid-range,0
+U0355,False,26-35,0.0,3.4,359.36,Monthly,90.8,2,Romantic,Prime Dinner,False,False,True,Mid-range,0
+U0356,False,26-35,0.0,2.6,405.3,Weekly,36.2,2,Business,Late Dinner,True,False,True,Budget,0
+U0357,False,18-25,0.0,4.4,381.8,Bi-weekly,29.6,4,Romantic,Lunch,False,True,True,Mid-range,0
+U0358,False,26-35,0.0,5.0,319.69,Monthly,61.5,2,Friends,Late Dinner,False,True,True,Budget,0
+U0359,True,18-25,0.0,5.0,312.98,Weekly,79.9,2,Casual,Lunch,False,True,True,Budget,0
+U0360,False,56-65,0.0,4.9,382.0,Weekly,99.7,2,Friends,Lunch,False,False,False,Mid-range,0
+U0361,False,46-55,0.0,5.0,389.14,Bi-weekly,23.9,6,Casual,Late Dinner,True,True,True,Premium,0
+U0362,False,46-55,0.0,4.0,442.54,Occasionally,88.6,2,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0363,False,26-35,0.0,3.5,414.06,Bi-weekly,64.5,2,Romantic,Lunch,True,False,True,Mid-range,0
+U0364,False,46-55,0.0,2.6,453.42,Bi-weekly,89.7,4,Family,Early Dinner,False,False,False,Budget,0
+U0365,True,46-55,0.0,3.7,550.22,Bi-weekly,54.6,8,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0366,True,56-65,0.0,5.0,468.35,Occasionally,66.9,6,Friends,Lunch,False,True,False,Premium,0
+U0367,False,26-35,0.0,3.7,324.41,Bi-weekly,78.3,2,Friends,Prime Dinner,True,True,True,Budget,0
+U0368,False,46-55,0.0,4.6,406.58,Rarely,21.8,4,Casual,Late Dinner,False,False,True,Mid-range,0
+U0369,False,18-25,0.0,3.4,431.05,Bi-weekly,70.6,6,Business,Lunch,False,False,True,Mid-range,0
+U0370,False,56-65,0.0,2.1,388.28,Bi-weekly,86.2,2,Friends,Prime Dinner,True,True,True,Mid-range,0
+U0371,False,26-35,0.0,4.2,553.29,Occasionally,17.2,4,Celebration,Lunch,False,False,True,Budget,0
+U0372,False,26-35,0.0,2.7,356.81,Monthly,59.5,2,Celebration,Lunch,True,False,True,Budget,0
+U0373,False,36-45,0.0,4.1,563.58,Monthly,32.1,6,Family,Lunch,False,False,True,Premium,0
+U0374,False,36-45,0.0,5.0,485.47,Rarely,0.0,4,Friends,Late Dinner,False,True,True,Mid-range,0
+U0375,False,56-65,0.0,3.1,430.64,Occasionally,7.3,4,Celebration,Early Dinner,True,False,False,Mid-range,0
+U0376,True,46-55,0.0,3.4,348.22,Occasionally,39.2,2,Friends,Late Dinner,True,True,True,Premium,0
+U0377,False,46-55,0.0,4.5,467.58,Monthly,27.9,4,Celebration,Early Dinner,True,False,False,Premium,0
+U0378,False,46-55,0.0,2.5,358.29,Occasionally,12.2,2,Business,Prime Dinner,False,False,False,Budget,0
+U0379,False,18-25,0.0,3.5,346.74,Rarely,37.7,2,Romantic,Early Dinner,True,True,True,Budget,0
+U0380,False,56-65,0.0,2.7,523.41,Rarely,32.0,4,Romantic,Early Dinner,True,False,True,Budget,0
+U0381,False,26-35,0.0,4.5,322.91,Occasionally,16.9,2,Family,Lunch,False,False,True,Budget,0
+U0382,False,56-65,0.0,3.7,379.4,Weekly,28.4,4,Romantic,Late Dinner,False,False,False,Premium,0
+U0383,False,26-35,0.0,4.5,373.91,Monthly,64.6,2,Casual,Late Dinner,False,False,True,Budget,0
+U0384,False,26-35,0.0,4.6,283.23,Monthly,35.2,2,Business,Early Dinner,False,True,True,Mid-range,0
+U0385,False,18-25,0.0,3.5,343.33,Bi-weekly,62.8,2,Romantic,Lunch,False,False,True,Budget,0
+U0386,False,26-35,0.0,4.9,420.68,Bi-weekly,63.6,6,Family,Early Dinner,False,False,True,Mid-range,0
+U0387,False,26-35,0.0,4.9,377.49,Bi-weekly,69.6,4,Friends,Lunch,True,True,True,Mid-range,0
+U0388,False,26-35,0.0,5.0,333.9,Occasionally,68.4,2,Casual,Prime Dinner,False,True,True,Premium,0
+U0389,False,18-25,0.0,3.6,277.35,Occasionally,91.1,2,Business,Lunch,True,True,True,Mid-range,0
+U0390,False,18-25,0.0,3.8,270.87,Monthly,54.7,2,Romantic,Late Dinner,True,True,False,Premium,0
+U0391,False,56-65,0.0,4.3,425.82,Monthly,73.8,4,Business,Early Dinner,False,False,True,Budget,0
+U0392,False,36-45,0.0,3.9,350.34,Occasionally,26.2,2,Family,Prime Dinner,False,False,True,Budget,0
+U0393,False,36-45,0.0,4.4,261.45,Occasionally,98.6,2,Romantic,Early Dinner,False,True,True,Mid-range,0
+U0394,True,46-55,0.0,4.4,367.59,Occasionally,38.7,2,Friends,Late Dinner,True,False,True,Budget,0
+U0395,False,36-45,0.0,3.9,594.35,Monthly,10.6,4,Friends,Late Dinner,False,True,True,Mid-range,0
+U0396,False,36-45,0.0,3.8,491.31,Monthly,66.7,4,Friends,Early Dinner,False,False,True,Budget,0
+U0397,False,36-45,0.0,5.0,311.09,Monthly,85.6,2,Business,Lunch,True,True,True,Mid-range,0
+U0398,False,36-45,0.0,3.9,471.91,Monthly,32.6,6,Casual,Early Dinner,False,True,True,Mid-range,0
+U0399,False,26-35,0.0,4.4,492.09,Monthly,78.9,4,Friends,Prime Dinner,False,True,True,Premium,0
+U0400,False,18-25,0.0,4.6,449.95,Bi-weekly,30.6,2,Business,Lunch,False,False,False,Mid-range,0
+U0401,False,26-35,0.0,5.0,317.35,Occasionally,16.6,2,Casual,Early Dinner,False,False,True,Budget,0
+U0402,False,26-35,0.0,5.0,497.23,Occasionally,62.3,8,Celebration,Prime Dinner,True,False,True,Premium,0
+U0403,True,36-45,0.0,5.0,473.45,Monthly,43.8,4,Family,Late Dinner,True,True,False,Mid-range,0
+U0404,False,26-35,0.0,3.4,442.61,Monthly,31.6,2,Friends,Late Dinner,False,True,False,Mid-range,0
+U0405,False,56-65,0.0,3.7,316.45,Weekly,47.5,2,Family,Early Dinner,False,True,False,Budget,0
+U0406,False,46-55,0.0,2.6,469.65,Occasionally,46.6,4,Friends,Late Dinner,False,True,False,Budget,0
+U0407,False,46-55,0.0,4.0,616.03,Monthly,57.8,4,Celebration,Prime Dinner,True,False,False,Budget,0
+U0408,False,36-45,0.0,3.6,370.12,Monthly,86.5,2,Celebration,Early Dinner,False,True,False,Mid-range,0
+U0409,False,36-45,0.0,4.7,409.44,Occasionally,61.0,2,Family,Early Dinner,True,False,False,Mid-range,0
+U0410,False,36-45,0.0,4.0,361.98,Bi-weekly,37.7,2,Business,Late Dinner,True,False,True,Mid-range,0
+U0411,False,36-45,0.0,4.3,529.33,Weekly,89.9,4,Business,Early Dinner,False,True,True,Mid-range,0
+U0412,False,36-45,0.0,4.7,303.6,Bi-weekly,75.6,2,Business,Late Dinner,False,False,False,Premium,0
+U0413,False,36-45,0.0,3.8,454.41,Bi-weekly,76.9,4,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0414,False,36-45,0.0,3.7,316.14,Monthly,91.3,2,Romantic,Late Dinner,True,False,False,Mid-range,0
+U0415,False,26-35,0.0,3.3,352.54,Occasionally,70.1,2,Casual,Early Dinner,False,False,False,Mid-range,0
+U0416,False,46-55,0.0,3.0,425.86,Rarely,98.3,2,Romantic,Prime Dinner,True,True,True,Mid-range,0
+U0417,False,36-45,0.0,3.5,397.17,Occasionally,75.6,8,Friends,Early Dinner,True,False,False,Premium,0
+U0418,False,26-35,0.0,3.1,460.86,Occasionally,11.8,4,Friends,Early Dinner,False,True,True,Premium,0
+U0419,False,65+,0.0,2.8,355.62,Occasionally,93.4,4,Casual,Prime Dinner,True,True,False,Budget,0
+U0420,False,18-25,0.0,4.4,537.0,Occasionally,86.4,4,Family,Prime Dinner,False,False,False,Mid-range,0
+U0421,True,36-45,0.0,2.2,318.25,Monthly,87.8,2,Friends,Prime Dinner,False,True,False,Mid-range,0
+U0422,False,26-35,0.0,5.0,386.41,Occasionally,19.3,4,Friends,Late Dinner,False,True,True,Mid-range,0
+U0423,False,18-25,0.0,4.0,427.52,Bi-weekly,17.9,6,Celebration,Late Dinner,False,True,True,Budget,0
+U0424,False,56-65,0.0,4.2,522.33,Monthly,3.9,4,Friends,Late Dinner,True,True,False,Budget,0
+U0425,False,18-25,0.0,5.0,454.57,Occasionally,79.2,2,Friends,Lunch,False,False,True,Premium,0
+U0426,False,65+,0.0,5.0,357.03,Bi-weekly,5.1,4,Romantic,Lunch,True,False,False,Mid-range,0
+U0427,False,36-45,0.0,3.7,393.24,Occasionally,44.8,2,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0428,False,46-55,0.0,4.9,396.85,Monthly,25.9,2,Friends,Late Dinner,False,False,True,Budget,0
+U0429,False,26-35,0.0,4.0,367.41,Occasionally,68.8,4,Family,Prime Dinner,False,False,False,Mid-range,0
+U0430,False,46-55,0.0,3.7,694.79,Bi-weekly,5.8,6,Casual,Prime Dinner,True,False,True,Budget,0
+U0431,False,46-55,0.0,3.7,308.68,Weekly,34.7,2,Casual,Lunch,False,False,False,Mid-range,0
+U0432,False,36-45,0.0,3.1,602.06,Occasionally,50.5,4,Celebration,Prime Dinner,True,True,False,Mid-range,0
+U0433,False,26-35,0.0,4.8,521.36,Weekly,58.3,4,Friends,Early Dinner,False,False,True,Mid-range,0
+U0434,False,46-55,0.0,4.2,302.66,Monthly,24.8,2,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0435,False,26-35,0.0,2.7,590.11,Occasionally,31.6,8,Romantic,Late Dinner,True,False,False,Mid-range,0
+U0436,False,36-45,0.0,3.0,312.18,Monthly,24.2,2,Casual,Late Dinner,False,False,True,Premium,0
+U0437,False,46-55,0.0,3.7,441.9,Occasionally,31.0,4,Business,Early Dinner,False,False,True,Mid-range,0
+U0438,True,56-65,0.0,5.0,335.86,Occasionally,71.5,2,Celebration,Late Dinner,False,True,True,Mid-range,0
+U0439,False,26-35,0.0,2.5,530.79,Occasionally,71.7,4,Romantic,Prime Dinner,False,True,False,Mid-range,0
+U0440,False,26-35,0.0,3.6,497.58,Bi-weekly,63.6,4,Celebration,Late Dinner,True,True,False,Mid-range,0
+U0441,False,65+,0.0,4.1,289.57,Occasionally,53.1,2,Friends,Prime Dinner,False,False,True,Premium,0
+U0442,False,36-45,0.0,3.3,487.29,Monthly,63.2,4,Celebration,Prime Dinner,False,True,True,Mid-range,0
+U0443,False,36-45,0.0,2.6,364.78,Weekly,45.5,2,Celebration,Early Dinner,True,True,False,Premium,0
+U0444,False,26-35,0.0,4.4,482.46,Monthly,76.5,4,Casual,Early Dinner,True,False,True,Premium,0
+U0445,False,26-35,0.0,3.8,413.93,Occasionally,58.5,2,Business,Early Dinner,True,False,True,Budget,0
+U0446,True,36-45,0.0,3.8,665.98,Monthly,11.2,4,Family,Lunch,False,False,False,Mid-range,0
+U0447,False,18-25,0.0,4.3,316.86,Bi-weekly,27.5,2,Celebration,Prime Dinner,False,False,False,Mid-range,0
+U0448,False,36-45,0.0,3.6,504.97,Monthly,83.6,8,Family,Late Dinner,False,False,True,Budget,0
+U0449,False,65+,0.0,3.9,269.35,Rarely,4.0,2,Family,Prime Dinner,False,False,True,Mid-range,0
+U0450,False,26-35,0.0,4.7,428.37,Occasionally,39.8,4,Business,Lunch,False,False,False,Premium,0
+U0451,False,56-65,0.0,3.9,592.09,Monthly,66.7,6,Family,Early Dinner,False,False,False,Mid-range,0
+U0452,False,18-25,0.0,3.6,367.2,Weekly,57.3,2,Celebration,Late Dinner,False,False,False,Premium,0
+U0453,True,18-25,0.0,4.1,345.78,Rarely,60.6,2,Romantic,Lunch,False,True,True,Mid-range,0
+U0454,False,36-45,0.0,5.0,492.51,Monthly,94.8,4,Casual,Early Dinner,True,False,False,Mid-range,0
+U0455,False,26-35,0.0,5.0,583.11,Bi-weekly,74.2,4,Casual,Prime Dinner,False,True,True,Premium,0
+U0456,False,46-55,0.0,5.0,320.24,Bi-weekly,18.4,2,Family,Early Dinner,False,False,False,Budget,0
+U0457,False,18-25,0.0,3.6,471.05,Occasionally,64.0,4,Casual,Lunch,True,False,False,Mid-range,0
+U0458,False,26-35,0.0,4.6,298.06,Rarely,91.5,2,Casual,Lunch,True,False,True,Budget,0
+U0459,False,26-35,0.0,4.7,573.67,Bi-weekly,75.5,6,Friends,Late Dinner,True,True,False,Premium,0
+U0460,False,26-35,0.0,5.0,414.61,Monthly,91.5,4,Business,Prime Dinner,False,True,True,Budget,0
+U0461,False,26-35,0.0,1.9,357.14,Occasionally,7.1,2,Business,Lunch,False,True,True,Mid-range,0
+U0462,False,46-55,0.0,5.0,457.46,Monthly,9.8,4,Business,Prime Dinner,False,True,True,Mid-range,0
+U0463,False,26-35,0.0,4.8,572.13,Rarely,56.9,6,Business,Late Dinner,False,False,False,Mid-range,0
+U0464,False,46-55,0.0,3.9,372.99,Rarely,79.9,2,Friends,Late Dinner,False,False,False,Mid-range,0
+U0465,True,18-25,0.0,4.6,556.39,Occasionally,95.3,6,Friends,Late Dinner,False,True,True,Mid-range,0
+U0466,False,26-35,0.0,3.9,563.14,Occasionally,79.1,4,Business,Lunch,False,True,True,Budget,0
+U0467,False,46-55,0.0,4.1,538.78,Bi-weekly,91.3,4,Romantic,Late Dinner,False,False,False,Premium,0
+U0468,False,26-35,0.0,3.5,599.19,Weekly,63.0,6,Celebration,Late Dinner,True,False,True,Mid-range,0
+U0469,False,65+,0.0,3.8,390.84,Monthly,41.9,2,Romantic,Early Dinner,True,True,False,Mid-range,0
+U0470,False,36-45,0.0,3.4,512.25,Occasionally,78.7,6,Family,Prime Dinner,False,True,True,Budget,0
+U0471,False,26-35,0.0,4.2,399.11,Monthly,30.0,4,Business,Late Dinner,False,False,True,Mid-range,0
+U0472,False,18-25,0.0,3.2,552.7,Occasionally,91.0,6,Casual,Prime Dinner,False,False,False,Mid-range,0
+U0473,False,26-35,0.0,4.5,511.74,Occasionally,66.4,2,Friends,Early Dinner,True,False,True,Budget,0
+U0474,False,26-35,0.0,3.3,577.87,Weekly,74.6,4,Family,Late Dinner,True,False,True,Mid-range,0
+U0475,False,18-25,0.0,4.5,349.58,Occasionally,66.9,2,Business,Late Dinner,False,True,False,Budget,0
+U0476,False,36-45,0.0,3.7,373.06,Monthly,91.7,2,Casual,Early Dinner,False,False,True,Mid-range,0
+U0477,False,46-55,0.0,4.3,429.5,Monthly,53.3,4,Family,Lunch,True,True,True,Mid-range,0
+U0478,False,36-45,0.0,3.9,359.14,Monthly,40.6,2,Business,Lunch,True,False,False,Mid-range,0
+U0479,False,56-65,0.0,4.4,413.04,Occasionally,24.5,4,Casual,Prime Dinner,True,False,False,Budget,0
+U0480,False,46-55,0.0,3.2,571.9,Occasionally,53.3,4,Celebration,Early Dinner,False,False,True,Budget,0
+U0481,False,65+,0.0,3.0,368.78,Occasionally,0.7,6,Casual,Prime Dinner,False,True,True,Mid-range,0
+U0482,False,46-55,0.0,3.0,419.99,Occasionally,36.9,2,Family,Early Dinner,False,False,True,Mid-range,0
+U0483,False,46-55,0.0,4.4,442.17,Occasionally,20.1,4,Business,Prime Dinner,False,False,True,Mid-range,0
+U0484,False,46-55,0.0,4.4,358.93,Occasionally,1.7,2,Family,Lunch,False,True,True,Budget,0
+U0485,True,65+,0.0,2.4,412.32,Weekly,49.9,2,Business,Late Dinner,False,False,False,Mid-range,0
+U0486,False,18-25,0.0,5.0,713.06,Occasionally,60.8,4,Business,Early Dinner,False,False,True,Mid-range,0
+U0487,False,18-25,0.0,4.5,533.2,Occasionally,86.6,6,Business,Early Dinner,False,True,True,Budget,0
+U0488,False,36-45,0.0,3.3,534.29,Occasionally,7.9,6,Friends,Late Dinner,False,True,False,Budget,0
+U0489,False,36-45,0.0,4.9,310.81,Bi-weekly,80.2,2,Business,Lunch,True,False,False,Premium,0
+U0490,True,26-35,0.0,3.4,314.23,Monthly,19.2,2,Family,Late Dinner,False,False,False,Budget,0
+U0491,False,36-45,0.0,4.1,331.23,Monthly,58.8,2,Celebration,Late Dinner,False,False,True,Mid-range,0
+U0492,False,56-65,0.0,3.5,583.89,Occasionally,10.6,6,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0493,False,46-55,0.0,3.0,478.44,Bi-weekly,27.8,4,Romantic,Late Dinner,True,False,True,Mid-range,0
+U0494,False,26-35,0.0,5.0,381.74,Monthly,72.3,2,Romantic,Early Dinner,False,False,True,Budget,0
+U0495,False,56-65,0.0,3.5,410.65,Rarely,26.8,4,Celebration,Early Dinner,False,False,True,Premium,0
+U0496,False,36-45,0.0,3.3,352.59,Bi-weekly,70.2,2,Celebration,Prime Dinner,False,True,False,Premium,0
+U0497,False,46-55,0.0,4.0,424.99,Rarely,30.0,2,Business,Early Dinner,False,True,True,Budget,0
+U0498,False,26-35,0.0,5.0,309.25,Bi-weekly,11.2,2,Celebration,Early Dinner,False,True,False,Budget,0
+U0499,True,46-55,0.0,4.4,563.48,Monthly,17.3,4,Business,Prime Dinner,True,True,False,Mid-range,0
+U0500,False,46-55,0.0,3.2,442.5,Monthly,1.6,4,Romantic,Lunch,False,False,False,Mid-range,0
+U0501,False,46-55,0.0,5.0,370.45,Occasionally,56.2,2,Romantic,Lunch,True,True,True,Premium,0
+U0502,True,26-35,0.0,5.0,401.26,Bi-weekly,36.0,2,Celebration,Lunch,True,True,True,Mid-range,0
+U0503,False,18-25,0.0,4.0,283.36,Bi-weekly,26.3,2,Casual,Early Dinner,True,True,False,Premium,0
+U0504,False,46-55,0.0,4.8,552.75,Rarely,93.2,4,Casual,Early Dinner,False,False,False,Mid-range,0
+U0505,False,18-25,0.0,4.0,538.81,Bi-weekly,49.3,4,Business,Lunch,False,True,True,Mid-range,0
+U0506,False,18-25,0.0,2.2,338.68,Monthly,21.6,2,Business,Late Dinner,False,True,True,Budget,0
+U0507,False,26-35,0.0,3.7,597.77,Occasionally,32.8,4,Family,Early Dinner,True,True,True,Budget,0
+U0508,False,18-25,0.0,4.5,360.39,Monthly,19.1,2,Friends,Lunch,False,False,False,Mid-range,0
+U0509,False,36-45,0.0,5.0,354.58,Rarely,96.2,2,Casual,Prime Dinner,False,False,False,Mid-range,0
+U0510,False,46-55,0.0,3.9,484.83,Occasionally,44.4,4,Casual,Late Dinner,True,False,True,Mid-range,0
+U0511,False,18-25,0.0,3.1,547.6,Bi-weekly,67.2,4,Business,Early Dinner,False,False,False,Mid-range,0
+U0512,False,46-55,0.0,4.8,343.1,Monthly,52.6,2,Family,Prime Dinner,False,True,True,Mid-range,0
+U0513,False,46-55,0.0,3.8,608.62,Monthly,61.8,4,Friends,Early Dinner,False,True,False,Budget,0
+U0514,True,36-45,0.0,4.1,400.35,Monthly,3.8,2,Casual,Late Dinner,False,False,True,Budget,0
+U0515,False,46-55,0.0,4.6,467.97,Monthly,65.1,4,Business,Early Dinner,False,True,True,Mid-range,0
+U0516,False,46-55,0.0,3.0,367.15,Monthly,3.8,2,Casual,Lunch,True,False,False,Premium,0
+U0517,False,36-45,0.0,5.0,574.01,Rarely,25.7,8,Romantic,Lunch,False,True,True,Premium,0
+U0518,False,46-55,0.0,4.6,566.0,Occasionally,52.6,4,Romantic,Late Dinner,False,False,True,Premium,0
+U0519,False,46-55,0.0,4.1,430.93,Monthly,99.2,6,Business,Prime Dinner,False,True,False,Budget,0
+U0520,False,26-35,0.0,5.0,450.57,Occasionally,33.0,4,Romantic,Late Dinner,True,False,False,Mid-range,0
+U0521,False,36-45,0.0,4.1,531.04,Occasionally,94.1,4,Family,Early Dinner,False,False,True,Budget,0
+U0522,False,18-25,0.0,2.4,499.69,Monthly,50.5,6,Romantic,Prime Dinner,False,False,True,Budget,0
+U0523,False,65+,0.0,5.0,331.57,Monthly,94.1,2,Casual,Late Dinner,False,True,False,Mid-range,0
+U0524,False,56-65,0.0,4.5,570.96,Monthly,2.1,6,Family,Late Dinner,False,True,True,Mid-range,0
+U0525,False,46-55,0.0,4.5,497.12,Weekly,19.1,4,Business,Early Dinner,False,False,True,Premium,0
+U0526,False,36-45,0.0,3.8,274.15,Monthly,5.5,2,Business,Lunch,True,False,False,Budget,0
+U0527,False,36-45,0.0,4.0,499.81,Weekly,11.7,6,Friends,Prime Dinner,False,False,False,Mid-range,0
+U0528,False,36-45,0.0,4.6,555.22,Bi-weekly,38.4,4,Business,Lunch,False,True,True,Mid-range,0
+U0529,False,36-45,0.0,3.5,544.99,Occasionally,8.0,4,Business,Prime Dinner,True,True,False,Mid-range,0
+U0530,False,36-45,0.0,4.5,364.98,Weekly,87.4,2,Friends,Late Dinner,False,True,True,Mid-range,0
+U0531,False,18-25,0.0,4.5,541.21,Weekly,67.6,6,Casual,Lunch,False,True,True,Mid-range,0
+U0532,True,56-65,0.0,4.0,386.86,Occasionally,7.5,4,Casual,Late Dinner,False,False,False,Premium,0
+U0533,False,26-35,0.0,3.1,616.37,Occasionally,74.4,6,Business,Prime Dinner,False,False,True,Mid-range,0
+U0534,True,46-55,0.0,4.6,375.55,Monthly,28.3,4,Romantic,Late Dinner,False,True,True,Budget,0
+U0535,False,56-65,0.0,5.0,462.59,Monthly,55.0,4,Business,Prime Dinner,True,True,False,Mid-range,0
+U0536,False,36-45,0.0,3.4,437.93,Bi-weekly,66.2,4,Casual,Late Dinner,False,True,True,Premium,0
+U0537,False,56-65,0.0,4.4,507.19,Occasionally,61.6,4,Casual,Early Dinner,True,False,True,Mid-range,0
+U0538,False,36-45,0.0,3.3,482.77,Monthly,21.2,6,Friends,Late Dinner,False,False,True,Mid-range,0
+U0539,False,36-45,0.0,4.1,458.09,Monthly,53.0,2,Friends,Early Dinner,True,False,True,Premium,0
+U0540,False,46-55,0.0,3.7,466.17,Monthly,17.2,4,Family,Late Dinner,False,False,True,Budget,0
+U0541,False,46-55,0.0,4.1,429.98,Occasionally,8.5,4,Family,Late Dinner,False,False,True,Budget,0
+U0542,False,36-45,0.0,4.7,457.93,Occasionally,89.2,6,Casual,Prime Dinner,False,False,True,Budget,0
+U0543,True,36-45,0.0,4.3,448.65,Bi-weekly,35.9,4,Romantic,Late Dinner,True,False,True,Mid-range,0
+U0544,False,46-55,0.0,5.0,572.94,Monthly,64.6,6,Celebration,Late Dinner,False,False,True,Budget,0
+U0545,False,56-65,0.0,4.4,456.21,Weekly,30.9,6,Celebration,Late Dinner,False,True,True,Mid-range,0
+U0546,False,46-55,0.0,3.7,273.87,Weekly,80.3,2,Friends,Lunch,True,True,False,Mid-range,0
+U0547,False,36-45,0.0,4.9,470.71,Occasionally,79.8,4,Celebration,Early Dinner,True,True,True,Mid-range,0
+U0548,True,26-35,0.0,3.8,373.77,Bi-weekly,15.4,2,Celebration,Late Dinner,True,False,True,Mid-range,0
+U0549,True,46-55,0.0,3.5,409.47,Bi-weekly,96.2,4,Romantic,Prime Dinner,False,False,True,Budget,0
+U0550,True,46-55,0.0,3.8,321.69,Monthly,23.8,2,Romantic,Early Dinner,False,True,True,Mid-range,0
+U0551,True,56-65,0.0,4.4,341.87,Bi-weekly,30.4,2,Friends,Prime Dinner,False,False,False,Premium,0
+U0552,False,18-25,0.0,2.6,650.81,Weekly,16.4,4,Romantic,Early Dinner,True,False,True,Mid-range,0
+U0553,False,26-35,0.0,3.2,578.45,Occasionally,43.0,6,Casual,Late Dinner,True,False,True,Budget,0
+U0554,False,26-35,0.0,4.3,433.49,Occasionally,72.9,4,Business,Early Dinner,False,True,True,Budget,0
+U0555,False,56-65,0.0,3.3,635.88,Rarely,99.8,6,Romantic,Early Dinner,True,True,True,Mid-range,0
+U0556,False,26-35,0.0,3.3,383.58,Bi-weekly,95.8,2,Casual,Prime Dinner,False,True,True,Mid-range,0
+U0557,True,46-55,0.0,4.6,429.17,Monthly,59.8,2,Casual,Early Dinner,False,False,False,Budget,0
+U0558,False,46-55,0.0,4.0,511.96,Occasionally,96.2,6,Business,Early Dinner,False,True,True,Mid-range,0
+U0559,False,26-35,0.0,4.5,446.35,Occasionally,59.1,2,Friends,Late Dinner,True,True,True,Premium,0
+U0560,False,46-55,0.0,2.7,565.73,Occasionally,43.2,4,Casual,Prime Dinner,False,True,True,Premium,0
+U0561,False,26-35,0.0,4.4,445.57,Occasionally,81.5,4,Casual,Prime Dinner,False,False,False,Mid-range,0
+U0562,False,26-35,0.0,3.7,456.82,Bi-weekly,33.6,4,Romantic,Early Dinner,False,True,True,Mid-range,0
+U0563,True,26-35,0.0,4.9,378.72,Bi-weekly,0.5,4,Casual,Late Dinner,True,False,True,Mid-range,0
+U0564,False,56-65,0.0,4.1,661.06,Bi-weekly,48.3,6,Family,Early Dinner,False,False,True,Mid-range,0
+U0565,False,18-25,0.0,3.5,456.8,Bi-weekly,27.4,6,Business,Early Dinner,False,False,False,Mid-range,0
+U0566,False,46-55,0.0,5.0,605.51,Monthly,67.2,6,Friends,Lunch,False,False,False,Budget,0
+U0567,False,36-45,0.0,4.8,721.96,Weekly,86.2,6,Family,Lunch,False,False,True,Premium,0
+U0568,False,46-55,0.0,3.2,321.95,Monthly,81.2,2,Family,Lunch,False,True,False,Mid-range,0
+U0569,False,56-65,0.0,4.3,322.02,Occasionally,9.3,2,Romantic,Lunch,False,True,False,Premium,0
+U0570,False,36-45,0.0,3.8,397.04,Occasionally,93.3,4,Family,Lunch,False,True,True,Budget,0
+U0571,False,56-65,0.0,4.8,483.12,Monthly,29.3,4,Casual,Lunch,True,False,True,Premium,0
+U0572,False,26-35,0.0,4.3,512.41,Monthly,30.3,2,Romantic,Prime Dinner,False,False,False,Budget,0
+U0573,False,36-45,0.0,3.2,302.99,Monthly,70.6,2,Celebration,Late Dinner,True,True,False,Premium,0
+U0574,False,46-55,0.0,2.2,411.71,Bi-weekly,10.1,4,Family,Lunch,False,False,True,Mid-range,0
+U0575,False,46-55,0.0,4.6,381.9,Bi-weekly,31.0,2,Romantic,Prime Dinner,True,False,True,Mid-range,0
+U0576,False,56-65,0.0,3.3,482.68,Occasionally,58.6,4,Family,Late Dinner,False,True,True,Premium,0
+U0577,False,36-45,0.0,3.2,560.62,Monthly,93.3,6,Business,Early Dinner,False,False,False,Mid-range,0
+U0578,False,26-35,0.0,4.3,347.36,Occasionally,49.0,2,Romantic,Lunch,False,False,True,Mid-range,0
+U0579,False,18-25,0.0,4.2,366.21,Occasionally,3.4,2,Romantic,Early Dinner,False,False,True,Premium,0
+U0580,False,36-45,0.0,3.2,361.33,Bi-weekly,57.4,2,Romantic,Late Dinner,False,False,True,Mid-range,0
+U0581,False,36-45,0.0,4.0,572.1,Monthly,75.6,4,Friends,Prime Dinner,False,True,True,Mid-range,0
+U0582,False,36-45,0.0,4.2,322.44,Weekly,99.8,2,Celebration,Early Dinner,False,False,True,Premium,0
+U0583,False,65+,0.0,3.0,314.21,Bi-weekly,51.7,2,Business,Lunch,False,False,True,Budget,0
+U0584,False,56-65,0.0,3.7,391.41,Occasionally,41.0,2,Business,Lunch,False,False,True,Mid-range,0
+U0585,False,36-45,0.0,5.0,350.36,Weekly,86.7,2,Casual,Early Dinner,False,True,True,Premium,0
+U0586,False,36-45,0.0,3.9,380.1,Occasionally,75.4,2,Family,Prime Dinner,False,False,True,Budget,0
+U0587,False,26-35,0.0,1.7,378.29,Monthly,31.4,4,Friends,Prime Dinner,True,False,False,Budget,0
+U0588,False,36-45,0.0,5.0,477.01,Occasionally,26.2,4,Friends,Lunch,False,False,True,Mid-range,0
+U0589,False,26-35,0.0,4.0,556.72,Monthly,23.4,6,Family,Lunch,False,True,True,Mid-range,0
+U0590,False,36-45,0.0,2.8,562.5,Occasionally,56.0,6,Business,Lunch,False,False,True,Premium,0
+U0591,False,36-45,0.0,4.7,266.29,Monthly,8.3,2,Family,Prime Dinner,True,True,True,Budget,0
+U0592,True,56-65,0.0,4.3,545.52,Bi-weekly,85.4,4,Family,Prime Dinner,False,False,False,Mid-range,0
+U0593,False,46-55,0.0,4.1,277.07,Bi-weekly,56.9,2,Romantic,Late Dinner,False,False,False,Budget,0
+U0594,False,26-35,0.0,4.9,430.74,Monthly,66.2,2,Friends,Early Dinner,False,True,True,Mid-range,0
+U0595,False,36-45,0.0,3.6,387.63,Occasionally,44.0,6,Friends,Early Dinner,False,False,True,Mid-range,0
+U0596,False,46-55,0.0,3.2,424.7,Rarely,32.6,4,Family,Early Dinner,False,False,False,Budget,0
+U0597,False,46-55,0.0,4.1,379.87,Monthly,2.3,2,Casual,Lunch,False,True,True,Budget,0
+U0598,False,36-45,0.0,4.3,268.4,Occasionally,62.3,2,Friends,Lunch,True,False,True,Mid-range,0
+U0599,True,26-35,0.0,4.9,524.15,Monthly,89.6,4,Romantic,Prime Dinner,False,True,False,Mid-range,0
+U0600,True,46-55,0.0,5.0,602.63,Monthly,25.7,8,Romantic,Late Dinner,False,True,True,Mid-range,0
+U0601,False,46-55,0.0,4.1,478.16,Monthly,12.0,4,Celebration,Early Dinner,True,False,True,Mid-range,0
+U0602,False,26-35,0.0,4.3,287.04,Occasionally,23.6,2,Casual,Lunch,False,True,False,Mid-range,0
+U0603,False,18-25,0.0,4.0,463.12,Monthly,83.0,4,Family,Lunch,False,True,False,Budget,0
+U0604,False,26-35,0.0,3.1,502.67,Monthly,1.4,2,Family,Lunch,False,False,False,Mid-range,0
+U0605,False,26-35,0.0,3.1,357.78,Rarely,19.5,2,Family,Early Dinner,True,False,False,Budget,0
+U0606,False,46-55,0.0,5.0,497.56,Bi-weekly,29.8,6,Family,Lunch,True,False,True,Budget,0
+U0607,False,26-35,0.0,5.0,301.96,Bi-weekly,28.3,2,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0608,False,56-65,0.0,5.0,373.39,Weekly,89.5,2,Celebration,Late Dinner,True,False,True,Premium,0
+U0609,False,46-55,0.0,3.6,339.12,Bi-weekly,9.0,2,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0610,False,36-45,0.0,3.8,498.68,Monthly,61.6,4,Family,Lunch,True,False,True,Mid-range,0
+U0611,False,36-45,0.0,3.2,415.41,Bi-weekly,18.3,4,Friends,Prime Dinner,True,False,False,Mid-range,0
+U0612,False,36-45,0.0,4.6,633.63,Occasionally,45.1,6,Family,Lunch,False,True,True,Premium,0
+U0613,False,46-55,0.0,4.5,574.48,Rarely,87.1,6,Celebration,Lunch,False,False,True,Budget,0
+U0614,False,65+,0.0,2.8,465.48,Occasionally,37.3,4,Celebration,Early Dinner,False,False,True,Budget,0
+U0615,False,26-35,0.0,3.9,387.24,Occasionally,66.7,4,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0616,False,18-25,0.0,2.0,495.9,Occasionally,42.1,4,Business,Late Dinner,False,False,True,Budget,0
+U0617,True,65+,0.0,3.7,735.54,Monthly,66.9,6,Casual,Lunch,True,False,False,Mid-range,0
+U0618,False,36-45,0.0,4.4,304.21,Occasionally,93.0,2,Celebration,Early Dinner,False,False,True,Mid-range,0
+U0619,False,46-55,0.0,4.9,340.82,Rarely,65.8,2,Business,Prime Dinner,False,True,True,Mid-range,0
+U0620,False,65+,0.0,3.2,463.92,Rarely,83.6,6,Business,Lunch,True,False,True,Budget,0
+U0621,False,18-25,0.0,3.7,521.06,Monthly,74.8,4,Celebration,Prime Dinner,True,False,False,Budget,0
+U0622,False,65+,0.0,5.0,391.04,Monthly,53.1,2,Friends,Early Dinner,False,True,True,Mid-range,0
+U0623,False,26-35,0.0,3.4,455.65,Occasionally,34.2,4,Friends,Early Dinner,False,False,True,Mid-range,0
+U0624,False,46-55,0.0,2.8,605.32,Bi-weekly,22.4,4,Business,Prime Dinner,True,False,False,Premium,0
+U0625,False,56-65,0.0,3.0,405.33,Monthly,82.5,4,Romantic,Late Dinner,False,False,False,Mid-range,0
+U0626,False,36-45,0.0,3.6,570.76,Monthly,23.1,6,Celebration,Prime Dinner,False,False,False,Premium,0
+U0627,False,46-55,0.0,4.2,322.45,Monthly,60.3,2,Business,Lunch,False,False,False,Mid-range,0
+U0628,False,26-35,0.0,4.2,398.4,Occasionally,18.9,6,Casual,Prime Dinner,False,False,True,Budget,0
+U0629,False,46-55,0.0,3.6,434.08,Weekly,52.7,4,Romantic,Lunch,False,True,True,Mid-range,0
+U0630,False,56-65,0.0,4.1,595.21,Occasionally,43.8,6,Casual,Early Dinner,False,True,True,Mid-range,0
+U0631,False,26-35,0.0,5.0,570.51,Bi-weekly,80.8,4,Casual,Late Dinner,True,False,False,Mid-range,0
+U0632,False,26-35,0.0,4.2,489.77,Bi-weekly,67.1,4,Romantic,Prime Dinner,True,False,False,Premium,0
+U0633,False,18-25,0.0,4.6,540.88,Occasionally,52.3,6,Celebration,Prime Dinner,False,True,True,Mid-range,0
+U0634,False,26-35,0.0,4.0,581.07,Bi-weekly,16.9,6,Family,Prime Dinner,False,False,False,Mid-range,0
+U0635,False,36-45,0.0,4.7,470.99,Occasionally,10.0,4,Friends,Lunch,True,False,True,Budget,0
+U0636,True,18-25,0.0,3.2,411.68,Monthly,36.7,4,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0637,False,26-35,0.0,4.3,403.63,Monthly,14.0,2,Celebration,Prime Dinner,False,False,True,Budget,0
+U0638,True,18-25,0.0,4.2,466.74,Monthly,63.4,6,Family,Late Dinner,False,True,True,Mid-range,0
+U0639,False,56-65,0.0,3.1,531.62,Bi-weekly,74.2,4,Casual,Late Dinner,False,True,False,Mid-range,0
+U0640,False,26-35,0.0,4.3,336.79,Occasionally,88.2,2,Romantic,Late Dinner,False,False,True,Budget,0
+U0641,False,56-65,0.0,4.3,539.47,Bi-weekly,33.9,4,Celebration,Prime Dinner,False,False,False,Premium,0
+U0642,False,36-45,0.0,4.8,419.47,Occasionally,93.3,2,Celebration,Early Dinner,False,False,False,Budget,0
+U0643,False,36-45,0.0,3.7,449.97,Bi-weekly,65.2,4,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0644,False,46-55,0.0,2.9,516.26,Weekly,31.8,6,Romantic,Late Dinner,False,True,False,Budget,0
+U0645,False,26-35,0.0,2.3,393.08,Rarely,58.7,2,Business,Late Dinner,False,True,True,Premium,0
+U0646,False,36-45,0.0,3.5,437.46,Occasionally,18.4,2,Business,Lunch,False,False,True,Mid-range,0
+U0647,False,36-45,0.0,2.0,403.25,Monthly,23.7,4,Friends,Early Dinner,False,True,True,Premium,0
+U0648,False,46-55,0.0,3.4,513.86,Bi-weekly,64.6,4,Celebration,Late Dinner,False,False,True,Budget,0
+U0649,False,26-35,0.0,2.5,505.57,Occasionally,37.5,4,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0650,False,26-35,0.0,5.0,674.37,Monthly,87.1,8,Romantic,Prime Dinner,False,False,False,Mid-range,0
+U0651,False,18-25,0.0,5.0,397.55,Monthly,38.4,2,Romantic,Late Dinner,False,False,True,Mid-range,0
+U0652,False,56-65,0.0,4.0,544.93,Monthly,98.3,4,Romantic,Lunch,False,True,False,Budget,0
+U0653,False,26-35,0.0,4.7,375.31,Monthly,8.8,4,Romantic,Prime Dinner,True,False,True,Mid-range,0
+U0654,False,46-55,0.0,3.5,511.25,Occasionally,41.1,4,Romantic,Prime Dinner,True,True,False,Budget,0
+U0655,False,36-45,0.0,4.3,401.5,Occasionally,76.9,2,Friends,Prime Dinner,False,True,False,Premium,0
+U0656,False,36-45,0.0,3.7,386.44,Monthly,64.8,2,Family,Prime Dinner,True,False,False,Mid-range,0
+U0657,False,26-35,0.0,4.2,595.27,Bi-weekly,78.5,6,Celebration,Early Dinner,False,False,False,Premium,0
+U0658,False,46-55,0.0,3.6,601.92,Rarely,59.8,6,Casual,Prime Dinner,True,False,True,Budget,0
+U0659,False,18-25,0.0,3.0,390.72,Bi-weekly,92.2,2,Business,Prime Dinner,True,False,False,Premium,0
+U0660,False,46-55,0.0,4.0,450.25,Occasionally,83.9,4,Celebration,Lunch,False,False,True,Mid-range,0
+U0661,False,26-35,0.0,3.3,441.22,Occasionally,70.5,2,Casual,Early Dinner,False,False,True,Premium,0
+U0662,True,46-55,0.0,3.2,309.23,Monthly,67.4,2,Romantic,Early Dinner,False,False,True,Budget,0
+U0663,False,18-25,0.0,3.3,523.52,Occasionally,25.0,6,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0664,True,26-35,0.0,4.5,526.47,Monthly,61.1,4,Family,Early Dinner,False,True,False,Budget,0
+U0665,True,26-35,0.0,4.5,544.57,Occasionally,88.8,6,Celebration,Early Dinner,False,True,False,Mid-range,0
+U0666,False,18-25,0.0,3.9,633.95,Occasionally,69.3,6,Family,Lunch,True,True,True,Premium,0
+U0667,False,46-55,0.0,4.0,368.63,Monthly,33.3,2,Friends,Lunch,True,False,False,Mid-range,0
+U0668,False,36-45,0.0,3.7,556.68,Monthly,58.5,4,Business,Lunch,True,False,False,Mid-range,0
+U0669,False,26-35,0.0,5.0,407.02,Monthly,97.6,2,Romantic,Late Dinner,False,True,False,Budget,0
+U0670,False,36-45,0.0,2.9,365.11,Rarely,4.7,2,Celebration,Late Dinner,False,False,False,Mid-range,0
+U0671,False,46-55,0.0,3.2,422.41,Occasionally,28.0,2,Business,Late Dinner,False,False,True,Mid-range,0
+U0672,False,46-55,0.0,5.0,411.44,Bi-weekly,0.0,2,Romantic,Late Dinner,False,False,True,Budget,0
+U0673,False,18-25,0.0,3.9,557.47,Rarely,96.4,6,Family,Early Dinner,False,False,False,Mid-range,0
+U0674,False,36-45,0.0,3.5,383.56,Bi-weekly,92.1,2,Business,Lunch,True,True,False,Mid-range,0
+U0675,False,26-35,0.0,2.9,504.92,Bi-weekly,78.3,4,Celebration,Late Dinner,True,False,False,Budget,0
+U0676,False,65+,0.0,2.7,502.64,Bi-weekly,19.5,4,Romantic,Lunch,False,True,True,Mid-range,0
+U0677,True,46-55,0.0,3.4,464.43,Occasionally,24.1,4,Friends,Lunch,True,True,False,Budget,0
+U0678,False,56-65,0.0,3.6,450.29,Monthly,67.7,2,Friends,Early Dinner,False,True,True,Mid-range,0
+U0679,False,26-35,0.0,3.3,374.06,Monthly,17.4,2,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0680,False,46-55,0.0,3.6,438.56,Weekly,87.1,4,Romantic,Late Dinner,True,False,True,Mid-range,0
+U0681,False,26-35,0.0,3.8,641.47,Weekly,79.7,6,Romantic,Early Dinner,False,True,True,Mid-range,0
+U0682,False,36-45,0.0,2.9,516.22,Weekly,2.4,4,Family,Early Dinner,False,False,True,Mid-range,0
+U0683,False,36-45,0.0,4.9,532.78,Monthly,25.2,4,Celebration,Lunch,False,False,False,Mid-range,0
+U0684,False,65+,0.0,3.8,624.79,Occasionally,60.5,6,Casual,Prime Dinner,False,False,True,Mid-range,0
+U0685,False,36-45,0.0,3.1,365.73,Occasionally,22.6,2,Business,Early Dinner,False,True,False,Mid-range,0
+U0686,False,18-25,0.0,4.3,483.3,Occasionally,43.7,6,Family,Prime Dinner,False,False,False,Budget,0
+U0687,True,46-55,0.0,5.0,484.28,Weekly,24.0,4,Friends,Late Dinner,True,False,False,Premium,0
+U0688,False,18-25,0.0,1.7,529.33,Monthly,86.0,6,Family,Prime Dinner,False,False,False,Mid-range,0
+U0689,False,56-65,0.0,5.0,371.76,Rarely,21.1,2,Romantic,Prime Dinner,True,True,True,Budget,0
+U0690,False,46-55,0.0,4.3,476.13,Occasionally,94.1,4,Casual,Early Dinner,False,False,True,Mid-range,0
+U0691,False,36-45,0.0,5.0,510.11,Monthly,83.0,6,Family,Late Dinner,False,True,True,Mid-range,0
+U0692,False,18-25,0.0,3.6,553.99,Occasionally,81.3,4,Friends,Late Dinner,True,True,True,Mid-range,0
+U0693,False,18-25,0.0,3.8,523.18,Bi-weekly,39.7,4,Celebration,Late Dinner,False,False,False,Mid-range,0
+U0694,False,46-55,0.0,3.1,389.75,Monthly,66.3,2,Business,Prime Dinner,False,False,True,Budget,0
+U0695,True,56-65,0.0,4.5,348.67,Bi-weekly,59.0,4,Friends,Late Dinner,False,False,True,Mid-range,0
+U0696,False,36-45,0.0,4.8,557.76,Occasionally,0.4,8,Celebration,Early Dinner,False,False,True,Premium,0
+U0697,True,26-35,0.0,4.3,404.47,Monthly,76.1,2,Romantic,Late Dinner,True,True,True,Premium,0
+U0698,True,18-25,0.0,5.0,368.72,Monthly,87.2,2,Business,Prime Dinner,False,False,True,Mid-range,0
+U0699,False,18-25,0.0,3.6,439.61,Occasionally,74.7,2,Romantic,Late Dinner,False,False,True,Mid-range,0
+U0700,False,18-25,0.0,4.2,579.34,Monthly,89.6,2,Friends,Early Dinner,True,False,True,Budget,0
+U0701,False,36-45,0.0,4.7,622.97,Occasionally,99.6,6,Romantic,Early Dinner,False,False,True,Mid-range,0
+U0702,False,26-35,0.0,3.5,456.83,Monthly,72.1,4,Family,Early Dinner,True,True,True,Budget,0
+U0703,True,46-55,0.0,4.3,479.73,Monthly,1.8,6,Celebration,Early Dinner,False,True,True,Mid-range,0
+U0704,False,56-65,0.0,3.6,493.57,Weekly,13.9,6,Romantic,Late Dinner,False,False,True,Premium,0
+U0705,False,18-25,0.0,3.8,451.93,Occasionally,18.6,4,Casual,Late Dinner,True,True,False,Premium,0
+U0706,False,46-55,0.0,4.4,624.76,Occasionally,45.2,4,Celebration,Late Dinner,False,False,False,Budget,0
+U0707,False,36-45,0.0,5.0,439.88,Bi-weekly,54.1,4,Business,Early Dinner,False,False,False,Budget,0
+U0708,False,26-35,0.0,4.2,633.39,Bi-weekly,39.8,6,Friends,Early Dinner,False,False,False,Premium,0
+U0709,False,36-45,0.0,5.0,322.32,Occasionally,6.7,2,Friends,Lunch,False,False,True,Budget,0
+U0710,False,36-45,0.0,3.3,712.14,Occasionally,91.9,6,Celebration,Late Dinner,False,False,False,Premium,0
+U0711,False,56-65,0.0,5.0,411.82,Monthly,29.4,2,Romantic,Early Dinner,False,True,True,Budget,0
+U0712,False,26-35,0.0,3.0,462.08,Bi-weekly,53.8,2,Friends,Late Dinner,False,False,True,Budget,0
+U0713,False,26-35,0.0,4.0,530.14,Bi-weekly,75.3,4,Celebration,Prime Dinner,False,False,True,Budget,0
+U0714,False,46-55,0.0,3.9,370.31,Occasionally,42.4,4,Casual,Prime Dinner,False,False,True,Budget,0
+U0715,False,36-45,0.0,4.2,315.28,Rarely,63.6,2,Casual,Late Dinner,True,False,False,Mid-range,0
+U0716,False,46-55,0.0,4.0,321.11,Occasionally,97.8,2,Business,Prime Dinner,False,False,True,Mid-range,0
+U0717,False,46-55,0.0,3.8,613.03,Monthly,30.6,6,Family,Prime Dinner,False,True,True,Premium,0
+U0718,False,56-65,0.0,5.0,518.55,Monthly,47.9,4,Celebration,Prime Dinner,True,False,True,Mid-range,0
+U0719,False,56-65,0.0,3.9,532.22,Monthly,6.4,8,Business,Prime Dinner,False,True,False,Premium,0
+U0720,False,26-35,0.0,4.0,494.5,Monthly,90.4,4,Family,Prime Dinner,True,False,True,Budget,0
+U0721,False,65+,0.0,3.6,543.04,Rarely,79.1,6,Romantic,Early Dinner,False,False,False,Mid-range,0
+U0722,False,18-25,0.0,4.0,356.13,Bi-weekly,62.8,2,Business,Prime Dinner,False,False,True,Budget,0
+U0723,False,46-55,0.0,4.6,422.03,Occasionally,74.3,4,Celebration,Prime Dinner,False,False,True,Premium,0
+U0724,False,46-55,0.0,4.4,375.32,Weekly,94.3,2,Friends,Lunch,False,False,False,Premium,0
+U0725,False,46-55,0.0,3.9,535.28,Occasionally,44.8,4,Business,Late Dinner,False,True,False,Mid-range,0
+U0726,False,18-25,0.0,2.6,400.44,Monthly,76.1,2,Family,Prime Dinner,True,True,False,Budget,0
+U0727,False,36-45,0.0,5.0,671.49,Rarely,41.8,4,Friends,Lunch,False,False,False,Budget,0
+U0728,False,46-55,0.0,3.4,433.85,Bi-weekly,17.0,6,Romantic,Late Dinner,True,False,False,Budget,0
+U0729,False,26-35,0.0,3.3,431.2,Bi-weekly,85.8,4,Friends,Late Dinner,True,True,False,Premium,0
+U0730,True,26-35,0.0,3.7,465.25,Occasionally,14.1,4,Celebration,Early Dinner,False,True,False,Mid-range,0
+U0731,False,46-55,0.0,4.2,442.23,Monthly,68.7,4,Business,Late Dinner,False,True,True,Mid-range,0
+U0732,False,46-55,0.0,4.0,603.36,Monthly,29.4,6,Business,Late Dinner,True,False,True,Mid-range,0
+U0733,False,18-25,0.0,4.8,399.7,Occasionally,32.9,2,Family,Prime Dinner,True,False,True,Budget,0
+U0734,False,26-35,0.0,2.9,410.84,Bi-weekly,58.4,2,Friends,Late Dinner,True,False,False,Mid-range,0
+U0735,False,56-65,0.0,3.4,407.76,Weekly,4.5,4,Business,Late Dinner,False,False,True,Budget,0
+U0736,False,56-65,0.0,5.0,345.22,Monthly,62.2,2,Romantic,Late Dinner,True,True,True,Mid-range,0
+U0737,False,36-45,0.0,4.5,691.26,Occasionally,13.4,6,Casual,Late Dinner,False,False,True,Budget,0
+U0738,False,46-55,0.0,3.8,664.95,Weekly,44.3,6,Family,Prime Dinner,True,True,True,Budget,0
+U0739,False,18-25,0.0,3.8,618.38,Monthly,14.0,6,Business,Late Dinner,True,False,True,Mid-range,0
+U0740,False,26-35,0.0,4.0,391.87,Monthly,87.2,2,Friends,Lunch,False,True,True,Budget,0
+U0741,False,46-55,0.0,5.0,364.88,Bi-weekly,11.0,2,Business,Early Dinner,True,True,False,Budget,0
+U0742,False,56-65,0.0,4.5,449.96,Occasionally,10.8,4,Romantic,Early Dinner,False,True,True,Mid-range,0
+U0743,False,36-45,0.0,3.7,435.04,Occasionally,81.0,2,Casual,Late Dinner,False,False,True,Budget,0
+U0744,False,26-35,0.0,3.4,513.76,Bi-weekly,77.3,6,Celebration,Late Dinner,True,True,True,Mid-range,0
+U0745,True,56-65,0.0,5.0,499.63,Weekly,59.2,4,Business,Early Dinner,False,True,True,Premium,0
+U0746,False,46-55,0.0,4.5,388.41,Monthly,32.9,2,Romantic,Late Dinner,False,True,True,Mid-range,0
+U0747,False,46-55,0.0,4.4,300.75,Occasionally,81.8,2,Family,Lunch,True,False,True,Mid-range,0
+U0748,False,36-45,0.0,3.9,295.92,Bi-weekly,10.8,2,Celebration,Late Dinner,True,True,True,Mid-range,0
+U0749,False,56-65,0.0,5.0,433.24,Rarely,28.7,4,Celebration,Lunch,False,False,True,Mid-range,0
+U0750,False,26-35,0.0,3.9,247.87,Weekly,27.3,2,Celebration,Early Dinner,True,True,False,Budget,0
+U0751,False,56-65,0.0,5.0,426.3,Monthly,36.4,2,Business,Prime Dinner,False,False,True,Mid-range,0
+U0752,False,46-55,0.0,3.2,464.78,Monthly,42.5,4,Casual,Lunch,True,False,False,Mid-range,0
+U0753,False,36-45,0.0,3.2,550.59,Occasionally,94.2,4,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0754,False,46-55,0.0,2.9,533.61,Bi-weekly,50.5,4,Celebration,Late Dinner,False,True,True,Mid-range,0
+U0755,False,18-25,0.0,4.6,477.83,Bi-weekly,20.5,6,Family,Lunch,False,False,True,Mid-range,0
+U0756,False,26-35,0.0,4.7,333.51,Monthly,61.2,2,Romantic,Prime Dinner,False,True,True,Mid-range,0
+U0757,False,36-45,0.0,3.0,525.14,Weekly,12.5,4,Celebration,Lunch,False,False,False,Mid-range,0
+U0758,False,26-35,0.0,4.1,503.08,Monthly,23.9,6,Celebration,Lunch,False,False,True,Mid-range,0
+U0759,False,18-25,0.0,4.3,515.61,Occasionally,58.5,4,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0760,False,46-55,0.0,4.5,318.44,Rarely,47.5,2,Friends,Lunch,False,False,True,Mid-range,0
+U0761,False,46-55,0.0,3.4,629.4,Monthly,83.4,6,Business,Early Dinner,False,True,True,Mid-range,0
+U0762,False,46-55,0.0,4.0,456.73,Bi-weekly,24.0,4,Friends,Lunch,True,True,False,Mid-range,0
+U0763,False,36-45,0.0,3.7,637.39,Bi-weekly,43.8,6,Casual,Late Dinner,False,False,True,Budget,0
+U0764,True,18-25,0.0,3.5,516.69,Occasionally,19.1,4,Friends,Prime Dinner,True,False,False,Mid-range,0
+U0765,False,26-35,0.0,5.0,446.6,Bi-weekly,84.3,4,Romantic,Early Dinner,False,True,True,Premium,0
+U0766,False,36-45,0.0,2.9,485.98,Bi-weekly,87.5,6,Casual,Late Dinner,False,False,True,Budget,0
+U0767,False,36-45,0.0,2.7,353.18,Monthly,45.1,2,Family,Early Dinner,False,True,True,Premium,0
+U0768,False,26-35,0.0,4.7,505.7,Occasionally,52.1,4,Business,Prime Dinner,False,True,False,Mid-range,0
+U0769,False,36-45,0.0,2.8,382.83,Bi-weekly,12.6,2,Family,Prime Dinner,False,True,True,Mid-range,0
+U0770,False,36-45,0.0,4.9,479.6,Weekly,30.8,6,Casual,Late Dinner,False,False,True,Mid-range,0
+U0771,False,18-25,0.0,3.9,320.85,Occasionally,50.7,2,Friends,Lunch,True,True,True,Mid-range,0
+U0772,False,46-55,0.0,3.1,644.15,Occasionally,75.8,6,Family,Prime Dinner,True,False,True,Mid-range,0
+U0773,False,26-35,0.0,4.3,637.69,Weekly,93.5,6,Friends,Late Dinner,False,True,False,Mid-range,0
+U0774,False,46-55,0.0,4.4,397.53,Occasionally,94.9,4,Business,Prime Dinner,False,False,True,Budget,0
+U0775,True,56-65,0.0,4.4,471.05,Occasionally,49.4,6,Friends,Late Dinner,False,False,True,Budget,0
+U0776,False,56-65,0.0,3.5,322.25,Monthly,78.6,2,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0777,False,56-65,0.0,3.7,369.88,Monthly,90.5,2,Family,Early Dinner,True,False,True,Mid-range,0
+U0778,False,26-35,0.0,4.3,599.54,Monthly,69.5,6,Family,Lunch,True,True,False,Budget,0
+U0779,False,26-35,0.0,2.8,589.18,Occasionally,56.1,6,Romantic,Late Dinner,False,True,False,Mid-range,0
+U0780,False,26-35,0.0,2.7,310.96,Occasionally,11.3,2,Celebration,Early Dinner,False,False,True,Mid-range,0
+U0781,False,36-45,0.0,4.8,359.16,Occasionally,8.0,2,Friends,Prime Dinner,False,False,True,Premium,0
+U0782,False,46-55,0.0,4.3,465.77,Monthly,71.5,4,Family,Early Dinner,True,True,True,Premium,0
+U0783,False,36-45,0.0,3.4,395.33,Weekly,0.8,6,Family,Lunch,False,False,False,Mid-range,0
+U0784,True,18-25,0.0,5.0,546.01,Monthly,9.6,4,Family,Early Dinner,False,False,True,Budget,0
+U0785,False,26-35,0.0,5.0,488.89,Weekly,14.2,4,Friends,Lunch,False,True,True,Mid-range,0
+U0786,False,46-55,0.0,4.5,307.05,Weekly,55.9,2,Business,Prime Dinner,False,False,True,Mid-range,0
+U0787,False,18-25,0.0,3.8,501.13,Bi-weekly,45.6,6,Family,Lunch,False,False,True,Mid-range,0
+U0788,False,26-35,0.0,3.8,426.91,Occasionally,79.3,2,Casual,Late Dinner,True,False,True,Budget,0
+U0789,False,56-65,0.0,3.9,375.35,Bi-weekly,81.3,4,Friends,Lunch,False,True,False,Budget,0
+U0790,False,65+,0.0,5.0,689.06,Rarely,91.8,6,Celebration,Lunch,False,False,False,Mid-range,0
+U0791,False,46-55,0.0,4.2,567.11,Rarely,0.6,6,Romantic,Early Dinner,False,True,True,Budget,0
+U0792,False,26-35,0.0,4.6,413.0,Weekly,21.0,2,Friends,Late Dinner,False,True,False,Mid-range,0
+U0793,False,18-25,0.0,3.5,582.86,Monthly,95.9,4,Family,Early Dinner,False,False,True,Premium,0
+U0794,False,18-25,0.0,4.1,549.72,Monthly,49.1,6,Celebration,Prime Dinner,True,False,True,Budget,0
+U0795,False,65+,0.0,3.4,346.99,Occasionally,2.1,2,Business,Late Dinner,False,False,True,Mid-range,0
+U0796,False,36-45,0.0,3.4,432.93,Occasionally,10.7,4,Family,Lunch,False,True,True,Budget,0
+U0797,False,18-25,0.0,2.9,391.54,Weekly,50.7,4,Family,Prime Dinner,False,True,True,Mid-range,0
+U0798,False,46-55,0.0,4.7,596.62,Occasionally,84.3,6,Romantic,Prime Dinner,True,False,False,Budget,0
+U0799,False,36-45,0.0,4.3,604.88,Monthly,14.5,6,Business,Lunch,False,True,True,Budget,0
+U0800,False,18-25,0.0,2.6,508.53,Rarely,72.7,6,Family,Early Dinner,False,False,False,Mid-range,0
+U0801,False,46-55,0.0,4.0,512.31,Bi-weekly,35.8,6,Celebration,Early Dinner,False,True,False,Budget,0
+U0802,False,46-55,0.0,2.8,328.04,Weekly,86.0,2,Business,Late Dinner,True,True,False,Mid-range,0
+U0803,False,46-55,0.0,3.7,447.26,Rarely,23.4,4,Friends,Lunch,False,False,False,Budget,0
+U0804,False,65+,0.0,5.0,559.27,Rarely,60.3,6,Business,Prime Dinner,False,False,True,Budget,0
+U0805,False,46-55,0.0,2.9,332.16,Occasionally,28.7,2,Business,Early Dinner,False,True,False,Budget,0
+U0806,False,26-35,0.0,4.3,365.77,Bi-weekly,56.0,2,Celebration,Late Dinner,False,False,True,Mid-range,0
+U0807,False,26-35,0.0,5.0,370.89,Bi-weekly,38.8,2,Casual,Lunch,False,True,True,Mid-range,0
+U0808,True,26-35,0.0,3.7,437.77,Monthly,91.4,4,Friends,Early Dinner,False,False,True,Mid-range,0
+U0809,False,18-25,0.0,3.8,374.73,Rarely,55.2,4,Casual,Prime Dinner,False,False,False,Mid-range,0
+U0810,False,26-35,0.0,4.9,581.6,Occasionally,0.3,4,Romantic,Prime Dinner,False,False,False,Budget,0
+U0811,False,36-45,0.0,3.4,472.74,Monthly,17.0,4,Business,Early Dinner,False,True,True,Premium,0
+U0812,False,46-55,0.0,3.3,448.43,Occasionally,18.6,4,Business,Late Dinner,False,True,False,Mid-range,0
+U0813,True,18-25,0.0,4.8,432.52,Bi-weekly,0.9,4,Friends,Late Dinner,False,False,False,Mid-range,0
+U0814,False,18-25,0.0,2.9,401.72,Occasionally,10.6,4,Business,Late Dinner,False,True,True,Mid-range,0
+U0815,False,36-45,0.0,4.5,358.78,Occasionally,76.1,2,Friends,Prime Dinner,False,False,True,Budget,0
+U0816,False,65+,0.0,3.0,465.3,Bi-weekly,99.5,6,Family,Early Dinner,False,False,False,Budget,0
+U0817,True,26-35,0.0,4.0,365.45,Occasionally,2.0,2,Friends,Lunch,False,False,True,Mid-range,0
+U0818,False,26-35,0.0,2.8,345.68,Monthly,93.0,2,Celebration,Lunch,False,False,False,Mid-range,0
+U0819,False,46-55,0.0,3.2,313.39,Bi-weekly,82.8,2,Casual,Lunch,False,False,False,Mid-range,0
+U0820,False,26-35,0.0,4.1,422.54,Occasionally,67.9,8,Friends,Lunch,False,True,True,Mid-range,0
+U0821,False,26-35,0.0,3.8,538.86,Monthly,73.0,6,Business,Early Dinner,False,False,False,Mid-range,0
+U0822,False,46-55,0.0,4.4,492.45,Occasionally,59.1,8,Friends,Early Dinner,False,True,True,Mid-range,0
+U0823,False,36-45,0.0,3.3,488.15,Occasionally,84.9,8,Celebration,Late Dinner,True,False,True,Mid-range,0
+U0824,False,36-45,0.0,3.6,568.88,Rarely,28.6,6,Casual,Prime Dinner,False,False,True,Budget,0
+U0825,False,36-45,0.0,5.0,385.62,Bi-weekly,36.5,2,Business,Late Dinner,False,True,True,Budget,0
+U0826,True,56-65,0.0,2.5,555.08,Weekly,81.2,4,Business,Prime Dinner,False,True,True,Premium,0
+U0827,False,46-55,0.0,4.2,380.46,Occasionally,91.7,2,Business,Lunch,True,False,True,Mid-range,0
+U0828,False,26-35,0.0,3.1,418.53,Occasionally,15.0,2,Casual,Late Dinner,False,True,True,Mid-range,0
+U0829,False,26-35,0.0,3.9,278.98,Rarely,100.0,2,Business,Late Dinner,False,False,False,Budget,0
+U0830,False,46-55,0.0,3.3,650.44,Occasionally,67.7,6,Romantic,Prime Dinner,True,True,True,Budget,0
+U0831,False,56-65,0.0,4.1,489.42,Occasionally,44.0,6,Celebration,Late Dinner,True,False,True,Budget,0
+U0832,False,36-45,0.0,2.6,374.99,Occasionally,23.4,2,Friends,Early Dinner,False,True,False,Budget,0
+U0833,False,36-45,0.0,3.9,402.73,Monthly,18.6,4,Business,Late Dinner,True,False,False,Mid-range,0
+U0834,False,36-45,0.0,3.4,572.42,Occasionally,22.0,8,Family,Late Dinner,False,False,True,Mid-range,0
+U0835,False,36-45,0.0,2.9,303.66,Occasionally,37.4,2,Romantic,Prime Dinner,True,False,False,Mid-range,0
+U0836,False,26-35,0.0,3.6,471.55,Bi-weekly,88.6,4,Family,Prime Dinner,False,True,False,Premium,0
+U0837,False,46-55,0.0,3.4,353.95,Rarely,91.2,2,Family,Prime Dinner,True,True,True,Budget,0
+U0838,False,56-65,0.0,4.4,525.82,Occasionally,89.4,4,Romantic,Lunch,False,False,False,Premium,0
+U0839,False,26-35,0.0,3.9,404.32,Monthly,90.4,2,Celebration,Lunch,False,True,True,Budget,0
+U0840,True,36-45,0.0,5.0,541.19,Monthly,58.3,4,Celebration,Early Dinner,True,False,True,Mid-range,0
+U0841,False,26-35,0.0,2.9,514.82,Bi-weekly,98.3,4,Casual,Late Dinner,False,False,False,Mid-range,0
+U0842,False,26-35,0.0,4.8,518.72,Bi-weekly,3.2,4,Family,Prime Dinner,False,False,True,Premium,0
+U0843,False,36-45,0.0,3.7,452.94,Occasionally,58.9,4,Family,Early Dinner,False,True,True,Budget,0
+U0844,False,46-55,0.0,4.9,294.87,Bi-weekly,26.1,2,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0845,False,36-45,0.0,4.2,374.6,Monthly,9.4,2,Romantic,Lunch,True,False,True,Budget,0
+U0846,True,46-55,0.0,3.3,376.11,Weekly,64.6,2,Casual,Late Dinner,False,False,True,Budget,0
+U0847,False,36-45,0.0,3.6,371.6,Bi-weekly,46.9,2,Friends,Lunch,False,True,True,Budget,0
+U0848,False,56-65,0.0,4.0,470.99,Monthly,24.0,4,Casual,Late Dinner,False,False,False,Mid-range,0
+U0849,False,26-35,0.0,3.6,610.57,Weekly,39.2,6,Celebration,Late Dinner,False,True,False,Budget,0
+U0850,False,56-65,0.0,5.0,439.21,Bi-weekly,24.2,4,Romantic,Early Dinner,True,False,True,Mid-range,0
+U0851,False,26-35,0.0,5.0,528.54,Weekly,49.5,6,Business,Prime Dinner,False,False,False,Mid-range,0
+U0852,False,46-55,0.0,2.9,348.22,Occasionally,92.9,2,Romantic,Lunch,False,True,True,Mid-range,0
+U0853,False,46-55,0.0,4.5,382.45,Occasionally,16.7,2,Family,Early Dinner,False,True,True,Mid-range,0
+U0854,False,18-25,0.0,3.5,590.55,Occasionally,31.5,8,Casual,Prime Dinner,False,False,False,Budget,0
+U0855,False,36-45,0.0,3.5,598.76,Weekly,26.2,4,Family,Lunch,False,True,True,Premium,0
+U0856,False,36-45,0.0,4.5,744.46,Monthly,27.5,6,Family,Prime Dinner,False,False,False,Mid-range,0
+U0857,False,36-45,0.0,4.5,345.67,Bi-weekly,1.2,4,Friends,Prime Dinner,False,False,True,Budget,0
+U0858,False,36-45,0.0,3.9,594.96,Monthly,4.2,6,Family,Lunch,False,False,False,Mid-range,0
+U0859,False,36-45,0.0,5.0,442.82,Monthly,83.0,2,Casual,Early Dinner,True,False,False,Mid-range,0
+U0860,True,26-35,0.0,3.7,441.84,Monthly,61.9,4,Romantic,Early Dinner,False,True,True,Premium,0
+U0861,False,18-25,0.0,4.7,323.54,Monthly,90.8,2,Celebration,Prime Dinner,False,False,False,Mid-range,0
+U0862,False,26-35,0.0,3.2,347.86,Rarely,47.8,2,Friends,Early Dinner,False,False,True,Budget,0
+U0863,False,26-35,0.0,2.8,400.45,Occasionally,49.1,2,Casual,Lunch,True,False,True,Budget,0
+U0864,False,56-65,0.0,3.6,484.84,Occasionally,28.7,4,Casual,Early Dinner,False,True,False,Budget,0
+U0865,True,36-45,0.0,5.0,741.1,Occasionally,20.1,8,Romantic,Early Dinner,True,False,False,Premium,0
+U0866,False,26-35,0.0,3.4,439.33,Occasionally,59.9,4,Romantic,Prime Dinner,True,False,False,Mid-range,0
+U0867,False,18-25,0.0,4.0,339.83,Occasionally,18.3,2,Casual,Early Dinner,False,True,True,Mid-range,0
+U0868,False,18-25,0.0,4.4,532.55,Monthly,43.4,4,Business,Lunch,False,False,True,Budget,0
+U0869,False,26-35,0.0,4.5,593.28,Weekly,84.8,6,Celebration,Lunch,False,False,True,Mid-range,0
+U0870,False,26-35,0.0,4.0,508.38,Monthly,26.9,4,Romantic,Early Dinner,False,True,True,Budget,0
+U0871,False,36-45,0.0,3.9,445.19,Occasionally,55.9,2,Friends,Lunch,False,True,False,Budget,0
+U0872,False,26-35,0.0,3.4,534.7,Monthly,83.8,4,Casual,Lunch,False,False,True,Mid-range,0
+U0873,False,26-35,0.0,5.0,491.15,Weekly,76.0,4,Family,Lunch,False,True,True,Premium,0
+U0874,False,56-65,0.0,3.2,319.71,Rarely,95.2,2,Family,Prime Dinner,False,False,True,Mid-range,0
+U0875,False,46-55,0.0,4.4,691.56,Rarely,91.1,6,Business,Early Dinner,False,True,True,Budget,0
+U0876,False,26-35,0.0,4.0,378.1,Monthly,13.2,4,Romantic,Late Dinner,False,False,True,Mid-range,0
+U0877,False,46-55,0.0,4.1,331.36,Monthly,32.2,2,Friends,Prime Dinner,False,True,True,Mid-range,0
+U0878,False,26-35,0.0,4.5,374.98,Weekly,3.5,2,Celebration,Prime Dinner,False,True,True,Mid-range,0
+U0879,False,18-25,0.0,4.1,506.8,Weekly,32.7,4,Friends,Lunch,False,False,True,Mid-range,0
+U0880,False,36-45,0.0,3.2,567.23,Occasionally,9.0,4,Romantic,Late Dinner,False,True,False,Premium,0
+U0881,False,18-25,0.0,2.7,615.7,Occasionally,79.6,6,Casual,Late Dinner,False,False,True,Mid-range,0
+U0882,False,26-35,0.0,3.3,573.45,Weekly,40.9,8,Celebration,Late Dinner,False,False,False,Budget,0
+U0883,False,65+,0.0,3.2,397.98,Occasionally,85.8,2,Celebration,Prime Dinner,False,False,True,Mid-range,0
+U0884,False,26-35,0.0,4.0,422.68,Rarely,43.4,2,Family,Prime Dinner,False,True,True,Budget,0
+U0885,False,56-65,0.0,3.7,533.7,Monthly,99.1,4,Casual,Prime Dinner,False,True,False,Budget,0
+U0886,False,36-45,0.0,5.0,521.01,Monthly,62.6,4,Business,Late Dinner,True,False,False,Budget,0
+U0887,False,36-45,0.0,4.5,480.93,Bi-weekly,91.1,6,Family,Early Dinner,False,False,True,Mid-range,0
+U0888,False,36-45,0.0,3.1,569.37,Bi-weekly,34.8,4,Casual,Early Dinner,False,False,True,Mid-range,0
+U0889,False,26-35,0.0,4.8,505.53,Monthly,52.5,6,Friends,Late Dinner,True,True,True,Budget,0
+U0890,False,26-35,0.0,4.4,384.75,Monthly,75.1,4,Celebration,Late Dinner,False,True,False,Mid-range,0
+U0891,False,26-35,0.0,4.0,631.93,Monthly,36.2,6,Romantic,Late Dinner,False,True,False,Mid-range,0
+U0892,False,26-35,0.0,4.1,524.39,Occasionally,4.8,4,Friends,Late Dinner,False,False,True,Mid-range,0
+U0893,False,56-65,0.0,3.5,431.99,Monthly,18.2,4,Romantic,Prime Dinner,True,True,False,Budget,0
+U0894,False,18-25,0.0,3.5,394.87,Occasionally,73.2,6,Friends,Late Dinner,False,True,True,Budget,0
+U0895,False,36-45,0.0,4.2,421.39,Bi-weekly,80.9,4,Romantic,Lunch,True,True,False,Mid-range,0
+U0896,True,65+,0.0,3.9,390.86,Monthly,58.9,4,Romantic,Late Dinner,False,False,True,Budget,0
+U0897,False,36-45,0.0,4.4,355.96,Monthly,57.8,4,Business,Prime Dinner,False,False,True,Mid-range,0
+U0898,False,26-35,0.0,3.9,294.12,Rarely,52.4,2,Business,Lunch,True,True,False,Premium,0
+U0899,False,65+,0.0,4.0,354.14,Monthly,39.4,2,Business,Late Dinner,False,False,False,Budget,0
+U0900,True,36-45,0.0,3.1,416.82,Weekly,42.6,6,Celebration,Late Dinner,False,False,False,Mid-range,0
+U0901,False,36-45,0.0,3.9,456.32,Monthly,70.5,4,Romantic,Lunch,False,True,False,Mid-range,0
+U0902,False,26-35,0.0,3.6,476.68,Occasionally,43.4,4,Romantic,Lunch,False,False,True,Mid-range,0
+U0903,False,26-35,0.0,3.1,332.89,Bi-weekly,66.9,2,Celebration,Late Dinner,False,False,True,Budget,0
+U0904,False,36-45,0.0,2.9,469.29,Bi-weekly,19.6,6,Business,Early Dinner,False,False,True,Mid-range,0
+U0905,False,46-55,0.0,3.6,340.7,Bi-weekly,16.6,2,Celebration,Lunch,False,False,True,Mid-range,0
+U0906,False,26-35,0.0,4.1,753.61,Monthly,15.6,6,Family,Early Dinner,False,True,True,Mid-range,0
+U0907,False,46-55,0.0,3.2,523.04,Occasionally,10.6,4,Friends,Early Dinner,False,True,False,Mid-range,0
+U0908,False,65+,0.0,3.6,398.6,Bi-weekly,77.2,2,Celebration,Lunch,False,False,True,Mid-range,0
+U0909,False,18-25,0.0,4.9,550.68,Monthly,10.4,6,Romantic,Prime Dinner,False,True,True,Mid-range,0
+U0910,False,36-45,0.0,4.0,425.61,Bi-weekly,67.3,2,Casual,Late Dinner,False,False,True,Mid-range,0
+U0911,False,36-45,0.0,3.3,431.07,Occasionally,83.4,2,Business,Lunch,False,False,True,Mid-range,0
+U0912,False,36-45,0.0,4.7,278.36,Rarely,64.5,2,Business,Lunch,False,False,True,Mid-range,0
+U0913,False,26-35,0.0,3.1,318.26,Occasionally,95.6,2,Celebration,Early Dinner,False,False,True,Mid-range,0
+U0914,False,46-55,0.0,4.0,561.47,Occasionally,15.4,4,Friends,Late Dinner,False,True,True,Mid-range,0
+U0915,True,26-35,0.0,3.6,479.74,Monthly,97.1,6,Romantic,Prime Dinner,True,False,True,Budget,0
+U0916,False,46-55,0.0,5.0,364.72,Weekly,3.2,4,Friends,Lunch,True,False,False,Budget,0
+U0917,True,26-35,0.0,3.4,487.33,Monthly,96.6,4,Celebration,Prime Dinner,False,False,False,Budget,0
+U0918,False,56-65,0.0,3.1,639.42,Rarely,18.7,6,Family,Prime Dinner,True,False,True,Premium,0
+U0919,False,18-25,0.0,3.1,535.73,Rarely,91.3,6,Celebration,Early Dinner,False,False,False,Mid-range,0
+U0920,False,18-25,0.0,3.7,409.71,Occasionally,88.4,2,Romantic,Early Dinner,True,True,False,Mid-range,0
+U0921,False,26-35,0.0,4.2,298.32,Occasionally,25.4,2,Casual,Lunch,False,True,True,Mid-range,0
+U0922,False,46-55,0.0,3.2,461.36,Weekly,56.4,4,Friends,Lunch,False,True,False,Premium,0
+U0923,True,36-45,0.0,4.4,471.76,Bi-weekly,39.5,4,Family,Prime Dinner,False,False,False,Budget,0
+U0924,False,36-45,0.0,3.7,457.35,Occasionally,7.2,4,Celebration,Late Dinner,True,True,False,Premium,0
+U0925,False,46-55,0.0,4.7,575.29,Weekly,94.5,6,Romantic,Lunch,True,True,True,Premium,0
+U0926,False,36-45,0.0,4.5,522.2,Bi-weekly,71.3,6,Family,Early Dinner,False,False,False,Mid-range,0
+U0927,False,18-25,0.0,2.3,482.84,Monthly,25.3,4,Romantic,Early Dinner,True,False,False,Mid-range,0
+U0928,True,26-35,0.0,2.9,324.0,Bi-weekly,30.1,2,Friends,Early Dinner,True,True,False,Mid-range,0
+U0929,False,26-35,0.0,3.3,431.53,Monthly,6.1,2,Friends,Prime Dinner,True,False,False,Premium,0
+U0930,False,26-35,0.0,4.6,463.44,Monthly,68.9,4,Celebration,Prime Dinner,True,False,False,Mid-range,0
+U0931,False,46-55,0.0,4.5,448.24,Occasionally,76.7,4,Family,Prime Dinner,False,False,False,Mid-range,0
+U0932,False,26-35,0.0,3.7,405.65,Occasionally,3.0,2,Family,Prime Dinner,False,True,False,Mid-range,0
+U0933,False,36-45,0.0,5.0,607.66,Monthly,1.8,6,Friends,Lunch,False,False,True,Mid-range,0
+U0934,False,46-55,0.0,2.9,421.2,Occasionally,56.3,2,Business,Early Dinner,False,False,True,Premium,0
+U0935,True,26-35,0.0,3.7,547.56,Monthly,34.7,6,Business,Prime Dinner,False,False,True,Mid-range,0
+U0936,False,56-65,0.0,5.0,389.99,Occasionally,18.0,2,Friends,Prime Dinner,False,False,False,Mid-range,0
+U0937,False,46-55,0.0,4.1,272.09,Occasionally,41.7,2,Casual,Late Dinner,False,False,True,Budget,0
+U0938,False,36-45,0.0,3.5,388.88,Bi-weekly,32.5,2,Casual,Early Dinner,True,True,True,Mid-range,0
+U0939,False,26-35,0.0,4.6,626.45,Occasionally,35.2,4,Business,Late Dinner,False,True,True,Mid-range,0
+U0940,False,18-25,0.0,4.4,382.59,Occasionally,60.6,2,Friends,Lunch,True,False,False,Mid-range,0
+U0941,False,46-55,0.0,3.7,537.68,Rarely,83.7,6,Family,Late Dinner,True,True,True,Budget,0
+U0942,False,26-35,0.0,4.1,526.25,Monthly,27.1,4,Casual,Prime Dinner,False,False,True,Budget,0
+U0943,False,26-35,0.0,4.8,376.48,Occasionally,46.2,2,Business,Prime Dinner,True,True,False,Mid-range,0
+U0944,False,26-35,0.0,4.1,582.79,Bi-weekly,36.1,6,Friends,Late Dinner,False,True,False,Mid-range,0
+U0945,False,56-65,0.0,3.8,438.33,Monthly,27.3,4,Celebration,Lunch,True,True,False,Premium,0
+U0946,False,26-35,0.0,4.4,378.98,Occasionally,75.9,4,Friends,Prime Dinner,False,True,False,Budget,0
+U0947,True,46-55,0.0,4.4,418.09,Occasionally,89.3,2,Family,Lunch,False,True,True,Mid-range,0
+U0948,False,36-45,0.0,3.3,399.05,Bi-weekly,22.4,2,Friends,Early Dinner,False,False,True,Budget,0
+U0949,True,56-65,0.0,4.7,503.45,Bi-weekly,28.2,2,Romantic,Lunch,True,False,True,Mid-range,0
+U0950,False,26-35,0.0,5.0,722.17,Rarely,83.8,8,Casual,Lunch,True,False,True,Premium,0
+U0951,True,46-55,0.0,4.7,333.6,Occasionally,14.8,2,Family,Lunch,False,False,True,Mid-range,0
+U0952,False,46-55,0.0,5.0,581.72,Weekly,15.8,6,Romantic,Early Dinner,False,False,True,Mid-range,0
+U0953,False,36-45,0.0,4.9,558.21,Occasionally,59.7,6,Business,Late Dinner,False,False,False,Mid-range,0
+U0954,False,46-55,0.0,3.8,417.65,Bi-weekly,59.0,8,Family,Prime Dinner,False,True,True,Mid-range,0
+U0955,False,46-55,0.0,4.6,571.23,Monthly,43.3,6,Casual,Prime Dinner,False,False,True,Budget,0
+U0956,False,56-65,0.0,3.5,459.49,Monthly,68.9,4,Celebration,Late Dinner,False,True,True,Budget,0
+U0957,False,26-35,0.0,5.0,373.05,Monthly,25.4,2,Friends,Early Dinner,True,False,True,Premium,0
+U0958,False,46-55,0.0,4.4,345.73,Occasionally,59.0,2,Celebration,Late Dinner,False,False,False,Budget,0
+U0959,False,26-35,0.0,4.4,453.12,Monthly,37.6,4,Friends,Early Dinner,True,False,True,Budget,0
+U0960,False,46-55,0.0,3.8,408.44,Monthly,67.4,4,Business,Lunch,False,False,False,Premium,0
+U0961,False,18-25,0.0,3.4,427.21,Monthly,54.5,2,Friends,Lunch,False,False,False,Premium,0
+U0962,False,26-35,0.0,4.8,455.25,Monthly,27.8,4,Family,Lunch,False,False,True,Mid-range,0
+U0963,True,36-45,0.0,2.8,387.9,Monthly,67.2,4,Friends,Late Dinner,True,False,False,Mid-range,0
+U0964,False,18-25,0.0,4.9,387.65,Bi-weekly,22.3,4,Casual,Late Dinner,False,False,True,Mid-range,0
+U0965,False,36-45,0.0,4.3,483.87,Rarely,25.0,6,Celebration,Late Dinner,True,False,True,Budget,0
+U0966,False,36-45,0.0,4.6,515.97,Rarely,49.0,4,Celebration,Prime Dinner,False,False,True,Premium,0
+U0967,False,18-25,0.0,4.0,487.44,Monthly,50.3,4,Romantic,Prime Dinner,False,False,False,Mid-range,0
+U0968,False,36-45,0.0,4.5,509.04,Weekly,85.5,6,Family,Lunch,True,False,True,Mid-range,0
+U0969,False,46-55,0.0,3.8,323.3,Weekly,85.1,2,Business,Early Dinner,False,False,True,Mid-range,0
+U0970,False,56-65,0.0,3.2,384.11,Monthly,50.9,4,Business,Lunch,False,False,True,Budget,0
+U0971,False,56-65,0.0,2.4,543.62,Monthly,33.6,8,Romantic,Lunch,True,False,True,Mid-range,0
+U0972,False,26-35,0.0,3.9,313.26,Bi-weekly,80.8,2,Casual,Late Dinner,True,True,True,Budget,0
+U0973,False,36-45,0.0,5.0,441.45,Occasionally,2.3,2,Friends,Prime Dinner,False,True,False,Premium,0
+U0974,False,26-35,0.0,1.0,591.88,Occasionally,33.6,4,Friends,Early Dinner,False,False,False,Budget,0
+U0975,False,26-35,0.0,5.0,742.7,Occasionally,35.1,6,Business,Early Dinner,False,True,False,Budget,0
+U0976,False,26-35,0.0,3.6,438.37,Weekly,32.1,2,Casual,Late Dinner,True,True,False,Budget,0
+U0977,False,18-25,0.0,3.8,421.86,Rarely,45.0,2,Romantic,Prime Dinner,False,False,False,Budget,0
+U0978,False,36-45,0.0,2.6,316.96,Bi-weekly,40.1,2,Family,Early Dinner,False,True,False,Mid-range,0
+U0979,True,65+,0.0,3.6,470.21,Occasionally,58.0,4,Family,Early Dinner,False,True,True,Budget,0
+U0980,False,18-25,0.0,4.9,566.95,Bi-weekly,99.9,6,Business,Lunch,True,False,True,Premium,0
+U0981,False,36-45,0.0,3.7,589.31,Occasionally,90.5,6,Business,Early Dinner,True,False,False,Mid-range,0
+U0982,False,18-25,0.0,3.6,368.61,Bi-weekly,27.1,2,Romantic,Prime Dinner,True,True,True,Mid-range,0
+U0983,False,56-65,0.0,3.9,340.35,Monthly,33.5,2,Romantic,Lunch,False,False,True,Mid-range,0
+U0984,False,36-45,0.0,4.2,540.31,Rarely,63.6,6,Casual,Lunch,False,False,True,Budget,0
+U0985,False,56-65,0.0,3.4,378.99,Rarely,69.5,2,Business,Early Dinner,False,True,False,Premium,0
+U0986,False,26-35,0.0,3.9,338.09,Monthly,74.5,2,Celebration,Late Dinner,False,False,True,Mid-range,0
+U0987,False,18-25,0.0,5.0,389.5,Bi-weekly,29.3,4,Friends,Prime Dinner,False,False,True,Mid-range,0
+U0988,False,26-35,0.0,4.7,323.2,Monthly,11.4,2,Family,Late Dinner,True,True,True,Premium,0
+U0989,False,36-45,0.0,5.0,417.45,Occasionally,11.2,4,Romantic,Lunch,False,False,False,Mid-range,0
+U0990,False,36-45,0.0,4.1,450.24,Bi-weekly,96.5,4,Family,Lunch,False,False,False,Mid-range,0
+U0991,False,26-35,0.0,3.6,627.54,Weekly,73.2,6,Casual,Lunch,True,True,True,Budget,0
+U0992,False,46-55,0.0,4.2,245.84,Occasionally,75.9,2,Romantic,Lunch,False,False,False,Premium,0
+U0993,False,18-25,0.0,3.0,664.21,Occasionally,71.5,8,Romantic,Lunch,False,True,False,Budget,0
+U0994,False,46-55,0.0,4.1,364.54,Rarely,77.3,2,Casual,Prime Dinner,True,False,False,Mid-range,0
+U0995,False,36-45,0.0,4.4,401.76,Weekly,19.9,4,Family,Late Dinner,True,True,False,Premium,0
+U0996,False,46-55,0.0,3.7,692.74,Monthly,9.8,8,Business,Prime Dinner,False,False,False,Mid-range,0
+U0997,False,36-45,0.0,3.9,405.84,Monthly,53.2,4,Romantic,Late Dinner,False,False,True,Mid-range,0
+U0998,False,65+,0.0,4.5,688.7,Rarely,47.9,6,Casual,Late Dinner,False,True,False,Mid-range,0
+U0999,False,36-45,0.0,3.5,492.78,Rarely,12.0,4,Celebration,Early Dinner,False,False,True,Mid-range,0
+U1000,False,46-55,0.0,3.7,573.13,Weekly,60.0,4,Casual,Prime Dinner,False,False,False,Premium,0

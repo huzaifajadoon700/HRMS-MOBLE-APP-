@@ -1,0 +1,141 @@
+/* ========== 🎨 Simple Clean Theme ========== */
+
+/* Essential Color Variables */
+:root {
+  /* Background Colors */
+  --primary-bg: #0A192F;
+  --secondary-bg: #112240;
+  --card-bg: #1A2332;
+  
+  /* Accent Colors */
+  --accent-primary: #64ffda;
+  --accent-secondary: #FFD700;
+  
+  /* Text Colors */
+  --text-primary: #F0F4FC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #64ffda 0%, #4fd1c7 100%);
+  --gradient-bg: linear-gradient(135deg, #0A192F 0%, #112240 50%, #0A192F 100%);
+}
+
+/* Global Background Theme */
+body {
+  background: var(--primary-bg) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
+}
+
+#root {
+  background: var(--primary-bg) !important;
+}
+
+/* Remove any conflicting styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Simple button styles */
+.btn-primary {
+  background: var(--gradient-primary) !important;
+  border: none !important;
+  color: #0A192F !important;
+  font-weight: 600 !important;
+}
+
+.btn-primary:hover {
+  background: var(--gradient-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(100, 255, 218, 0.3) !important;
+}
+
+/* Card styles */
+.card {
+  background: var(--card-bg) !important;
+  border: 1px solid rgba(100, 255, 218, 0.1) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Form controls */
+.form-control {
+  background: var(--secondary-bg) !important;
+  border: 1px solid rgba(100, 255, 218, 0.2) !important;
+  color: var(--text-primary) !important;
+}
+
+.form-control:focus {
+  background: var(--secondary-bg) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Text colors */
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Accent text */
+.text-accent {
+  color: var(--accent-primary) !important;
+}
+
+/* Background utilities */
+.bg-primary {
+  background: var(--primary-bg) !important;
+}
+
+.bg-secondary {
+  background: var(--secondary-bg) !important;
+}
+
+.bg-card {
+  background: var(--card-bg) !important;
+}
+
+/* Ensure no layout constraints */
+.container-fluid {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Full width utility */
+.full-width {
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  max-width: none !important;
+}
+
+/* Override Bootstrap container for full width pages */
+.main-content.full-width .container,
+.main-content.full-width .container-fluid {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Ensure body and html don't constrain width */
+html, body {
+  width: 100% !important;
+  max-width: none !important;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100% !important;
+  max-width: none !important;
+}

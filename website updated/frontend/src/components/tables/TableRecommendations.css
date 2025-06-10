@@ -1,0 +1,332 @@
+/* Table Recommendations Styles */
+.table-recommendations-container {
+  padding: 2rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.recommendations-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #fff, #f0f4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+/* Context Filters */
+.context-filters {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.context-filters .card-body {
+  padding: 1.5rem;
+}
+
+.context-select,
+.context-input {
+  border-radius: 10px;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.context-select:focus,
+.context-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.get-recommendations-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.get-recommendations-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Recommendation Cards */
+.table-recommendation-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.table-recommendation-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.table-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.table-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.table-recommendation-card:hover .table-image {
+  transform: scale(1.05);
+}
+
+.recommendation-badges {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rank-badge {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  border: none;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+}
+
+.confidence-badge {
+  border: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+.table-features-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  color: white;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Card Body */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.table-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  flex: 1;
+}
+
+.table-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #f39c12;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.star-icon {
+  color: #f39c12;
+}
+
+.table-details {
+  margin-bottom: 1rem;
+}
+
+.ambiance-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  border: none;
+}
+
+.features-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.feature-tag {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.recommendation-explanation {
+  background: rgba(102, 126, 234, 0.05);
+  padding: 0.75rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  border-left: 3px solid #667eea;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  flex: 1;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.reserve-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.reserve-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Loading and Error States */
+.loading-container {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+}
+
+.no-recommendations {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+}
+
+.no-recommendations h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.popular-fallback {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.popular-fallback h5 {
+  margin-bottom: 1.5rem;
+  color: #f0f4fc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .context-filters .row {
+    gap: 1rem;
+  }
+  
+  .table-recommendation-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .table-image-container {
+    height: 180px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .table-recommendations-container {
+    padding: 1rem 0;
+  }
+  
+  .recommendations-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .context-filters .card-body {
+    padding: 1rem;
+  }
+  
+  .table-features-overlay {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

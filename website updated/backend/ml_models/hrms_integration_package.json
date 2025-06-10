@@ -1,0 +1,272 @@
+{
+  "models": {
+    "UserFoodInteraction": {
+      "name": "UserFoodInteraction",
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "ref": "users",
+          "required": true
+        },
+        "menuItemId": {
+          "type": "ObjectId",
+          "ref": "Menu",
+          "required": true
+        },
+        "interactionType": {
+          "type": "String",
+          "enum": [
+            "rating",
+            "order",
+            "view",
+            "favorite"
+          ],
+          "required": true
+        },
+        "rating": {
+          "type": "Number",
+          "min": 1,
+          "max": 5,
+          "required_if": "interactionType === 'rating'"
+        },
+        "orderQuantity": {
+          "type": "Number",
+          "default": 1
+        },
+        "timestamp": {
+          "type": "Date",
+          "default": "Date.now"
+        },
+        "expiresAt": {
+          "type": "Date",
+          "expires": 2592000
+        }
+      },
+      "indexes": [
+        {
+          "userId": 1,
+          "timestamp": -1
+        },
+        {
+          "menuItemId": 1,
+          "timestamp": -1
+        },
+        {
+          "userId": 1,
+          "interactionType": 1
+        }
+      ]
+    },
+    "EnhancedMenu": {
+      "ingredients": {
+        "type": "Array",
+        "default": []
+      },
+      "cuisine": {
+        "type": "String",
+        "default": "Pakistani"
+      },
+      "spiceLevel": {
+        "type": "String",
+        "enum": [
+          "mild",
+          "medium",
+          "hot",
+          "very_hot"
+        ],
+        "default": "medium"
+      },
+      "dietaryTags": {
+        "type": "Array",
+        "enum": [
+          "vegetarian",
+          "vegan",
+          "halal",
+          "gluten-free",
+          "dairy-free"
+        ],
+        "default": []
+      },
+      "preparationTime": {
+        "type": "Number",
+        "default": 30
+      },
+      "nutritionalInfo": {
+        "calories": {
+          "type": "Number",
+          "default": 0
+        },
+        "protein": {
+          "type": "Number",
+          "default": 0
+        },
+        "carbs": {
+          "type": "Number",
+          "default": 0
+        },
+        "fat": {
+          "type": "Number",
+          "default": 0
+        }
+      },
+      "averageRating": {
+        "type": "Number",
+        "default": 0,
+        "min": 0,
+        "max": 5
+      },
+      "totalRatings": {
+        "type": "Number",
+        "default": 0
+      },
+      "popularityScore": {
+        "type": "Number",
+        "default": 0
+      }
+    },
+    "FoodRecommendation": {
+      "name": "FoodRecommendation",
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "ref": "users",
+          "required": true
+        },
+        "recommendedItems": [
+          {
+            "menuItemId": {
+              "type": "ObjectId",
+              "ref": "Menu",
+              "required": true
+            },
+            "score": {
+              "type": "Number",
+              "required": true,
+              "min": 0,
+              "max": 5
+            },
+            "reason": {
+              "type": "String",
+              "enum": [
+                "collaborative_filtering",
+                "content_based",
+                "popularity",
+                "hybrid"
+              ],
+              "required": true
+            }
+          }
+        ],
+        "generatedAt": {
+          "type": "Date",
+          "default": "Date.now"
+        },
+        "expiresAt": {
+          "type": "Date",
+          "expires": 3600
+        }
+      },
+      "indexes": [
+        {
+          "userId": 1,
+          "generatedAt": -1
+        }
+      ]
+    }
+  },
+  "routes": {
+    "POST /api/food-recommendations/interaction": {
+      "description": "Record user interaction with food items",
+      "handler": "recordInteraction",
+      "auth_required": true,
+      "parameters": [
+        "userId",
+        "menuItemId",
+        "interactionType",
+        "rating",
+        "orderQuantity"
+      ]
+    },
+    "GET /api/food-recommendations/recommendations/:userId": {
+      "description": "Get personalized recommendations for a user",
+      "handler": "getRecommendations",
+      "auth_required": true,
+      "parameters": [
+        "userId",
+        "count"
+      ]
+    },
+    "GET /api/food-recommendations/history/:userId": {
+      "description": "Get user's food interaction history",
+      "handler": "getUserHistory",
+      "auth_required": true,
+      "parameters": [
+        "userId",
+        "days"
+      ]
+    },
+    "POST /api/food-recommendations/order-interaction": {
+      "description": "Auto-record interaction when user orders food",
+      "handler": "recordOrderInteraction",
+      "auth_required": true,
+      "parameters": [
+        "userId",
+        "items"
+      ]
+    },
+    "GET /api/food-recommendations/analytics": {
+      "description": "Get recommendation system analytics",
+      "handler": "getAnalytics",
+      "auth_required": true,
+      "parameters": []
+    }
+  },
+  "controller_methods": [
+    "record_interaction",
+    "get_recommendations",
+    "analyze_user_preferences",
+    "update_menu_rating",
+    "get_popularity_based_recommendations"
+  ],
+  "database_changes": {
+    "new_collections": [
+      "UserFoodInteraction",
+      "FoodRecommendation"
+    ],
+    "enhanced_collections": [
+      "Menu"
+    ],
+    "indexes_required": [
+      "UserFoodInteraction: userId_1_timestamp_-1",
+      "FoodRecommendation: userId_1_generatedAt_-1"
+    ]
+  },
+  "pakistani_cuisine_adaptations": {
+    "default_cuisine": "Pakistani",
+    "spice_levels": [
+      "mild",
+      "medium",
+      "hot",
+      "very_hot"
+    ],
+    "dietary_tags": [
+      "halal",
+      "vegetarian",
+      "vegan"
+    ],
+    "popular_dishes": [
+      "Biryani",
+      "Karahi",
+      "Nihari",
+      "Haleem",
+      "Kebab",
+      "Pulao",
+      "Korma",
+      "Dal",
+      "Naan",
+      "Lassi"
+    ]
+  },
+  "integration_ready": true,
+  "created_at": "2025-05-31T15:13:19.425897"
+}

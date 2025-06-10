@@ -1,0 +1,210 @@
+/* Cosmic Theme Variables */
+:root {
+  --cosmic-bg: #0a0b1e;
+  --cosmic-card-bg: #12132d;
+  --cosmic-primary: #6e56cf;
+  --cosmic-secondary: #8b7dd8;
+  --cosmic-text: #e4e2ff;
+  --cosmic-border: #2a2b55;
+  --cosmic-shadow: rgba(110, 86, 207, 0.15);
+  --cosmic-hover: #1c1d3d;
+  --cosmic-gradient: linear-gradient(135deg, #6e56cf 0%, #8b7dd8 100%);
+  --transition-speed: 0.3s;
+}
+
+/* Container Styles */
+.delete-menu-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: var(--cosmic-bg);
+  min-height: 100vh;
+  color: var(--cosmic-text);
+}
+
+/* Header Styles */
+.delete-menu-header {
+  background: var(--cosmic-card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--cosmic-shadow);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--cosmic-border);
+}
+
+.delete-menu-header h2 {
+  color: var(--cosmic-text);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  background: var(--cosmic-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* No Items Message */
+.no-items-message {
+  text-align: center;
+  padding: 3rem;
+  background: var(--cosmic-card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--cosmic-border);
+  margin: 2rem 0;
+}
+
+.no-items-message h4 {
+  color: var(--cosmic-text);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.no-items-message p {
+  color: var(--cosmic-secondary);
+  opacity: 0.8;
+}
+
+/* Menu Items Grid */
+.menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* Menu Item Card */
+.menu-item-card {
+  background: var(--cosmic-card-bg);
+  border: 1px solid var(--cosmic-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all var(--transition-speed);
+}
+
+.menu-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px var(--cosmic-shadow);
+  border-color: var(--cosmic-primary);
+}
+
+.menu-item-image {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+}
+
+.menu-item-image img:hover {
+  transform: scale(1.05);
+}
+
+.menu-item-info {
+  padding: 1.2rem;
+  background: var(--cosmic-card-bg);
+}
+
+.menu-item-info h4 {
+  color: var(--cosmic-text);
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.menu-item-info p {
+  color: var(--cosmic-secondary);
+  margin: 0;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  opacity: 0.8;
+}
+
+/* Delete Button */
+.delete-button {
+  margin-top: 1rem;
+  width: 100%;
+  background: linear-gradient(135deg, #ff4d4d 0%, #ff6b6b 100%);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  transition: all var(--transition-speed);
+}
+
+.delete-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
+}
+
+.delete-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Delete Modal */
+.delete-modal {
+  background: var(--cosmic-card-bg);
+  border: 1px solid var(--cosmic-border);
+}
+
+.delete-modal .modal-content {
+  background: var(--cosmic-card-bg);
+  border: none;
+  border-radius: 12px;
+}
+
+.delete-modal .modal-header {
+  border-bottom: 1px solid var(--cosmic-border);
+}
+
+.delete-modal .modal-title {
+  color: var(--cosmic-text);
+  font-weight: 600;
+}
+
+.delete-modal .modal-body {
+  color: var(--cosmic-text);
+  padding: 1.5rem;
+}
+
+.delete-modal .modal-footer {
+  border-top: 1px solid var(--cosmic-border);
+  padding: 1rem;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--cosmic-bg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .delete-menu-container {
+    padding: 1rem;
+  }
+
+  .menu-items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .delete-menu-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .no-items-message {
+    padding: 2rem;
+  }
+} 

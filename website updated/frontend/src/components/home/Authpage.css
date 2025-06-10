@@ -1,0 +1,47 @@
+/* Authpage.css */
+
+.auth-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 28rem;
+  border-radius: 15px;
+}
+
+.auth-card-header {
+  background: linear-gradient(135deg, #1e88e5, #2196f3);
+  color: white;
+  padding: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.auth-card-subtitle {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.auth-card-footer {
+  padding: 15px;
+  font-size: 14px;
+}
+
+.auth-button {
+  background-color: #2196f3;
+  border: none;
+  font-size: 16px;
+}
+
+.auth-button:hover {
+  background-color: #1e88e5;
+}
+
+.google-login-button {
+  margin-top: 20px;
+}

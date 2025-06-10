@@ -1,0 +1,252 @@
+/* Cosmic Theme Variables */
+:root {
+  --cosmic-primary: #6c5ce7;
+  --cosmic-secondary: #a8a4e6;
+  --cosmic-accent: #00b894;
+  --cosmic-danger: #d63031;
+  --cosmic-warning: #fdcb6e;
+  --cosmic-info: #0984e3;
+  --cosmic-light: #dfe6e9;
+  --cosmic-dark: #2d3436;
+  --cosmic-gradient: linear-gradient(135deg, var(--cosmic-primary), var(--cosmic-secondary));
+  --cosmic-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --cosmic-transition: all 0.3s ease;
+}
+
+/* Global Styles */
+.menu-management {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cosmic-title {
+  color: var(--cosmic-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.cosmic-subtitle {
+  color: var(--cosmic-primary);
+  margin: 2rem 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Loading and Alert Styles */
+.cosmic-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--cosmic-primary);
+  font-size: 1.2rem;
+}
+
+.cosmic-alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: none;
+  box-shadow: var(--cosmic-shadow);
+}
+
+.cosmic-alert-danger {
+  background-color: #ffe3e3;
+  color: var(--cosmic-danger);
+}
+
+/* Table Styles */
+.cosmic-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--cosmic-shadow);
+  margin-bottom: 2rem;
+}
+
+.cosmic-table thead th {
+  background: var(--cosmic-gradient);
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.cosmic-table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--cosmic-light);
+}
+
+.cosmic-table tbody tr:hover {
+  background-color: rgba(108, 92, 231, 0.05);
+}
+
+/* Menu Thumbnail Styles */
+.menu-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--cosmic-light);
+  transition: var(--cosmic-transition);
+}
+
+.menu-thumbnail:hover {
+  transform: scale(1.1);
+  border-color: var(--cosmic-primary);
+}
+
+/* Availability Badge Styles */
+.availability-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.availability-badge.available {
+  background-color: #e3fcef;
+  color: var(--cosmic-accent);
+}
+
+.availability-badge.unavailable {
+  background-color: #ffe3e3;
+  color: var(--cosmic-danger);
+}
+
+/* Form Styles */
+.cosmic-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--cosmic-shadow);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cosmic-input {
+  border: 2px solid var(--cosmic-light);
+  border-radius: 8px;
+  padding: 0.8rem;
+  width: 100%;
+  transition: var(--cosmic-transition);
+}
+
+.cosmic-input:focus {
+  border-color: var(--cosmic-primary);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+  outline: none;
+}
+
+/* Image Upload Styles */
+.image-upload {
+  margin-bottom: 1.5rem;
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border: 2px solid var(--cosmic-light);
+}
+
+/* Button Styles */
+.cosmic-button,
+.cosmic-button-secondary,
+.cosmic-btn-warning,
+.cosmic-btn-info,
+.cosmic-btn-danger {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--cosmic-transition);
+  cursor: pointer;
+}
+
+.cosmic-button {
+  background: var(--cosmic-gradient);
+  color: white;
+}
+
+.cosmic-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--cosmic-shadow);
+}
+
+.cosmic-button-secondary {
+  background: var(--cosmic-light);
+  color: var(--cosmic-dark);
+}
+
+.cosmic-button-secondary:hover {
+  background: #cbd5e0;
+}
+
+.cosmic-btn-warning {
+  background: var(--cosmic-warning);
+  color: var(--cosmic-dark);
+}
+
+.cosmic-btn-info {
+  background: var(--cosmic-info);
+  color: white;
+}
+
+.cosmic-btn-danger {
+  background: var(--cosmic-danger);
+  color: white;
+}
+
+/* Category Filter Styles */
+.category-filter {
+  margin-bottom: 2rem;
+}
+
+.category-filter select {
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Utility Classes */
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.ms-2 { margin-left: 0.5rem; }
+.mt-2 { margin-top: 0.5rem; }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .menu-management {
+    padding: 1rem;
+  }
+
+  .cosmic-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .cosmic-form {
+    padding: 1rem;
+  }
+
+  .image-preview {
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+  
