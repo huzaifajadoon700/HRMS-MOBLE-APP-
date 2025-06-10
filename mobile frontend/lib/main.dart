@@ -13,6 +13,7 @@ import 'services/order_service.dart';
 import 'services/reservation_service.dart';
 import 'services/payment_service.dart';
 import 'services/user_service.dart';
+import 'services/recommendation_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

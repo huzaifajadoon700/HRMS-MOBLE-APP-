@@ -1,0 +1,9 @@
+{
+  "12345": {
+    "user_id": 12345,
+    "avg_rating": 4.375,
+    "total_interactions": 8,
+    "last_updated": "2025-05-31T15:13:19.404782",
+    "profile_strength": 0.8
+  }
+}

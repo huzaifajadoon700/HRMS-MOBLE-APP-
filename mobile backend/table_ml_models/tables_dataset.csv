@@ -1,0 +1,51 @@
+table_id,table_number,capacity,location,table_type,ambiance,has_window_view,is_private,has_special_lighting,accessibility_friendly,price_tier,avg_rating,total_bookings,features,feature_count
+T001,1,4,Bar Area,Private,Formal,False,False,False,True,Mid-range,3.7,180,Wheelchair Accessible,1
+T002,2,2,Garden,Outdoor,Intimate,True,True,True,False,Mid-range,4.0,285,"Window View, Private, Garden Setting, Ambient Lighting",4
+T003,3,2,Main Hall,VIP,Social,True,False,False,False,Mid-range,4.2,369,"Window View, VIP Service",2
+T004,4,4,Bar Area,VIP,Social,True,True,False,False,Premium,3.3,314,"Window View, Private, VIP Service",3
+T005,5,2,Garden,Outdoor,Lively,False,True,False,True,Premium,4.7,51,"Private, Garden Setting, Wheelchair Accessible",3
+T006,6,4,Terrace,Premium,Lively,True,False,False,False,Premium,3.5,319,Window View,1
+T007,7,6,Corner,Counter,Social,False,False,False,False,Mid-range,4.5,237,,0
+T008,8,4,Window,Booth,Social,True,True,False,False,Budget,4.3,112,"Window View, Private",2
+T009,9,6,Window,VIP,Formal,False,True,False,True,Premium,3.3,97,"Private, VIP Service, Wheelchair Accessible",3
+T010,10,4,Terrace,Booth,Formal,False,False,False,False,Premium,4.9,180,,0
+T011,11,6,Garden,Private,Social,True,True,False,True,Mid-range,4.3,290,"Window View, Private, Garden Setting, Wheelchair Accessible",4
+T012,12,4,Center,Outdoor,Intimate,True,False,False,True,Premium,4.1,376,"Window View, Wheelchair Accessible",2
+T013,13,2,Terrace,Outdoor,Casual,False,False,True,False,Budget,4.8,177,Ambient Lighting,1
+T014,14,6,Private Room,Standard,Social,False,False,False,True,Mid-range,4.1,308,Wheelchair Accessible,1
+T015,15,2,Center,VIP,Romantic,False,False,True,True,Budget,4.4,229,"VIP Service, Ambient Lighting, Wheelchair Accessible",3
+T016,16,4,Window,Premium,Lively,True,False,False,True,Premium,3.3,236,"Window View, Wheelchair Accessible",2
+T017,17,4,Garden,Outdoor,Intimate,True,False,False,False,Mid-range,5.4,296,"Window View, Garden Setting",2
+T018,18,6,Main Hall,VIP,Romantic,False,False,False,False,Mid-range,3.0,289,VIP Service,1
+T019,19,6,Window,Outdoor,Formal,True,True,False,False,Budget,3.3,401,"Window View, Private",2
+T020,20,2,Window,Standard,Social,False,True,False,True,Premium,4.2,347,"Private, Wheelchair Accessible",2
+T021,21,2,Private Room,Premium,Romantic,False,False,False,False,Mid-range,4.1,282,,0
+T022,22,4,Center,VIP,Lively,False,False,False,True,Budget,4.3,471,"VIP Service, Wheelchair Accessible",2
+T023,23,6,Terrace,VIP,Intimate,False,False,True,False,Mid-range,4.3,210,"VIP Service, Ambient Lighting",2
+T024,24,2,Terrace,Booth,Lively,True,False,False,False,Mid-range,4.2,492,Window View,1
+T025,25,4,Corner,Counter,Intimate,False,False,False,False,Mid-range,5.0,416,,0
+T026,26,4,Bar Area,Outdoor,Quiet,False,False,False,True,Premium,3.4,207,Wheelchair Accessible,1
+T027,27,10,Bar Area,Counter,Formal,False,False,False,False,Mid-range,3.6,210,,0
+T028,28,4,Center,Premium,Romantic,True,False,False,True,Budget,3.8,480,"Window View, Wheelchair Accessible",2
+T029,29,12,Garden,Private,Formal,True,False,False,True,Mid-range,3.1,75,"Window View, Garden Setting, Wheelchair Accessible",3
+T030,30,6,Window,Booth,Lively,False,False,False,False,Mid-range,4.5,449,,0
+T031,31,2,Main Hall,Private,Social,True,True,False,True,Mid-range,3.1,363,"Window View, Private, Wheelchair Accessible",3
+T032,32,8,Window,Outdoor,Casual,False,False,True,False,Mid-range,4.4,157,Ambient Lighting,1
+T033,33,4,Private Room,Counter,Quiet,True,False,False,True,Budget,4.1,324,"Window View, Wheelchair Accessible",2
+T034,34,4,Corner,Premium,Quiet,True,True,False,False,Budget,3.9,171,"Window View, Private",2
+T035,35,2,Garden,Counter,Intimate,False,False,True,False,Mid-range,5.5,296,"Garden Setting, Ambient Lighting",2
+T036,36,2,Garden,VIP,Quiet,True,False,True,True,Mid-range,4.8,495,"Window View, Garden Setting, VIP Service, Ambient Lighting, Wheelchair Accessible",5
+T037,37,6,Private Room,Premium,Casual,False,False,True,False,Mid-range,5.1,339,Ambient Lighting,1
+T038,38,2,Garden,Premium,Formal,False,False,False,True,Budget,5.0,296,"Garden Setting, Wheelchair Accessible",2
+T039,39,8,Private Room,VIP,Lively,False,False,False,False,Mid-range,4.1,466,VIP Service,1
+T040,40,6,Main Hall,Outdoor,Quiet,True,True,True,True,Mid-range,4.6,386,"Window View, Private, Ambient Lighting, Wheelchair Accessible",4
+T041,41,6,Bar Area,Premium,Casual,True,False,True,True,Mid-range,4.7,469,"Window View, Ambient Lighting, Wheelchair Accessible",3
+T042,42,4,Bar Area,Standard,Lively,True,False,False,False,Mid-range,4.4,145,Window View,1
+T043,43,4,Terrace,Booth,Lively,False,False,False,True,Premium,5.0,391,Wheelchair Accessible,1
+T044,44,2,Main Hall,Standard,Lively,True,False,True,False,Premium,4.2,433,"Window View, Ambient Lighting",2
+T045,45,4,Garden,Private,Quiet,True,False,False,True,Premium,4.0,230,"Window View, Garden Setting, Wheelchair Accessible",3
+T046,46,4,Corner,Counter,Social,True,False,False,False,Premium,4.3,58,Window View,1
+T047,47,6,Private Room,Standard,Quiet,False,False,True,False,Premium,4.2,471,Ambient Lighting,1
+T048,48,12,Center,Booth,Romantic,False,False,False,False,Mid-range,3.5,301,,0
+T049,49,2,Bar Area,Outdoor,Intimate,False,False,False,False,Budget,5.1,197,,0
+T050,50,2,Bar Area,Private,Romantic,False,False,True,False,Mid-range,3.1,458,Ambient Lighting,1

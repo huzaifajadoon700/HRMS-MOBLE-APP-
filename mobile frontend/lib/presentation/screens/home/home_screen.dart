@@ -5,14 +5,15 @@ import 'package:flutter/foundation.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
 import '../auth/login_screen.dart';
-import 'hotel/rooms_screen.dart';
-import 'restaurant/tables_screen.dart';
-import 'restaurant/menu_screen.dart';
+import '../bookings/room_booking_page.dart';
+import '../reservations/table_reservation_page.dart';
+import '../orders/menu_ordering_page.dart';
 import 'profile_screen.dart';
 import '../booking/my_bookings_screen.dart';
 import '../orders/my_orders_screen.dart';
 import '../reservations/my_reservations_screen.dart';
 import '../admin/admin_dashboard_screen.dart';
+import '../recommendations_screen.dart';
 import '../../../services/menu_service.dart';
 import '../../../services/room_service.dart';
 import '../../../services/table_service.dart';
@@ -20,6 +21,10 @@ import '../../../data/models/menu_item_model.dart';
 import '../../../data/models/room_model.dart';
 import '../../../data/models/table_model.dart';
 import '../../../services/api_service.dart';
+
+import '../../../widgets/home/featured_rooms_section.dart';
+import '../../../widgets/home/featured_tables_section.dart';
+import '../../../widgets/home/most_popular_items_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const HomeContent(),
-    const RoomsScreen(),
-    const TablesScreen(),
-    const MenuScreen(),
+    const RoomBookingPage(),
+    const TableReservationPage(),
+    const MenuOrderingPage(),
   ];
 
   // Method to update selected index from other widgets
@@ -485,6 +490,18 @@ class _HomeContentState extends State<HomeContent> {
                           homeScreenState?.updateSelectedIndex(3);
                         },
                       ),
+                      _buildQuickAction(
+                        context,
+                        'Recommendations',
+                        Icons.recommend,
+                        Colors.deepPurple,
+                        () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (_) => const RecommendationsScreen()),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -553,377 +570,14 @@ class _HomeContentState extends State<HomeContent> {
             // Divider
             Divider(color: theme.dividerTheme.color, height: 1),
 
-            // Our Accommodations Section - Dynamic from API
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 3,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary,
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Our Accommodations',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.onSurface,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 245,
-                    child: FutureBuilder<List<RoomModel>>(
-                      future: _roomsFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircularProgressIndicator(),
-                                SizedBox(height: 12),
-                                Text('Loading rooms...'),
-                              ],
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.error_outline,
-                                    color: theme.colorScheme.error, size: 40),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Error loading rooms',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.error,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Pull down to retry',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.onSurface
-                                        .withOpacity(0.7),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.hotel_outlined,
-                                    color: Colors.grey, size: 40),
-                                SizedBox(height: 8),
-                                Text(
-                                  'No rooms available',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+            // Featured Rooms Section - AI-Powered Recommendations
+            const FeaturedRoomsSection(),
 
-                        final rooms = snapshot.data!;
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: rooms.length,
-                          itemBuilder: (context, index) {
-                            final room = rooms[index];
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  right: index < rooms.length - 1 ? 16 : 0),
-                              child: _buildRoomCard(
-                                context,
-                                room.roomType,
-                                '\$${room.pricePerNight.toStringAsFixed(2)}/night',
-                                room.imageUrls.isNotEmpty
-                                    ? room.imageUrls.first
-                                    : 'https://via.placeholder.com/300x200?text=Room',
-                                [
-                                  '${room.capacity} Person${room.capacity > 1 ? 's' : ''}',
-                                  room.description?.split('.').first ?? '',
-                                ],
-                                () {
-                                  final homeScreenState =
-                                      context.findAncestorStateOfType<
-                                          _HomeScreenState>();
-                                  homeScreenState?.updateSelectedIndex(1);
-                                },
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Featured Tables Section - AI-Powered Recommendations
+            const FeaturedTablesSection(),
 
-            // Featured Tables Section - Dynamic from API
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: theme.colorScheme.surface.withOpacity(0.5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 3,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary,
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Featured Tables',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.onSurface,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 240,
-                    child: FutureBuilder<List<TableModel>>(
-                      future: _tablesFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircularProgressIndicator(),
-                                SizedBox(height: 12),
-                                Text('Loading tables...'),
-                              ],
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.error_outline,
-                                    color: theme.colorScheme.error, size: 40),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Error loading tables',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.error,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Pull down to retry',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.onSurface
-                                        .withOpacity(0.7),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.table_bar_outlined,
-                                    color: Colors.grey, size: 40),
-                                SizedBox(height: 8),
-                                Text(
-                                  'No tables available',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-
-                        final tables = snapshot.data!;
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: tables.length,
-                          itemBuilder: (context, index) {
-                            final table = tables[index];
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  right: index < tables.length - 1 ? 16 : 0),
-                              child: _buildTableCard(
-                                context,
-                                table.tableNumber,
-                                '${table.capacity} Person${table.capacity > 1 ? 's' : ''}',
-                                table.location,
-                                () {
-                                  final homeScreenState =
-                                      context.findAncestorStateOfType<
-                                          _HomeScreenState>();
-                                  homeScreenState?.updateSelectedIndex(2);
-                                },
-                                imageUrl: table.imageUrl,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Most Popular Menu Items - Dynamic from API
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 3,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.tertiary,
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Most Popular Items',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.onSurface,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 280,
-                    child: FutureBuilder<List<MenuItemModel>>(
-                      future: _menuItemsFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircularProgressIndicator(),
-                                SizedBox(height: 12),
-                                Text('Loading menu items...'),
-                              ],
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.error_outline,
-                                    color: theme.colorScheme.error, size: 40),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Error loading menu items',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.error,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Pull down to retry',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.onSurface
-                                        .withOpacity(0.7),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.restaurant_menu_outlined,
-                                    color: Colors.grey, size: 40),
-                                SizedBox(height: 8),
-                                Text(
-                                  'No menu items available',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-
-                        final menuItems = snapshot.data!;
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: menuItems.length,
-                          itemBuilder: (context, index) {
-                            final menuItem = menuItems[index];
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  right: index < menuItems.length - 1 ? 16 : 0),
-                              child: _buildPopularMenuItem(
-                                context,
-                                menuItem.category,
-                                menuItem.name,
-                                menuItem.price.toStringAsFixed(2),
-                                () {
-                                  final homeScreenState =
-                                      context.findAncestorStateOfType<
-                                          _HomeScreenState>();
-                                  homeScreenState?.updateSelectedIndex(3);
-                                },
-                                imageUrl: menuItem.imageUrl,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Most Popular Items Section
+            const MostPopularItemsSection(),
 
             // Our Services Section
             Container(
