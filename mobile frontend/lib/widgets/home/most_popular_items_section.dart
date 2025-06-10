@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../services/recommendation_service.dart';
+import '../../presentation/screens/orders/menu_ordering_page.dart';
 
 class MostPopularItemsSection extends StatefulWidget {
   const MostPopularItemsSection({Key? key}) : super(key: key);
@@ -215,20 +216,68 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
   }
 
   Widget _buildItemsGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 0.75,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-      ),
-      itemCount: _menuItems.length,
-      itemBuilder: (context, index) {
-        final item = _menuItems[index];
-        return _buildItemCard(item);
-      },
+    return Column(
+      children: [
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 0.75,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+          ),
+          itemCount: _menuItems.length,
+          itemBuilder: (context, index) {
+            final item = _menuItems[index];
+            return _buildItemCard(item);
+          },
+        ),
+
+        // View All Menus Button
+        const SizedBox(height: 32),
+        Container(
+          width: double.infinity,
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: ElevatedButton(
+            onPressed: () {
+              // Navigate to the menu ordering page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MenuOrderingPage(),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF64FFDA),
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 8,
+              shadowColor: const Color(0xFF64FFDA).withOpacity(0.4),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.restaurant_menu, size: 20),
+                const SizedBox(width: 12),
+                const Text(
+                  'View All Menus',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Icon(Icons.arrow_forward, size: 16),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
