@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import '../core/config/environment.dart';
 
 class GlobalSocketService {
   static final GlobalSocketService _instance = GlobalSocketService._internal();
@@ -11,7 +12,7 @@ class GlobalSocketService {
   final Set<Function(Map<String, dynamic>)> _globalCallbacks = {};
   bool _isConnected = false;
 
-  static const String _socketServer = 'http://192.168.10.6:8080';
+  static String get _socketServer => Environment.currentSocketUrl;
 
   bool get isConnected => _isConnected;
 

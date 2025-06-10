@@ -28,6 +28,7 @@ A comprehensive Human Resource Management System (HRMS) mobile application built
 ## Features
 
 ### Mobile App Features
+
 - **Authentication**: Login/Register with JWT tokens
 - **Restaurant Management**: Menu browsing, ordering, table reservations
 - **Hotel Management**: Room booking, reservation management
@@ -37,6 +38,7 @@ A comprehensive Human Resource Management System (HRMS) mobile application built
 - **Profile Management**: User profile and preferences
 
 ### Backend Features
+
 - **RESTful API**: Complete API for mobile app
 - **Real-time Updates**: WebSocket integration for live updates
 - **Authentication**: JWT-based authentication system
@@ -47,6 +49,7 @@ A comprehensive Human Resource Management System (HRMS) mobile application built
 ## Technology Stack
 
 ### Frontend (Mobile)
+
 - **Flutter**: Cross-platform mobile development
 - **Dart**: Programming language
 - **Provider**: State management
@@ -54,6 +57,7 @@ A comprehensive Human Resource Management System (HRMS) mobile application built
 - **Socket.IO**: Real-time communication
 
 ### Backend
+
 - **Node.js**: Runtime environment
 - **Express.js**: Web framework
 - **MongoDB**: Database
@@ -66,23 +70,28 @@ A comprehensive Human Resource Management System (HRMS) mobile application built
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - Flutter SDK (v3.0 or higher)
 - MongoDB
 - Android Studio / Xcode for mobile development
 
 ### Backend Setup
+
 1. Navigate to backend directory:
+
    ```bash
    cd backend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create `.env` file with required environment variables:
+
    ```
    MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
@@ -96,24 +105,47 @@ A comprehensive Human Resource Management System (HRMS) mobile application built
    ```
 
 ### Mobile App Setup
+
 1. Navigate to mobile frontend directory:
+
    ```bash
    cd "mobile frontend"
    ```
 
 2. Install Flutter dependencies:
+
    ```bash
    flutter pub get
    ```
 
-3. Run the app:
+3. Set up environment configuration:
+
    ```bash
-   flutter run
+   # Copy the example environment file
+   cp .env.example .env
+
+   # Edit .env with your actual values
+   # Or use the provided scripts for development
+   ```
+
+4. Run the app:
+
+   ```bash
+   # For development (Windows)
+   scripts/run_dev.bat
+
+   # For development (Linux/Mac)
+   chmod +x scripts/run_dev.sh
+   ./scripts/run_dev.sh
+
+   # Or run manually with environment variables
+   flutter run --dart-define=STRIPE_PUBLISHABLE_KEY=your_key_here
    ```
 
 ## API Documentation
 
 The backend provides RESTful APIs for:
+
 - Authentication (`/api/auth`)
 - User management (`/api/users`)
 - Menu management (`/api/menus`)
@@ -122,6 +154,28 @@ The backend provides RESTful APIs for:
 - Table management (`/api/tables`)
 - Booking management (`/api/bookings`)
 - Payment processing (`/api/payments`)
+
+## Security
+
+### Environment Variables
+
+This project uses environment variables to secure sensitive information:
+
+- **Stripe Keys**: Use `STRIPE_PUBLISHABLE_KEY` environment variable
+- **API URLs**: Use `API_BASE_URL` and `SOCKET_URL` environment variables
+- **Database**: MongoDB URI is stored in backend `.env` file as `Mongo_Conn`
+
+### Best Practices
+
+- Never commit `.env` files to version control
+- Use different keys for development and production
+- Rotate API keys regularly
+- Use HTTPS in production
+
+### Development vs Production
+
+- Development: Uses test Stripe keys and local URLs
+- Production: Must use live Stripe keys and production URLs
 
 ## Contributing
 

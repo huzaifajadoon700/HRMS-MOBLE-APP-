@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import '../core/constants/app_constants.dart';
+import '../core/config/environment.dart';
 import 'auth_service.dart';
 
 class PaymentService {
@@ -45,10 +46,15 @@ class PaymentService {
     // Initialize Stripe only on mobile platforms (not web)
     if (!kIsWeb) {
       try {
-        Stripe.publishableKey =
-            'pk_test_51RQDO0QHBrXA72xgYssbECOe9bubZ2bWHA4m0T6EY6AvvmAfCzIDmKUCkRjpwVVIJ4IMaOiQBUawECn5GD8ADHbn00GRVmjExI'; // Same key as website
+        Stripe.publishableKey = Environment.currentStripeKey;
+        if (Environment.enableLogging) {
+          print(
+              'Stripe initialized with key: ${Environment.currentStripeKey.substring(0, 20)}...');
+        }
       } catch (e) {
-        print('Failed to initialize Stripe: $e');
+        if (Environment.enableLogging) {
+          print('Failed to initialize Stripe: $e');
+        }
       }
     }
   }

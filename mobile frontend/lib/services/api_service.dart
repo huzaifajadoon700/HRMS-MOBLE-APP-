@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import '../core/config/environment.dart';
 import 'mock_api.dart';
 
 class APIService {
@@ -24,8 +25,12 @@ class APIService {
 
   // Base URL configuration
   static String get baseUrl {
-    // For development with emulator/simulator, use these:
-    // For web, use localhost to avoid CORS issues during development
+    // Use environment configuration first
+    if (Environment.currentApiUrl.isNotEmpty) {
+      return Environment.currentApiUrl;
+    }
+
+    // Fallback to platform-specific URLs for development
     if (kIsWeb) {
       return 'http://localhost:8080';
     }
@@ -42,9 +47,6 @@ class APIService {
     else {
       return 'http://localhost:8080';
     }
-
-    // For production backend, uncomment and update this with your real backend URL
-    // return 'https://api.yourrealdomain.com';
   }
 
   // Create a complete URL for a specific API endpoint

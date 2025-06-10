@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import '../core/config/environment.dart';
 
 class SocketService {
   static final SocketService _instance = SocketService._internal();
@@ -11,7 +12,7 @@ class SocketService {
   final Set<Function(Map<String, dynamic>)> _callbacks = {};
   bool _isConnected = false;
 
-  static const String _socketServer = 'http://192.168.10.6:8080';
+  static String get _socketServer => Environment.currentSocketUrl;
 
   bool get isConnected => _isConnected;
   String? get activeOrderId => _activeOrderId;
