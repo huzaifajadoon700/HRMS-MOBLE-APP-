@@ -140,3 +140,8 @@ jspm_packages/
 
 # TernJS port file
 .tern-port
+
+# Temporary test and documentation files
+check_users.js
+MOBILE_APP_FIXES_SUMMARY.md
+test_mobile_backend.js
