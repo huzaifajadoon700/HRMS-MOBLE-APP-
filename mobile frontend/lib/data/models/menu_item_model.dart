@@ -14,6 +14,9 @@ class MenuItemModel {
   final double? rating;
   final int? prepTimeMinutes;
   final Map<String, dynamic>? nutritionalInfo;
+  final double averageRating;
+  final int totalRatings;
+  final String? image;
 
   MenuItemModel({
     required this.id,
@@ -31,6 +34,9 @@ class MenuItemModel {
     this.rating,
     this.prepTimeMinutes,
     this.nutritionalInfo,
+    this.averageRating = 0.0,
+    this.totalRatings = 0,
+    this.image,
   });
 
   // Create a menu item from JSON data
@@ -57,6 +63,11 @@ class MenuItemModel {
           json['rating'] != null ? (json['rating'] as num).toDouble() : null,
       prepTimeMinutes: json['prepTimeMinutes'] as int?,
       nutritionalInfo: json['nutritionalInfo'] as Map<String, dynamic>?,
+      averageRating: json['averageRating'] != null
+          ? (json['averageRating'] as num).toDouble()
+          : 0.0,
+      totalRatings: json['totalRatings'] as int? ?? 0,
+      image: json['image'] as String?,
     );
   }
 
@@ -78,6 +89,9 @@ class MenuItemModel {
       'rating': rating,
       'prepTimeMinutes': prepTimeMinutes,
       'nutritionalInfo': nutritionalInfo,
+      'averageRating': averageRating,
+      'totalRatings': totalRatings,
+      'image': image,
     };
   }
 
@@ -98,6 +112,9 @@ class MenuItemModel {
     double? rating,
     int? prepTimeMinutes,
     Map<String, dynamic>? nutritionalInfo,
+    double? averageRating,
+    int? totalRatings,
+    String? image,
   }) {
     return MenuItemModel(
       id: id ?? this.id,
@@ -115,6 +132,9 @@ class MenuItemModel {
       rating: rating ?? this.rating,
       prepTimeMinutes: prepTimeMinutes ?? this.prepTimeMinutes,
       nutritionalInfo: nutritionalInfo ?? this.nutritionalInfo,
+      averageRating: averageRating ?? this.averageRating,
+      totalRatings: totalRatings ?? this.totalRatings,
+      image: image ?? this.image,
     );
   }
 
@@ -170,6 +190,10 @@ class MenuItemModel {
           'carbs': 40,
           'fat': 35,
         },
+        averageRating: 4.5,
+        totalRatings: 127,
+        image:
+            'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1299&q=80',
       ),
       MenuItemModel(
         id: '2',
@@ -200,6 +224,10 @@ class MenuItemModel {
           'carbs': 100,
           'fat': 40,
         },
+        averageRating: 4.7,
+        totalRatings: 89,
+        image:
+            'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       ),
       MenuItemModel(
         id: '3',
@@ -228,6 +256,10 @@ class MenuItemModel {
           'carbs': 15,
           'fat': 25,
         },
+        averageRating: 4.2,
+        totalRatings: 64,
+        image:
+            'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       ),
       MenuItemModel(
         id: '4',
@@ -259,6 +291,10 @@ class MenuItemModel {
           'carbs': 60,
           'fat': 25,
         },
+        averageRating: 4.8,
+        totalRatings: 156,
+        image:
+            'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80',
       ),
       MenuItemModel(
         id: '5',
@@ -289,6 +325,10 @@ class MenuItemModel {
           'carbs': 70,
           'fat': 25,
         },
+        averageRating: 4.6,
+        totalRatings: 73,
+        image:
+            'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       ),
     ];
   }

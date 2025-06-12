@@ -339,10 +339,10 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.75,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
           ),
           itemCount: _rooms.length > 3 ? 3 : _rooms.length, // Limit to 3 rooms
           itemBuilder: (context, index) {
@@ -561,7 +561,7 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -587,17 +587,19 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFBB86FC).withOpacity(0.1),
+                            color:
+                                const Color(0xFFBB86FC).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: const Color(0xFFBB86FC).withOpacity(0.2),
+                              color: const Color(0xFFBB86FC)
+                                  .withValues(alpha: 0.2),
                             ),
                           ),
                           child: Text(
                             room['roomType'] ?? 'Deluxe',
                             style: const TextStyle(
                               color: Color(0xFFBB86FC),
-                              fontSize: 8,
+                              fontSize: 10,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -619,6 +621,7 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
                         // Book Button
                         SizedBox(
                           width: double.infinity,
+                          height: 32,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/room-booking',
@@ -637,7 +640,7 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
                               'BOOK NOW',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                                fontSize: 12,
                               ),
                             ),
                           ),
@@ -660,15 +663,15 @@ class _FeaturedRoomsSectionState extends State<FeaturedRoomsSection> {
       children: [
         Icon(
           icon,
-          size: 10,
-          color: Colors.white.withOpacity(0.8),
+          size: 12,
+          color: Colors.white.withValues(alpha: 0.8),
         ),
-        const SizedBox(width: 2),
+        const SizedBox(width: 4),
         Text(
           label,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
-            fontSize: 6,
+            color: Colors.white.withValues(alpha: 0.8),
+            fontSize: 8,
           ),
         ),
       ],

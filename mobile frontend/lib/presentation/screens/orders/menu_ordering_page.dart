@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../../services/recommendation_service.dart';
 import '../../../data/models/menu_item_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../widgets/loading_widget.dart';
+import 'cart_screen.dart';
 
 class MenuOrderingPage extends StatefulWidget {
   const MenuOrderingPage({Key? key}) : super(key: key);
@@ -74,9 +77,44 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
       });
 
       print('🔍 Loading personalized recommendations...');
-      final response = await RecommendationService.getFoodRecommendations(
-        count: 8, // Request fewer, more targeted recommendations
-      );
+
+      // Try to get personalized recommendations using the same API as website
+      Map<String, dynamic> response = {};
+      try {
+        // First try to get user-specific recommendations
+        final userId = await RecommendationService.debugGetStoredValues();
+        if (userId['userId'] != null) {
+          final personalizedResponse = await http.get(
+            Uri.parse(
+                'http://localhost:8080/api/food-recommendations/recommendations/${userId['userId']}?count=8'),
+            headers: {'Content-Type': 'application/json'},
+          );
+
+          if (personalizedResponse.statusCode == 200) {
+            response = json.decode(personalizedResponse.body);
+          }
+        }
+
+        // If no personalized recommendations, fall back to popular items
+        if (response.isEmpty || response['recommendations'] == null) {
+          final popularResponse = await http.get(
+            Uri.parse(
+                'http://localhost:8080/api/food-recommendations/popular?count=8'),
+            headers: {'Content-Type': 'application/json'},
+          );
+
+          if (popularResponse.statusCode == 200) {
+            final popularData = json.decode(popularResponse.body);
+            response = {
+              'success': true,
+              'recommendations': popularData['popularItems'] ?? [],
+            };
+          }
+        }
+      } catch (e) {
+        print('Error fetching recommendations: $e');
+        response = {'success': false, 'recommendations': []};
+      }
 
       print('📊 Recommendation API Response: $response');
 
@@ -103,16 +141,23 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
 
         final aiRecommendations =
             recommendations.map<Map<String, dynamic>>((item) {
+          // Handle both direct menu items and recommendation objects
           final menuItem = item['menuItem'] ?? item;
           return {
-            '_id': menuItem['_id'] ?? '',
-            'name': menuItem['name'] ?? '',
-            'price': menuItem['price'] ?? 0,
-            'image': menuItem['image'] ?? '',
-            'category': menuItem['category'] ?? '',
-            'description': menuItem['description'] ?? '',
-            'avgRating': menuItem['avgRating'] ?? 4.5,
-            'isAvailable': menuItem['isAvailable'] ?? true,
+            '_id': menuItem['_id'] ?? item['_id'] ?? '',
+            'name': menuItem['name'] ?? item['name'] ?? '',
+            'price': menuItem['price'] ?? item['price'] ?? 0,
+            'image': menuItem['image'] ?? item['image'] ?? '',
+            'category': menuItem['category'] ?? item['category'] ?? '',
+            'description': menuItem['description'] ?? item['description'] ?? '',
+            'avgRating': menuItem['averageRating'] ??
+                menuItem['avgRating'] ??
+                item['averageRating'] ??
+                4.5,
+            'isAvailable': menuItem['availability'] ??
+                menuItem['isAvailable'] ??
+                item['availability'] ??
+                true,
             'recommendationReason': item['reason'] ?? 'ai_recommended',
             'explanation': item['explanation'] ?? 'AI recommended for you',
             'rank': item['rank'] ?? 1,
@@ -178,13 +223,6 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
                   })
               .toList();
         });
-
-        // Debug: Print the curated recommendations data
-        print('🎯 Curated recommendations data:');
-        for (var item in _personalizedRecommendations) {
-          print(
-              '  - ${item['name']} (${item['avgRating']}) - Image: ${item['image']}');
-        }
 
         print(
             '✅ Created curated recommendations: ${_personalizedRecommendations.length} items');
@@ -314,24 +352,40 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
         _isLoadingTrending = true;
       });
 
-      final response =
-          await RecommendationService.getPopularFoodItems(count: 6);
+      // Use the same API endpoint as the website for popular items
+      final response = await http.get(
+        Uri.parse(
+            'http://localhost:8080/api/food-recommendations/popular?count=6'),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-      if (response['success'] == true || response['popularItems'] != null) {
-        final items = response['popularItems'] ?? [];
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final items = data['popularItems'] ?? [];
         setState(() {
-          _trendingItems = items
-              .map<Map<String, dynamic>>((item) => {
-                    '_id': item['_id'] ?? '',
-                    'name': item['name'] ?? '',
-                    'price': item['price'] ?? 0,
-                    'image': item['image'] ?? '',
-                    'category': item['category'] ?? '',
-                    'description': item['description'] ?? '',
-                    'avgRating': item['avgRating'] ?? 4.5,
-                    'isAvailable': item['isAvailable'] ?? true,
-                  })
-              .toList();
+          _trendingItems = items.map<Map<String, dynamic>>((item) {
+            // Handle both direct menu items and recommendation objects
+            final menuItem = item['menuItem'] ?? item;
+            return {
+              '_id': menuItem['_id'] ?? item['_id'] ?? '',
+              'name': menuItem['name'] ?? item['name'] ?? '',
+              'price': menuItem['price'] ?? item['price'] ?? 0,
+              'image': menuItem['image'] ??
+                  item['image'] ??
+                  '', // Backend path like "/uploads/filename.jpg"
+              'category': menuItem['category'] ?? item['category'] ?? '',
+              'description':
+                  menuItem['description'] ?? item['description'] ?? '',
+              'avgRating': menuItem['averageRating'] ??
+                  menuItem['avgRating'] ??
+                  item['averageRating'] ??
+                  4.5,
+              'isAvailable': menuItem['availability'] ??
+                  menuItem['isAvailable'] ??
+                  item['availability'] ??
+                  true,
+            };
+          }).toList();
         });
       }
     } catch (e) {
@@ -349,29 +403,47 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
         _isLoadingAll = true;
       });
 
-      // Get all menu items from API
-      final response =
-          await RecommendationService.getPopularFoodItems(count: 50);
+      // Use the same API endpoint as the website: /api/menus
+      final response = await http.get(
+        Uri.parse('http://localhost:8080/api/menus'),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-      if (response['success'] == true || response['popularItems'] != null) {
-        final items = response['popularItems'] ?? [];
+      if (response.statusCode == 200) {
+        final List<dynamic> items = json.decode(response.body);
         setState(() {
           _allMenuItems = items
               .map<Map<String, dynamic>>((item) => {
                     '_id': item['_id'] ?? '',
                     'name': item['name'] ?? '',
                     'price': item['price'] ?? 0,
-                    'image': item['image'] ?? '',
+                    'image': item['image'] ??
+                        '', // This will be the backend path like "/uploads/filename.jpg"
                     'category': item['category'] ?? '',
                     'description': item['description'] ?? '',
-                    'avgRating': item['avgRating'] ?? 4.5,
-                    'isAvailable': item['isAvailable'] ?? true,
+                    'avgRating': item['averageRating'] ??
+                        4.5, // Note: backend uses 'averageRating'
+                    'isAvailable': item['availability'] ??
+                        true, // Note: backend uses 'availability'
+                    'cuisine': item['cuisine'] ?? '',
+                    'spiceLevel': item['spiceLevel'] ?? '',
+                    'dietaryTags': item['dietaryTags'] ?? [],
+                    'preparationTime': item['preparationTime'] ?? 15,
                   })
               .toList();
+        });
+      } else {
+        // No data available from API
+        setState(() {
+          _allMenuItems = [];
         });
       }
     } catch (e) {
       print('Error loading all menu items: $e');
+      // No data on error
+      setState(() {
+        _allMenuItems = [];
+      });
     } finally {
       setState(() {
         _isLoadingAll = false;
@@ -380,22 +452,26 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
   }
 
   String _getImageUrl(String? imagePath) {
+    // Handle null or empty image paths
     if (imagePath == null || imagePath.isEmpty) {
-      return 'https://via.placeholder.com/300x200?text=Food';
+      return _getFallbackImageUrl();
     }
 
-    if (imagePath.startsWith('http')) {
-      // Check if it's a broken Unsplash URL and provide fallback
-      if (imagePath.contains('unsplash.com')) {
-        print('⚠️ Using Unsplash URL (may fail): $imagePath');
-      }
-      return imagePath; // Let it fail and show our beautiful fallback
+    // If it's already a full URL, return as is
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
     }
 
-    final cleanPath = imagePath.replaceAll(RegExp(r'^/+'), '');
-    return cleanPath.contains('uploads')
-        ? 'http://localhost:8080/$cleanPath'
-        : 'http://localhost:8080/uploads/$cleanPath';
+    // Construct the full URL from backend path (same as website)
+    // Backend returns paths like "/uploads/filename.jpg"
+    final baseUrl = 'http://localhost:8080';
+    final cleanPath = imagePath.startsWith('/') ? imagePath : '/$imagePath';
+    return '$baseUrl$cleanPath';
+  }
+
+  String _getFallbackImageUrl() {
+    // Return a single, reliable placeholder image
+    return 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center';
   }
 
   Widget _getRecommendationBadge(String? reason) {
@@ -523,7 +599,11 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
           label: 'VIEW CART',
           textColor: Colors.white,
           onPressed: () {
-            // Navigate to cart
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const CartScreen(),
+              ),
+            );
           },
         ),
       ),
@@ -635,20 +715,67 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
                       // Cart and notification icons
                       Row(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.2),
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.shopping_cart_outlined,
-                              color: Colors.white,
-                              size: 20,
-                            ),
+                          // Cart Icon with Badge
+                          Consumer<CartProvider>(
+                            builder: (context, cart, child) {
+                              return Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => const CartScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white
+                                            .withValues(alpha: 0.15),
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                          color: Colors.white
+                                              .withValues(alpha: 0.2),
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.shopping_cart_outlined,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  if (cart.itemCount > 0)
+                                    Positioned(
+                                      right: 0,
+                                      top: 0,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFF6B6B),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 18,
+                                          minHeight: 18,
+                                        ),
+                                        child: Text(
+                                          '${cart.itemCount}',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
                           ),
                           const SizedBox(width: 12),
                           Container(
@@ -1212,32 +1339,109 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
               flex: isCompact ? 2 : 3,
               child: Stack(
                 children: [
-                  // Menu item image
+                  // Menu item image with better error handling
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.vertical(top: Radius.circular(16)),
-                      image: DecorationImage(
-                        image: NetworkImage(imageUrl),
-                        fit: BoxFit.cover,
-                        onError: (exception, stackTrace) {
-                          // Handle image loading error
-                        },
-                      ),
+                      color: Colors.grey[800], // Fallback background
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(16)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withValues(alpha: 0.3),
-                          ],
-                        ),
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(16)),
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            imageUrl,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      const Color(0xFF4F46E5)
+                                          .withValues(alpha: 0.8),
+                                      const Color(0xFF7C3AED)
+                                          .withValues(alpha: 0.6),
+                                    ],
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Colors.white.withValues(alpha: 0.2),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.restaurant_menu,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                      child: Text(
+                                        menuItem['name'] ?? 'Food Item',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Container(
+                                color: Colors.grey[800],
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: const Color(0xFFFF6B6B),
+                                    strokeWidth: 2,
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          // Gradient overlay
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(16)),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withValues(alpha: 0.3),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -1310,9 +1514,10 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
             Expanded(
               flex: isCompact ? 1 : 2,
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     // Item name
                     Text(
@@ -1379,18 +1584,20 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
                     if (isRecommended &&
                         menuItem['explanation'] != null &&
                         !isCompact)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Text(
-                          menuItem['explanation'],
-                          style: TextStyle(
-                            color:
-                                const Color(0xFFFF6B6B).withValues(alpha: 0.8),
-                            fontSize: 9,
-                            fontStyle: FontStyle.italic,
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            menuItem['explanation'],
+                            style: TextStyle(
+                              color: const Color(0xFFFF6B6B)
+                                  .withValues(alpha: 0.8),
+                              fontSize: 9,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                   ],
@@ -1647,7 +1854,7 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.82,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
@@ -1711,23 +1918,103 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
                     decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.vertical(top: Radius.circular(20)),
-                      image: DecorationImage(
-                        image: NetworkImage(imageUrl),
-                        fit: BoxFit.cover,
-                      ),
+                      color: Colors.grey[800], // Fallback background
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(20)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withValues(alpha: 0.6),
-                          ],
-                        ),
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(20)),
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            imageUrl,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      const Color(0xFF4F46E5)
+                                          .withValues(alpha: 0.8),
+                                      const Color(0xFF7C3AED)
+                                          .withValues(alpha: 0.6),
+                                    ],
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Colors.white.withValues(alpha: 0.2),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.restaurant_menu,
+                                        color: Colors.white,
+                                        size: 32,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      child: Text(
+                                        menuItem['name'] ?? 'Food Item',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Container(
+                                color: Colors.grey[800],
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: const Color(0xFFFF6B6B),
+                                    strokeWidth: 3,
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          // Gradient overlay
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withValues(alpha: 0.6),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -1800,9 +2087,10 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       menuItem['name'] ?? 'Unknown Item',
@@ -1815,17 +2103,19 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 6),
-                    Text(
-                      menuItem['description'] ?? '',
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.7),
-                        fontSize: 10,
+                    const SizedBox(height: 4),
+                    Flexible(
+                      child: Text(
+                        menuItem['description'] ?? '',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.7),
+                          fontSize: 10,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                    const Spacer(),
+                    const SizedBox(height: 4),
                     Row(
                       children: [
                         Container(

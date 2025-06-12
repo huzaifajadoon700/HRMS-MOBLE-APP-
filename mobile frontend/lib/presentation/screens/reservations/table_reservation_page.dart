@@ -1203,9 +1203,10 @@ class _TableReservationPageState extends State<TableReservationPage>
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     // Table name with modern styling
                     Text(
@@ -1220,7 +1221,7 @@ class _TableReservationPageState extends State<TableReservationPage>
                       overflow: TextOverflow.ellipsis,
                     ),
 
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
 
                     // Location and capacity with modern icons
                     Row(
@@ -1232,9 +1233,9 @@ class _TableReservationPageState extends State<TableReservationPage>
                                 const Color(0xFF64FFDA).withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.location_on_outlined,
-                            color: const Color(0xFF64FFDA),
+                            color: Color(0xFF64FFDA),
                             size: 12,
                           ),
                         ),
@@ -1271,7 +1272,7 @@ class _TableReservationPageState extends State<TableReservationPage>
                       ],
                     ),
 
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
 
                     // Rating with modern design
                     Row(
@@ -1336,30 +1337,32 @@ class _TableReservationPageState extends State<TableReservationPage>
 
                     // Recommendation explanation (only for recommended tables)
                     if (isRecommended && table['explanation'] != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color:
-                                const Color(0xFF64FFDA).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
                               color: const Color(0xFF64FFDA)
-                                  .withValues(alpha: 0.3),
+                                  .withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                color: const Color(0xFF64FFDA)
+                                    .withValues(alpha: 0.3),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            table['explanation'],
-                            style: TextStyle(
-                              color: const Color(0xFF64FFDA)
-                                  .withValues(alpha: 0.9),
-                              fontSize: 10,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w500,
+                            child: Text(
+                              table['explanation'],
+                              style: TextStyle(
+                                color: const Color(0xFF64FFDA)
+                                    .withValues(alpha: 0.9),
+                                fontSize: 9,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),

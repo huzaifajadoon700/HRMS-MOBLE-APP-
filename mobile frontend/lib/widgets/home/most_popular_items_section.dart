@@ -143,10 +143,10 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
       height: 400,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 0.75,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisCount: 2,
+          childAspectRatio: 0.7,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
         ),
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 3,
@@ -224,10 +224,10 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.75,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
           ),
           itemCount: _menuItems.length,
           itemBuilder: (context, index) {
@@ -404,7 +404,7 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                       Text(
                         item['name'] ?? 'Menu Item',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                           foreground: Paint()
                             ..shader = const LinearGradient(
@@ -419,36 +419,23 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                       // Category
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                            horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFBB86FC).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6),
+                          color: const Color(0xFFBB86FC).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: const Color(0xFFBB86FC).withOpacity(0.2),
+                            color:
+                                const Color(0xFFBB86FC).withValues(alpha: 0.2),
                           ),
                         ),
                         child: Text(
                           item['category'] ?? 'Delicious',
                           style: const TextStyle(
                             color: Color(0xFFBB86FC),
-                            fontSize: 7,
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-
-                      // Description
-                      Text(
-                        item['description'] ??
-                            'A delicious menu item that will satisfy your taste buds.',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 8,
-                          height: 1.4,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 8),
 
@@ -468,6 +455,7 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                       // Order Button
                       SizedBox(
                         width: double.infinity,
+                        height: 32,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/order-food',
@@ -475,11 +463,11 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color(0xFFBB86FC).withOpacity(0.8),
+                                const Color(0xFFBB86FC).withValues(alpha: 0.8),
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             elevation: 0,
                           ),
@@ -487,7 +475,7 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
                             'ORDER NOW',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 9,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -509,15 +497,15 @@ class _MostPopularItemsSectionState extends State<MostPopularItemsSection> {
         children: [
           Icon(
             icon,
-            size: 8,
-            color: Colors.white.withOpacity(0.8),
+            size: 12,
+            color: Colors.white.withValues(alpha: 0.8),
           ),
           const SizedBox(height: 2),
           Text(
             label,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.8),
-              fontSize: 5,
+              color: Colors.white.withValues(alpha: 0.8),
+              fontSize: 8,
             ),
             textAlign: TextAlign.center,
             maxLines: 1,

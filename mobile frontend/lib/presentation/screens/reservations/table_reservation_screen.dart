@@ -26,13 +26,21 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
   final ReservationService _reservationService = ReservationService();
   final _formKey = GlobalKey<FormState>();
 
+  // Date and Time
   DateTime _selectedDate = DateTime.now().add(const Duration(days: 1));
   String _selectedTimeSlot = '19:00';
+  String _selectedEndTime = '21:00';
+
+  // Guest and Personal Info
   int _partySize = 2;
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _specialRequestsController =
       TextEditingController();
   final TextEditingController _occasionController = TextEditingController();
 
+  // State management
   bool _isLoading = false;
   bool _isCheckingAvailability = false;
   bool _isAvailable = true;
@@ -63,20 +71,45 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
   ];
 
   // Reservation fee - $10 per person
-  double get _reservationFee => _partySize * 10.0;
+  double get _reservationFee =>
+      _partySize * 500.0; // Rs. 500 per person (matching website)
 
   @override
   void initState() {
     super.initState();
     _reservationService.initialize();
+    _initializeUserData();
     _checkAvailability();
   }
 
   @override
   void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
     _specialRequestsController.dispose();
     _occasionController.dispose();
     super.dispose();
+  }
+
+  void _initializeUserData() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final user = authProvider.user;
+
+    if (user != null) {
+      _fullNameController.text = user.name;
+      _emailController.text = user.email;
+      _phoneController.text = user.phoneNumber ?? '';
+    }
+  }
+
+  void _updateEndTime() {
+    // Auto-calculate end time (2 hours after start time)
+    final startHour = int.parse(_selectedTimeSlot.split(':')[0]);
+    final startMinute = int.parse(_selectedTimeSlot.split(':')[1]);
+    final endHour = (startHour + 2) % 24;
+    _selectedEndTime =
+        '${endHour.toString().padLeft(2, '0')}:${startMinute.toString().padLeft(2, '0')}';
   }
 
   Future<void> _checkAvailability() async {
@@ -89,6 +122,7 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
         tableId: widget.table.id,
         reservationDate: _selectedDate,
         timeSlot: _selectedTimeSlot,
+        endTime: _selectedEndTime,
       );
 
       setState(() {
@@ -134,14 +168,11 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
     });
 
     try {
-      // Get user details from auth provider (before async operations)
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final user = authProvider.user;
-
       final result = await _reservationService.createReservation(
         tableId: widget.table.id,
         reservationDate: _selectedDate,
         timeSlot: _selectedTimeSlot,
+        endTime: _selectedEndTime,
         partySize: _partySize,
         specialRequests: _specialRequestsController.text.trim().isEmpty
             ? null
@@ -150,9 +181,9 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
             ? null
             : _occasionController.text.trim(),
         tableNumber: widget.table.tableNumber,
-        fullName: user?.name ?? '',
-        email: user?.email ?? '',
-        phone: user?.phoneNumber ?? '',
+        fullName: _fullNameController.text.trim(),
+        email: _emailController.text.trim(),
+        phone: _phoneController.text.trim(),
         paymentMethod: 'card',
         paymentMethodId: paymentIntentId,
       );
@@ -160,12 +191,34 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
       if (!mounted) return;
 
       if (result['success']) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_) => ReservationConfirmationScreen(
-                reservation: result['reservation']),
-          ),
-        );
+        // Debug: Print the reservation data to see what we're getting
+        print('Reservation result: ${result['reservation']}');
+
+        // Convert the Map to ReservationModel using the service method
+        final reservationData = result['reservation'] as Map<String, dynamic>;
+
+        try {
+          final reservationModel =
+              _reservationService.mapApiToReservationModel(reservationData);
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) =>
+                  ReservationConfirmationScreen(reservation: reservationModel),
+            ),
+          );
+        } catch (e) {
+          print('Error converting reservation data: $e');
+          print('Reservation data structure: $reservationData');
+
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error processing reservation: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -326,33 +379,104 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
 
                     const SizedBox(height: 24),
 
-                    // Time Selection
+                    // Start Time Selection
                     Text(
-                      'Select Time',
+                      'Start Time',
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: _timeSlots.map((time) {
-                        final isSelected = _selectedTimeSlot == time;
-                        return FilterChip(
-                          label: Text(time),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            setState(() {
-                              _selectedTimeSlot = time;
-                            });
-                            _checkAvailability();
-                          },
-                          selectedColor:
-                              theme.colorScheme.primary.withValues(alpha: 0.2),
-                          checkmarkColor: theme.colorScheme.primary,
-                        );
-                      }).toList(),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: _timeSlots.map((time) {
+                          final isSelected = _selectedTimeSlot == time;
+                          return ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 60,
+                              maxWidth: 80,
+                            ),
+                            child: FilterChip(
+                              label: Text(
+                                time,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              selected: isSelected,
+                              onSelected: (selected) {
+                                setState(() {
+                                  _selectedTimeSlot = time;
+                                  _updateEndTime(); // Auto-update end time
+                                });
+                                _checkAvailability();
+                              },
+                              selectedColor: theme.colorScheme.primary
+                                  .withValues(alpha: 0.2),
+                              checkmarkColor: theme.colorScheme.primary,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // End Time Selection
+                    Text(
+                      'End Time',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: _timeSlots.map((time) {
+                          final isSelected = _selectedEndTime == time;
+                          final startHour =
+                              int.parse(_selectedTimeSlot.split(':')[0]);
+                          final endHour = int.parse(time.split(':')[0]);
+                          final isValidEndTime = endHour > startHour ||
+                              (endHour == startHour &&
+                                  int.parse(time.split(':')[1]) >
+                                      int.parse(
+                                          _selectedTimeSlot.split(':')[1]));
+
+                          return ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 60,
+                              maxWidth: 80,
+                            ),
+                            child: FilterChip(
+                              label: Text(
+                                time,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              selected: isSelected,
+                              onSelected: isValidEndTime
+                                  ? (selected) {
+                                      setState(() {
+                                        _selectedEndTime = time;
+                                      });
+                                      _checkAvailability();
+                                    }
+                                  : null,
+                              selectedColor: theme.colorScheme.primary
+                                  .withValues(alpha: 0.2),
+                              checkmarkColor: theme.colorScheme.primary,
+                              backgroundColor: isValidEndTime
+                                  ? null
+                                  : theme.colorScheme.surface
+                                      .withValues(alpha: 0.3),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
 
                     const SizedBox(height: 24),
@@ -406,6 +530,77 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                           ),
                         ),
                       ],
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // Personal Information Section
+                    Text(
+                      'Personal Information',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Full Name
+                    TextFormField(
+                      controller: _fullNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Full Name',
+                        hintText: 'Enter your full name',
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your full name';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Email
+                    TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'Enter your email address',
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        if (!value.contains('@')) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Phone Number
+                    TextFormField(
+                      controller: _phoneController,
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                        labelText: 'Phone Number',
+                        hintText: 'Enter your phone number',
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.phone),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your phone number';
+                        }
+                        return null;
+                      },
                     ),
 
                     const SizedBox(height: 24),
@@ -521,7 +716,7 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                                   style: theme.textTheme.bodyMedium,
                                 ),
                                 Text(
-                                  '\$10.00',
+                                  'Rs. 500',
                                   style: theme.textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -555,13 +750,53 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '\$${_reservationFee.toStringAsFixed(2)}',
+                                  'Rs. ${_reservationFee.toStringAsFixed(0)}',
                                   style: theme.textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     color: theme.colorScheme.primary,
                                   ),
                                 ),
                               ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // Reservation Summary
+                    Card(
+                      color: theme.colorScheme.primaryContainer
+                          .withValues(alpha: 0.1),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Reservation Summary',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            _buildSummaryRow(
+                                'Table:', 'Table ${widget.table.tableNumber}'),
+                            _buildSummaryRow(
+                                'Date:',
+                                DateFormat('MMM dd, yyyy')
+                                    .format(_selectedDate)),
+                            _buildSummaryRow('Time:',
+                                '$_selectedTimeSlot - $_selectedEndTime'),
+                            _buildSummaryRow(
+                                'Number of Guests:', '$_partySize'),
+                            const Divider(height: 20),
+                            _buildSummaryRow(
+                              'Total Price:',
+                              'Rs. ${_reservationFee.toStringAsFixed(0)}',
+                              isTotal: true,
                             ),
                           ],
                         ),
@@ -593,6 +828,32 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                 ),
               ),
             ),
+    );
+  }
+
+  Widget _buildSummaryRow(String label, String value, {bool isTotal = false}) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+              color: isTotal ? theme.colorScheme.primary : null,
+            ),
+          ),
+          Text(
+            value,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.w600,
+              color: isTotal ? theme.colorScheme.primary : null,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

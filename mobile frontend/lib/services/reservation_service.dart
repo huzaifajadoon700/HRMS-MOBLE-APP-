@@ -39,6 +39,7 @@ class ReservationService {
     required String tableId,
     required DateTime reservationDate,
     required String timeSlot,
+    String? endTime,
     required int partySize,
     String? specialRequests,
     String? occasion,
@@ -50,16 +51,17 @@ class ReservationService {
     String? paymentMethodId,
   }) async {
     try {
-      // Calculate end time (2 hours after start time by default)
-      final startTime = timeSlot;
-      final startHour = int.parse(startTime.split(':')[0]);
-      final startMinute = int.parse(startTime.split(':')[1]);
-      final endHour = (startHour + 2) % 24;
-      final endTime =
-          '${endHour.toString().padLeft(2, '0')}:${startMinute.toString().padLeft(2, '0')}';
+      // Use provided endTime or calculate it (2 hours after start time by default)
+      final calculatedEndTime = endTime ??
+          () {
+            final startHour = int.parse(timeSlot.split(':')[0]);
+            final startMinute = int.parse(timeSlot.split(':')[1]);
+            final endHour = (startHour + 2) % 24;
+            return '${endHour.toString().padLeft(2, '0')}:${startMinute.toString().padLeft(2, '0')}';
+          }();
 
-      // Calculate total price (assuming $10 per person)
-      final totalPrice = partySize * 10.0;
+      // Calculate total price (Rs. 500 per person - matching website)
+      final totalPrice = partySize * 500.0;
 
       final reservationData = {
         'tableId': tableId,
@@ -67,7 +69,7 @@ class ReservationService {
         'reservationDate':
             reservationDate.toIso8601String().split('T')[0], // Date only
         'time': timeSlot,
-        'endTime': endTime,
+        'endTime': calculatedEndTime,
         'guests': partySize,
         'payment': paymentMethod,
         'totalPrice': totalPrice,
@@ -75,9 +77,7 @@ class ReservationService {
         'fullName': fullName ?? '',
         'email': email ?? '',
         'specialRequests': specialRequests ?? '',
-        if (paymentMethodId != null)
-          'paymentIntentId':
-              paymentMethodId, // Use as payment intent ID instead
+        if (paymentMethodId != null) 'paymentMethodId': paymentMethodId,
       };
 
       print('Creating reservation with data: $reservationData');
@@ -135,7 +135,7 @@ class ReservationService {
 
         print('Found ${reservationsData.length} reservations');
         return reservationsData
-            .map((item) => _mapApiToReservationModel(item))
+            .map((item) => mapApiToReservationModel(item))
             .toList();
       }
 
@@ -156,7 +156,7 @@ class ReservationService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['reservations'];
-        return data.map((item) => _mapApiToReservationModel(item)).toList();
+        return data.map((item) => mapApiToReservationModel(item)).toList();
       }
 
       return [];
@@ -173,7 +173,7 @@ class ReservationService {
       final response = await _dio!.get('/api/reservations/$reservationId');
 
       if (response.statusCode == 200) {
-        return _mapApiToReservationModel(response.data['reservation']);
+        return mapApiToReservationModel(response.data['reservation']);
       }
 
       return null;
@@ -194,8 +194,7 @@ class ReservationService {
       if (response.statusCode == 200) {
         return {
           'success': true,
-          'reservation':
-              _mapApiToReservationModel(response.data['reservation']),
+          'reservation': mapApiToReservationModel(response.data['reservation']),
           'message': response.data['message'],
         };
       }
@@ -249,20 +248,48 @@ class ReservationService {
     required String tableId,
     required DateTime reservationDate,
     required String timeSlot,
+    String? endTime,
   }) async {
     try {
+      // Calculate end time if not provided (2 hours after start time)
+      final calculatedEndTime = endTime ??
+          () {
+            final startHour = int.parse(timeSlot.split(':')[0]);
+            final startMinute = int.parse(timeSlot.split(':')[1]);
+            final endHour = (startHour + 2) % 24;
+            return '${endHour.toString().padLeft(2, '0')}:${startMinute.toString().padLeft(2, '0')}';
+          }();
+
       final response =
           await _dio!.get('/api/tables/availability', queryParameters: {
-        'tableId': tableId,
-        'reservationDate': reservationDate.toIso8601String(),
-        'timeSlot': timeSlot,
+        'reservationDate':
+            reservationDate.toIso8601String().split('T')[0], // Date only
+        'time': timeSlot,
+        'endTime': calculatedEndTime,
       });
 
       if (response.statusCode == 200) {
-        return {
-          'available': response.data['available'],
-          'message': response.data['message'],
-        };
+        // Find the specific table in the response array (matching website logic)
+        final List<dynamic> availabilityData = response.data;
+        final tableAvailability = availabilityData.firstWhere(
+          (item) => item['table']['_id'] == tableId,
+          orElse: () => null,
+        );
+
+        if (tableAvailability != null) {
+          final isAvailable = tableAvailability['isAvailable'] == true;
+          return {
+            'available': isAvailable,
+            'message': isAvailable
+                ? 'Table is available for reservation!'
+                : 'This table is already reserved during the selected time range. Please choose a different time or select another table.',
+          };
+        } else {
+          return {
+            'available': true, // Default to available if table not found
+            'message': 'Table availability status unknown',
+          };
+        }
       }
 
       return {
@@ -270,19 +297,21 @@ class ReservationService {
         'message': 'Unable to check availability',
       };
     } on DioException catch (e) {
+      print('Availability check error: ${e.response?.data}');
       return {
-        'available': false,
+        'available': true, // Default to available on error (like website)
         'message': e.response?.data['message'] ?? 'Network error occurred',
       };
     } catch (e) {
+      print('Unexpected availability check error: $e');
       return {
-        'available': false,
+        'available': true, // Default to available on error
         'message': 'An unexpected error occurred',
       };
     }
   }
 
-  ReservationModel _mapApiToReservationModel(Map<String, dynamic> apiData) {
+  ReservationModel mapApiToReservationModel(Map<String, dynamic> apiData) {
     // Handle tableId - it could be a string or an object (when populated)
     String tableId;
     TableModel? table;
@@ -290,13 +319,13 @@ class ReservationService {
     if (apiData['tableId'] is String) {
       tableId = apiData['tableId'];
       table = apiData['table'] != null
-          ? _mapApiToTableModel(apiData['table'])
+          ? mapApiToTableModel(apiData['table'])
           : null;
     } else if (apiData['tableId'] is Map<String, dynamic>) {
       // tableId is populated with table data
       final tableData = apiData['tableId'] as Map<String, dynamic>;
       tableId = tableData['_id'] ?? tableData['id'] ?? '';
-      table = _mapApiToTableModel(tableData);
+      table = mapApiToTableModel(tableData);
     } else {
       tableId = apiData['tableId']?.toString() ?? '';
       table = null;
@@ -318,10 +347,15 @@ class ReservationService {
       userId: userId,
       tableId: tableId,
       reservationDate: DateTime.parse(apiData['reservationDate']),
-      timeSlot: apiData['timeSlot'] ?? apiData['time'] ?? '',
+      timeSlot:
+          apiData['time'] ?? apiData['timeSlot'] ?? '', // Backend uses 'time'
       endTime: apiData['endTime']?.toString(),
-      partySize: apiData['partySize'] ?? apiData['guests'] ?? 1,
-      status: apiData['status'] ?? 'pending',
+      partySize: apiData['guests'] ??
+          apiData['partySize'] ??
+          1, // Backend uses 'guests'
+      status: apiData['paymentStatus'] ??
+          apiData['status'] ??
+          'pending', // Backend uses 'paymentStatus'
       specialRequests: apiData['specialRequests']?.toString(),
       occasion: apiData['occasion']?.toString(),
       createdAt: apiData['createdAt'] != null
@@ -334,16 +368,18 @@ class ReservationService {
     );
   }
 
-  TableModel _mapApiToTableModel(Map<String, dynamic> apiData) {
+  TableModel mapApiToTableModel(Map<String, dynamic> apiData) {
     return TableModel(
       id: apiData['_id'] ?? apiData['id'] ?? '',
-      tableNumber: apiData['tableNumber']?.toString() ?? '',
+      tableNumber: apiData['tableName'] ??
+          apiData['tableNumber']?.toString() ??
+          '', // Backend uses 'tableName'
       capacity: apiData['capacity'] is int
           ? apiData['capacity']
           : int.tryParse(apiData['capacity']?.toString() ?? '0') ?? 0,
-      location: apiData['location']?.toString() ?? 'Main Dining',
-      status: apiData['status']?.toString() ?? 'available',
-      isReserved: apiData['isReserved'] == true,
+      location: apiData['location']?.toString() ?? 'Main Hall',
+      status: apiData['status']?.toString() ?? 'Available',
+      isReserved: apiData['status']?.toString().toLowerCase() == 'reserved',
       reservedBy: apiData['reservedBy']?.toString(),
       reservationTime: apiData['reservationTime'] != null
           ? DateTime.tryParse(apiData['reservationTime'].toString())

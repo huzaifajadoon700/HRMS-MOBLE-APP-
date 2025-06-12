@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../providers/cart_provider.dart';
 import '../auth/login_screen.dart';
 import '../bookings/room_booking_page.dart';
 import '../reservations/table_reservation_page.dart';
@@ -11,16 +12,16 @@ import '../orders/menu_ordering_page.dart';
 import 'profile_screen.dart';
 import '../booking/my_bookings_screen.dart';
 import '../orders/my_orders_screen.dart';
+import '../orders/cart_screen.dart';
 import '../reservations/my_reservations_screen.dart';
 import '../admin/admin_dashboard_screen.dart';
-import '../recommendations_screen.dart';
+
 import '../../../services/menu_service.dart';
 import '../../../services/room_service.dart';
 import '../../../services/table_service.dart';
 import '../../../data/models/menu_item_model.dart';
 import '../../../data/models/room_model.dart';
-import '../../../widgets/debug/recommendation_debug_widget.dart';
-import '../../../core/config/environment.dart';
+
 import '../../../data/models/table_model.dart';
 import '../../../services/api_service.dart';
 
@@ -70,21 +71,55 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: [
           // Debug button (only in development)
-          if (!Environment.isProduction)
-            IconButton(
-              icon: const Icon(
-                Icons.bug_report,
-                color: Colors.orange,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const RecommendationDebugWidget(),
+
+          // Cart Icon with Badge
+          Consumer<CartProvider>(
+            builder: (context, cart, child) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: theme.colorScheme.primary,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const CartScreen(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-              tooltip: 'Debug Recommendations',
-            ),
+                  if (cart.itemCount > 0)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          '${cart.itemCount}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
           IconButton(
             icon: Icon(
               Icons.brightness_6,
@@ -506,18 +541,6 @@ class _HomeContentState extends State<HomeContent> {
                           final homeScreenState = context
                               .findAncestorStateOfType<_HomeScreenState>();
                           homeScreenState?.updateSelectedIndex(3);
-                        },
-                      ),
-                      _buildQuickAction(
-                        context,
-                        'Recommendations',
-                        Icons.recommend,
-                        Colors.deepPurple,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (_) => const RecommendationsScreen()),
-                          );
                         },
                       ),
                     ],

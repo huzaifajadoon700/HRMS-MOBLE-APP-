@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../services/recommendation_service.dart';
 import '../../../../models/recommendation_model.dart';
+import '../../../../data/models/menu_item_model.dart';
+import '../../../providers/auth_provider.dart';
 import '../../../providers/cart_provider.dart';
+import '../../../widgets/loading_widget.dart';
 import '../../orders/cart_screen.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -125,6 +128,89 @@ class _MenuScreenState extends State<MenuScreen>
     } catch (e) {
       print('Error loading popular items: $e');
     }
+  }
+
+  // Convert FoodRecommendation to MenuItemModel
+  MenuItemModel _convertToMenuItemModel(FoodRecommendation recommendation) {
+    return MenuItemModel(
+      id: recommendation.menuItemId,
+      name: recommendation.name,
+      category: recommendation.category,
+      price: recommendation.price,
+      description: recommendation.description,
+      ingredients: [], // Default empty list
+      imageUrl: recommendation.image ?? '',
+      isAvailable: recommendation.availability,
+      isVegetarian: recommendation.dietaryTags?.contains('vegetarian') ?? false,
+      isVegan: recommendation.dietaryTags?.contains('vegan') ?? false,
+      isGlutenFree:
+          recommendation.dietaryTags?.contains('gluten-free') ?? false,
+      averageRating: recommendation.averageRating ?? 0.0,
+      totalRatings: 0, // Default value
+      image: recommendation.image,
+    );
+  }
+
+  // Helper method to build food image with fallback
+  Widget _buildFoodImage(String? imageUrl) {
+    // List of fallback food images
+    final fallbackImages = [
+      'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    ];
+
+    final randomFallback =
+        fallbackImages[DateTime.now().millisecond % fallbackImages.length];
+    final displayUrl =
+        imageUrl?.isNotEmpty == true ? imageUrl! : randomFallback;
+
+    return Image.network(
+      displayUrl,
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.grey.shade300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.restaurant,
+                size: 32,
+                color: Colors.grey.shade600,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Food Image',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade700,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.grey.shade200,
+          child: const Center(
+            child: CircularProgressIndicator(
+              color: Color(0xFFBB86FC),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -531,30 +617,22 @@ class _MenuScreenState extends State<MenuScreen>
                 child: Stack(
                   children: [
                     // Menu Item Image
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(recommendation.image ??
-                              'https://via.placeholder.com/300x200?text=Food'),
-                          fit: BoxFit.cover,
-                          onError: (error, stackTrace) {
-                            // Handle image error
-                          },
-                        ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withValues(alpha: 0.4),
-                            ],
+                    Stack(
+                      children: [
+                        _buildFoodImage(recommendation.image),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.black.withValues(alpha: 0.4),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
 
                     // Recommendation Badge
@@ -645,8 +723,9 @@ class _MenuScreenState extends State<MenuScreen>
 
                       // Description
                       Text(
-                        recommendation.description ??
-                            'Delicious Pakistani cuisine',
+                        recommendation.description.isNotEmpty
+                            ? recommendation.description
+                            : 'Delicious Pakistani cuisine',
                         style: TextStyle(
                           fontSize: 11,
                           color: Colors.white.withValues(alpha: 0.7),
@@ -689,11 +768,35 @@ class _MenuScreenState extends State<MenuScreen>
                                 interactionType: 'add_to_cart',
                               );
 
+                              // Convert FoodRecommendation to MenuItemModel
+                              final menuItem =
+                                  _convertToMenuItemModel(recommendation);
+
+                              // Add to cart
+                              final cartProvider = Provider.of<CartProvider>(
+                                  context,
+                                  listen: false);
+                              cartProvider.addItem(
+                                menuItem: menuItem,
+                                quantity: 1,
+                              );
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
                                       '${recommendation.name} added to cart!'),
                                   backgroundColor: const Color(0xFFBB86FC),
+                                  action: SnackBarAction(
+                                    label: 'View Cart',
+                                    textColor: Colors.white,
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => const CartScreen(),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               );
                             },

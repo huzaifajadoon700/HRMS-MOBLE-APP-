@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/constants/api_constants.dart';
 import '../core/constants/app_constants.dart';
+import '../data/models/menu_item_model.dart';
 
 class RecommendationService {
   static String get baseUrl => ApiConstants.baseUrl;
@@ -558,6 +559,97 @@ class RecommendationService {
     } catch (e) {
       print('Error getting user table history: $e');
       rethrow;
+    }
+  }
+
+  // New methods to match website API structure
+
+  // Get personalized recommendations for a user
+  Future<List<MenuItemModel>> getPersonalizedRecommendations(
+      String userId, int maxItems) async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+            '$baseUrl/api/food-recommendations/recommendations/$userId?count=$maxItems'),
+        headers: await _getHeaders(),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success'] == true && data['recommendations'] != null) {
+          final List<dynamic> recommendations = data['recommendations'];
+          return recommendations
+              .map((item) => MenuItemModel.fromJson(item))
+              .toList();
+        }
+      }
+
+      // Fallback to popular items
+      return await getPopularItems(maxItems);
+    } catch (e) {
+      print('Error getting personalized recommendations: $e');
+      return await getPopularItems(maxItems);
+    }
+  }
+
+  // Get popular items
+  Future<List<MenuItemModel>> getPopularItems(int maxItems) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/api/food-recommendations/popular?count=$maxItems'),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success'] == true && data['popularItems'] != null) {
+          final List<dynamic> popularItems = data['popularItems'];
+          return popularItems
+              .map((item) => MenuItemModel.fromJson(item))
+              .toList();
+        }
+      }
+
+      return [];
+    } catch (e) {
+      print('Error getting popular items: $e');
+      return [];
+    }
+  }
+
+  // Record interaction
+  Future<void> recordInteraction(
+      String userId, String menuItemId, String interactionType) async {
+    try {
+      await http.post(
+        Uri.parse('$baseUrl/api/food-recommendations/interactions'),
+        headers: await _getHeaders(),
+        body: json.encode({
+          'userId': userId,
+          'menuItemId': menuItemId,
+          'interactionType': interactionType,
+        }),
+      );
+    } catch (e) {
+      print('Error recording interaction: $e');
+    }
+  }
+
+  // Rate menu item (instance method)
+  Future<void> rateMenuItemInstance(
+      String userId, String menuItemId, double rating) async {
+    try {
+      await http.post(
+        Uri.parse('$baseUrl/api/food-recommendations/interactions'),
+        headers: await _getHeaders(),
+        body: json.encode({
+          'userId': userId,
+          'menuItemId': menuItemId,
+          'interactionType': 'rating',
+          'rating': rating,
+        }),
+      );
+    } catch (e) {
+      print('Error rating menu item: $e');
     }
   }
 }

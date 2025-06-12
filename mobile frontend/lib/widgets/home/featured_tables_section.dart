@@ -304,24 +304,21 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
   Widget _buildTablesGrid() {
     return Column(
       children: [
-        // Single Row of 3 Tables
-        SizedBox(
-          height: 280, // Fixed height for the row
-          child: Row(
-            children: _tables.asMap().entries.map((entry) {
-              final index = entry.key;
-              final table = entry.value;
-              return Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    left: index == 0 ? 0 : 8,
-                    right: index == _tables.length - 1 ? 0 : 8,
-                  ),
-                  child: _buildTableCard(table),
-                ),
-              );
-            }).toList(),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
           ),
+          itemCount:
+              _tables.length > 3 ? 3 : _tables.length, // Limit to 3 tables
+          itemBuilder: (context, index) {
+            final table = _tables[index];
+            return _buildTableCard(table);
+          },
         ),
 
         // View All Button
@@ -539,7 +536,7 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
                         Text(
                           table['tableName'] ?? 'Premium Table',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
                             foreground: Paint()
                               ..shader = const LinearGradient(
@@ -555,19 +552,21 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
                         // Table Type
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
+                              horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFBB86FC).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(6),
+                            color:
+                                const Color(0xFFBB86FC).withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: const Color(0xFFBB86FC).withOpacity(0.2),
+                              color: const Color(0xFFBB86FC)
+                                  .withValues(alpha: 0.2),
                             ),
                           ),
                           child: Text(
                             table['tableType'] ?? 'Premium',
                             style: const TextStyle(
                               color: Color(0xFFBB86FC),
-                              fontSize: 7,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -579,10 +578,10 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
                           children: [
                             _buildFeatureIcon(
                                 Icons.people, '${table['capacity']} Seats'),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 4),
                             _buildFeatureIcon(Icons.location_on,
                                 table['location'] ?? 'Premium'),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 4),
                             _buildFeatureIcon(Icons.access_time, 'Cozy'),
                           ],
                         ),
@@ -591,6 +590,7 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
                         // Reserve Button
                         SizedBox(
                           width: double.infinity,
+                          height: 32,
                           child: ElevatedButton(
                             onPressed: table['status'] == 'Available'
                                 ? () {
@@ -604,9 +604,9 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
                                   ? const Color(0xFFBB86FC)
                                   : Colors.grey,
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              padding: const EdgeInsets.symmetric(vertical: 8),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               elevation: 0,
                             ),
@@ -616,7 +616,7 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
                                   : 'UNAVAILABLE',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 9,
+                                fontSize: 12,
                               ),
                             ),
                           ),
@@ -639,15 +639,15 @@ class _FeaturedTablesSectionState extends State<FeaturedTablesSection> {
         children: [
           Icon(
             icon,
-            size: 10,
-            color: Colors.white.withOpacity(0.8),
+            size: 12,
+            color: Colors.white.withValues(alpha: 0.8),
           ),
           const SizedBox(height: 2),
           Text(
             label,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.8),
-              fontSize: 5,
+              color: Colors.white.withValues(alpha: 0.8),
+              fontSize: 8,
             ),
             textAlign: TextAlign.center,
             maxLines: 1,

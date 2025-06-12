@@ -5,6 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/app_theme.dart';
 import 'presentation/screens/splash_screen.dart';
+import 'presentation/screens/home/home_screen.dart';
+import 'presentation/screens/bookings/room_booking_page.dart';
+import 'presentation/screens/reservations/table_reservation_page.dart';
+import 'presentation/screens/orders/menu_ordering_page.dart';
+import 'presentation/screens/orders/cart_screen.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/auth_provider.dart';
 import 'presentation/providers/cart_provider.dart';
@@ -72,6 +77,33 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: const SplashScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/home':
+            return MaterialPageRoute(builder: (context) => const HomeScreen());
+          case '/room-booking':
+            return MaterialPageRoute(
+              builder: (context) => const RoomBookingPage(),
+              settings: settings,
+            );
+          case '/reserve-table':
+            return MaterialPageRoute(
+              builder: (context) => const TableReservationPage(),
+              settings: settings,
+            );
+          case '/order-food':
+            return MaterialPageRoute(
+              builder: (context) => const MenuOrderingPage(),
+              settings: settings,
+            );
+          case '/cart':
+            return MaterialPageRoute(builder: (context) => const CartScreen());
+          default:
+            return MaterialPageRoute(
+              builder: (context) => const SplashScreen(),
+            );
+        }
+      },
     );
   }
 }
