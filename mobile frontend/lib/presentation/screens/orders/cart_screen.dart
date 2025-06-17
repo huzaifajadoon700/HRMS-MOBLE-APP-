@@ -152,9 +152,7 @@ class _CartScreenState extends State<CartScreen> {
             children: [
               Text('Choose your payment option:'),
               SizedBox(height: 16),
-              Text('• Real Stripe Payment: Uses actual Stripe integration'),
-              SizedBox(height: 8),
-              Text('• Simulated Payment: For testing purposes'),
+              Text('• Card Payment: Secure online payment'),
               SizedBox(height: 8),
               Text('• Cash Payment: Pay on delivery'),
             ],
@@ -169,19 +167,12 @@ class _CartScreenState extends State<CartScreen> {
               },
               child: const Text('Use Cash'),
             ),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _processOrder(paymentMethodId: 'pm_card_visa_simulated');
-              },
-              child: const Text('Simulate Payment'),
-            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _processStripePayment();
               },
-              child: const Text('Real Stripe Payment'),
+              child: const Text('Pay with Card'),
             ),
           ],
         );
@@ -203,7 +194,7 @@ class _CartScreenState extends State<CartScreen> {
       // Create payment intent and get client secret
       final result = await paymentService.processCardPayment(
         amount: totalAmount,
-        currency: 'usd',
+        currency: 'pkr',
         description: 'Food Order Payment',
         metadata: {
           'orderType': 'food',
@@ -280,7 +271,7 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Amount: \$${amount.toStringAsFixed(2)}',
+                      'Amount: PKR ${amount.toStringAsFixed(0)}',
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -339,14 +330,6 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Test Cards:\n4242 4242 4242 4242\n5555 5555 5555 4444',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
                   ],
                 ),
               ),
@@ -404,7 +387,7 @@ class _CartScreenState extends State<CartScreen> {
                           height: 20,
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
-                      : Text('Pay \$${amount.toStringAsFixed(2)}'),
+                      : Text('Pay PKR ${amount.toStringAsFixed(0)}'),
                 ),
               ],
             );
@@ -658,7 +641,7 @@ class _CartScreenState extends State<CartScreen> {
                             children: [
                               const Text('Subtotal:'),
                               Text(
-                                  '\$${cartProvider.totalAmount.toStringAsFixed(2)}'),
+                                  'PKR ${cartProvider.totalAmount.toStringAsFixed(0)}'),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -666,7 +649,7 @@ class _CartScreenState extends State<CartScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text('Delivery Fee:'),
-                              Text('\$${_deliveryFee.toStringAsFixed(2)}'),
+                              Text('PKR ${_deliveryFee.toStringAsFixed(0)}'),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -674,7 +657,7 @@ class _CartScreenState extends State<CartScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text('Tax:'),
-                              Text('\$${_tax.toStringAsFixed(2)}'),
+                              Text('PKR ${_tax.toStringAsFixed(0)}'),
                             ],
                           ),
                           const Divider(),
@@ -688,7 +671,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ),
                               Text(
-                                '\$${(cartProvider.totalAmount + _deliveryFee + _tax).toStringAsFixed(2)}',
+                                'PKR ${(cartProvider.totalAmount + _deliveryFee + _tax).toStringAsFixed(0)}',
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: theme.colorScheme.primary,
@@ -789,7 +772,7 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${cartItem.menuItem.price.toStringAsFixed(2)}',
+                        'PKR ${cartItem.menuItem.price.toStringAsFixed(0)}',
                         style: theme.textTheme.titleSmall?.copyWith(
                           color: theme.colorScheme.primary,
                           fontWeight: FontWeight.bold,

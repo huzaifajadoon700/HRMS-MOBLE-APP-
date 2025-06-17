@@ -1029,7 +1029,7 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
                                       Text(
                                         _showAllRecommendations
                                             ? 'Show Less'
-                                            : 'View All (${_personalizedRecommendations.length})',
+                                            : 'View All (${_allMenuItems.length})',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -1053,31 +1053,27 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
 
                           const SizedBox(height: 20),
 
-                          // Recommendations Preview
+                          // For You Section - Show Full Menu (not just recommendations)
                           _showAllRecommendations
-                              ? _buildAllRecommendationsGrid()
+                              ? _buildForYouFullMenuGrid()
                               : SizedBox(
                                   height: 140,
-                                  child: _isLoadingPersonalized
+                                  child: _isLoadingAll
                                       ? const Center(child: LoadingWidget())
                                       : ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           physics:
                                               const BouncingScrollPhysics(),
                                           itemCount:
-                                              _personalizedRecommendations
-                                                  .take(3)
-                                                  .length,
+                                              _allMenuItems.take(6).length,
                                           itemBuilder: (context, index) {
-                                            final item =
-                                                _personalizedRecommendations[
-                                                    index];
+                                            final item = _allMenuItems[index];
                                             return Container(
                                               width: 160,
                                               margin: const EdgeInsets.only(
                                                   right: 16),
-                                              child: _buildCompactMenuCard(item,
-                                                  isRecommended: true),
+                                              child:
+                                                  _buildCompactMenuCard(item),
                                             );
                                           },
                                         ),
@@ -1088,39 +1084,118 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
 
                     const SizedBox(height: 25),
 
-                    // All Menu Items Section
-                    Padding(
+                    // Trending Section
+                    Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'All Menu Items',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,
-                            ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.orange,
+                                      Colors.orange.withValues(alpha: 0.8)
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Icon(
+                                  Icons.trending_up,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              const Expanded(
+                                child: Text(
+                                  'Trending',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '${_trendingItems.length} items',
+                                style: TextStyle(
+                                  color: Colors.white.withValues(alpha: 0.7),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                          const Spacer(),
-                          Text(
-                            '${_getFilteredItems(_allMenuItems).length} items',
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.7),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          const SizedBox(height: 15),
+                          SizedBox(
+                            height: 140,
+                            child: _buildTrendingPreview(),
                           ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 25),
 
-                    // Menu Items Grid
-                    Padding(
+                    // Pakistani Section
+                    Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: _buildModernMenuGrid(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.green,
+                                      Colors.green.withValues(alpha: 0.8)
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Icon(
+                                  Icons.flag,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              const Expanded(
+                                child: Text(
+                                  'Pakistani Cuisine',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'Recommendations',
+                                style: TextStyle(
+                                  color: Colors.white.withValues(alpha: 0.7),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          SizedBox(
+                            height: 140,
+                            child: _buildPakistaniPreview(),
+                          ),
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 30),
@@ -1134,20 +1209,23 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
     );
   }
 
-  Widget _buildAllRecommendationsGrid() {
-    if (_isLoadingPersonalized) {
+  // For You section - Show full menu instead of just recommendations
+  Widget _buildForYouFullMenuGrid() {
+    final filteredItems = _getFilteredItems(_allMenuItems);
+
+    if (_isLoadingAll) {
       return const Center(child: LoadingWidget());
     }
 
-    if (_personalizedRecommendations.isEmpty) {
+    if (filteredItems.isEmpty) {
       return const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.recommend, color: Colors.grey, size: 48),
+            Icon(Icons.restaurant_menu, color: Colors.grey, size: 48),
             SizedBox(height: 16),
             Text(
-              'No personalized recommendations available',
+              'No menu items found',
               style: TextStyle(color: Colors.grey),
             ),
           ],
@@ -1164,10 +1242,10 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
-      itemCount: _personalizedRecommendations.length,
+      itemCount: filteredItems.length,
       itemBuilder: (context, index) {
-        final item = _personalizedRecommendations[index];
-        return _buildMenuItemCard(item, isRecommended: true);
+        final item = filteredItems[index];
+        return _buildMenuItemCard(item);
       },
     );
   }
@@ -1244,13 +1322,52 @@ class _MenuOrderingPageState extends State<MenuOrderingPage>
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: _trendingItems.take(3).length,
+      itemCount: _trendingItems
+          .length, // Show all trending items (recommendations only)
       itemBuilder: (context, index) {
         final item = _trendingItems[index];
         return Container(
-          width: 200,
-          margin: const EdgeInsets.only(right: 12),
-          child: _buildMenuItemCard(item, isCompact: true),
+          width: 160,
+          margin: const EdgeInsets.only(right: 16),
+          child: _buildCompactMenuCard(item),
+        );
+      },
+    );
+  }
+
+  Widget _buildPakistaniPreview() {
+    // Filter Pakistani cuisine items from all menu items
+    final pakistaniItems = _allMenuItems
+        .where((item) =>
+            (item['category']?.toString().toLowerCase().contains('pakistani') ==
+                true) ||
+            (item['cuisine']?.toString().toLowerCase().contains('pakistani') ==
+                true))
+        .take(6) // Show only recommendations (limited number)
+        .toList();
+
+    if (_isLoadingAll) {
+      return const Center(child: LoadingWidget());
+    }
+
+    if (pakistaniItems.isEmpty) {
+      return const Center(
+        child: Text(
+          'No Pakistani cuisine available',
+          style: TextStyle(color: Colors.grey),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: pakistaniItems.length, // Show only recommendations
+      itemBuilder: (context, index) {
+        final item = pakistaniItems[index];
+        return Container(
+          width: 160,
+          margin: const EdgeInsets.only(right: 16),
+          child: _buildCompactMenuCard(item),
         );
       },
     );

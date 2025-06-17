@@ -91,7 +91,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       // Create payment intent and get client secret
       final result = await _paymentService.processCardPayment(
         amount: widget.amount,
-        currency: 'usd',
+        currency: 'pkr',
         description: widget.description,
         metadata: {
           'type': widget.type,
@@ -264,14 +264,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Test Cards:\n4242 4242 4242 4242\n5555 5555 5555 4444',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
                   ],
                 ),
               ),
@@ -343,6 +335,34 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
+  // Helper method to build summary rows
+  Widget _buildSummaryRow(String label, String value, bool isTotal) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: isTotal ? Colors.white : Colors.white.withValues(alpha: 0.8),
+            fontSize: isTotal ? 18 : 14,
+            fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+        Flexible(
+          child: Text(
+            value,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isTotal ? 20 : 14,
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.w600,
+            ),
+            textAlign: TextAlign.end,
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -371,79 +391,64 @@ class _PaymentScreenState extends State<PaymentScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Payment Summary Card
-                  Card(
+                  // Enhanced Payment Summary Card with gradient
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          theme.colorScheme.primary,
+                          theme.colorScheme.primary.withValues(alpha: 0.8),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              theme.colorScheme.primary.withValues(alpha: 0.3),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Payment Summary',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.receipt_long,
+                                color: Colors.white,
+                                size: 28,
+                              ),
+                              const SizedBox(width: 12),
+                              Text(
+                                'Payment Summary',
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          _buildSummaryRow(
+                              'Description', widget.description, false),
+                          const SizedBox(height: 12),
+                          _buildSummaryRow(
+                              'Type', widget.type.toUpperCase(), false),
+                          const SizedBox(height: 16),
+                          Container(
+                            height: 1,
+                            color: Colors.white.withValues(alpha: 0.3),
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Description:',
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.7),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  widget.description,
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Type:',
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.7),
-                                ),
-                              ),
-                              Text(
-                                widget.type.toUpperCase(),
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Divider(height: 24),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Total Amount:',
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                '\$${widget.amount.toStringAsFixed(2)}',
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
-                            ],
-                          ),
+                          _buildSummaryRow('Total Amount',
+                              'PKR ${widget.amount.toStringAsFixed(0)}', true),
                         ],
                       ),
                     ),
@@ -572,7 +577,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       child: Text(
                         _selectedPaymentMethod == 'card'
-                            ? 'Pay \$${widget.amount.toStringAsFixed(2)}'
+                            ? 'Pay PKR ${widget.amount.toStringAsFixed(0)}'
                             : 'Confirm ${widget.type == 'order' ? 'Cash on Delivery' : 'Pay at Restaurant'}',
                         style: const TextStyle(
                           fontSize: 16,

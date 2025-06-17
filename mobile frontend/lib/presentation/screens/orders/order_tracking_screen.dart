@@ -36,10 +36,24 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     _initializeSocket();
   }
 
-  void _initializeSocket() {
+  void _initializeSocket() async {
     if (widget.orderId.isEmpty) {
       setState(() {
         _socketStatus = 'Invalid order ID';
+      });
+      return;
+    }
+
+    setState(() {
+      _socketStatus = 'Testing connection...';
+    });
+
+    // Test connection first
+    final canConnect = await _socketService.testConnection();
+    if (!canConnect) {
+      setState(() {
+        _socketStatus = 'Connection failed - using offline mode';
+        _socketConnected = false;
       });
       return;
     }
@@ -232,6 +246,27 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
             onPressed: _loadOrder,
             icon: const Icon(Icons.refresh),
           ),
+          // Debug button for testing socket connection
+          IconButton(
+            onPressed: () async {
+              setState(() {
+                _socketStatus = 'Testing connection...';
+              });
+
+              final canConnect = await _socketService.testConnection();
+
+              setState(() {
+                _socketStatus = canConnect
+                    ? 'Connection test successful'
+                    : 'Connection test failed';
+              });
+
+              if (canConnect && !_socketConnected) {
+                _initializeSocket();
+              }
+            },
+            icon: const Icon(Icons.network_check),
+          ),
         ],
       ),
       body: _isLoading
@@ -275,59 +310,117 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Order Header
-                            Card(
+                            // Enhanced Order Header with gradient
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    _getStatusColor(_order!.status),
+                                    _getStatusColor(_order!.status)
+                                        .withValues(alpha: 0.8),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: _getStatusColor(_order!.status)
+                                        .withValues(alpha: 0.3),
+                                    blurRadius: 15,
+                                    offset: const Offset(0, 8),
+                                  ),
+                                ],
+                              ),
                               child: Padding(
-                                padding: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(24),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          'Order #${_order!.id.substring(0, 8)}',
-                                          style: theme.textTheme.titleLarge
-                                              ?.copyWith(
-                                            fontWeight: FontWeight.bold,
+                                        Icon(
+                                          Icons.receipt_long,
+                                          color: Colors.white,
+                                          size: 28,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Order #${_order!.id.substring(0, 8)}',
+                                                style: theme
+                                                    .textTheme.titleLarge
+                                                    ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                _getStatusText(_order!.status),
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withValues(alpha: 0.9),
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 6),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                _getStatusColor(_order!.status)
-                                                    .withValues(alpha: 0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            border: Border.all(
-                                              color: _getStatusColor(
-                                                      _order!.status)
-                                                  .withValues(alpha: 0.3),
+                                        // Live tracking indicator
+                                        if (_socketConnected)
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8, vertical: 4),
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(Icons.wifi,
+                                                    color: Colors.white,
+                                                    size: 12),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  'LIVE',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          child: Text(
-                                            _getStatusText(_order!.status),
-                                            style: TextStyle(
-                                              color: _getStatusColor(
-                                                  _order!.status),
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 12,
-                                            ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.white
+                                              .withValues(alpha: 0.8),
+                                          size: 16,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          'Ordered on ${DateFormat('MMM dd, yyyy - hh:mm a').format(_order!.orderTime.toLocal())}',
+                                          style: TextStyle(
+                                            color: Colors.white
+                                                .withValues(alpha: 0.9),
+                                            fontSize: 14,
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      'Ordered on ${DateFormat('MMM dd, yyyy - hh:mm a').format(_order!.orderTime.toLocal())}',
-                                      style:
-                                          theme.textTheme.bodyMedium?.copyWith(
-                                        color: theme.colorScheme.onSurface
-                                            .withValues(alpha: 0.7),
-                                      ),
                                     ),
                                     if (_order!.deliveryTime != null) ...[
                                       const SizedBox(height: 8),
@@ -335,21 +428,42 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                         children: [
                                           Icon(
                                             Icons.access_time,
+                                            color: Colors.white
+                                                .withValues(alpha: 0.8),
                                             size: 16,
-                                            color: theme.colorScheme.primary,
                                           ),
                                           const SizedBox(width: 8),
                                           Text(
                                             'Estimated delivery: ${DateFormat('hh:mm a').format(_order!.deliveryTime!)}',
-                                            style: theme.textTheme.bodyMedium
-                                                ?.copyWith(
-                                              color: theme.colorScheme.primary,
+                                            style: TextStyle(
+                                              color: Colors.white,
                                               fontWeight: FontWeight.w600,
+                                              fontSize: 14,
                                             ),
                                           ),
                                         ],
                                       ),
                                     ],
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.attach_money,
+                                          color: Colors.white
+                                              .withValues(alpha: 0.8),
+                                          size: 16,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          'Total: PKR ${_order!.total.toStringAsFixed(0)}',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -689,7 +803,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                 : theme.textTheme.bodyMedium,
           ),
           Text(
-            '\$${amount.toStringAsFixed(2)}',
+            'PKR ${amount.toStringAsFixed(0)}',
             style: isTotal
                 ? theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,

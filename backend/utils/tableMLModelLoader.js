@@ -61,22 +61,139 @@ class TableMLModelLoader {
 
   async loadDatasets() {
     try {
-      // Load datasets (simplified - in production you'd use proper CSV parser)
-      const tablesPath = path.join(this.modelPath, 'tables_dataset.csv');
-      const usersPath = path.join(this.modelPath, 'users_dataset.csv');
-      
-      // For now, we'll create mock data based on the CSV structure
-      this.datasets = {
-        tables: this.createMockTablesData(),
-        users: this.createMockUsersData(),
-        interactions: this.createMockInteractionsData()
-      };
+      // Load real datasets from database first, fallback to mock data
+      console.log('🔄 Loading real table datasets from database...');
 
-      console.log('📊 Table datasets loaded successfully');
+      try {
+        this.datasets = {
+          tables: await this.loadRealTableData(),
+          users: await this.loadRealUsersData(),
+          interactions: await this.loadRealInteractionsData()
+        };
+        console.log('✅ Real table datasets loaded successfully');
+      } catch (dbError) {
+        console.log('⚠️ Database loading failed, using mock data:', dbError.message);
+        this.datasets = {
+          tables: this.createMockTablesData(),
+          users: this.createMockUsersData(),
+          interactions: this.createMockInteractionsData()
+        };
+        console.log('📊 Mock table datasets loaded successfully');
+      }
+
     } catch (error) {
       console.error('Error loading datasets:', error);
       throw error;
     }
+  }
+
+  // Load real table data from database
+  async loadRealTableData() {
+    try {
+      const Table = require('../Models/Table');
+      const realTables = await Table.find({});
+
+      const processedTables = realTables.map(table => ({
+        table_id: table._id.toString(),
+        capacity: table.capacity,
+        location: table.location || 'Main Hall',
+        ambiance: table.ambiance || 'Casual',
+        hasWindowView: table.hasWindowView || false,
+        isPrivate: table.isPrivate || false,
+        priceTier: table.priceTier || 'Mid-range',
+        avgRating: table.avgRating || 4.0,
+        tableType: table.tableType || 'Standard',
+        features: table.features || [],
+        totalBookings: table.totalBookings || 0
+      }));
+
+      console.log(`✅ Loaded ${processedTables.length} real tables for ML model`);
+      return processedTables.length > 0 ? processedTables : this.createMockTablesData();
+    } catch (error) {
+      console.error('Error loading real table data:', error);
+      return this.createMockTablesData();
+    }
+  }
+
+  // Load real user data from database
+  async loadRealUsersData() {
+    try {
+      const User = require('../Models/User');
+      const TableInteraction = require('../Models/TableInteraction');
+
+      const realUsers = await User.find({}).select('_id foodPreferences');
+      const processedUsers = [];
+
+      for (const user of realUsers) {
+        // Get user's table interaction patterns
+        const interactions = await TableInteraction.find({ userId: user._id }).limit(10);
+
+        // Analyze user preferences from interactions
+        const avgPartySize = interactions.length > 0 ?
+          interactions.reduce((sum, i) => sum + (i.context?.partySize || 2), 0) / interactions.length : 2;
+
+        const preferredOccasions = interactions
+          .map(i => i.context?.occasion)
+          .filter(o => o)
+          .reduce((acc, occasion) => {
+            acc[occasion] = (acc[occasion] || 0) + 1;
+            return acc;
+          }, {});
+
+        const mostCommonOccasion = Object.keys(preferredOccasions).length > 0 ?
+          Object.keys(preferredOccasions).reduce((a, b) => preferredOccasions[a] > preferredOccasions[b] ? a : b) : 'Casual';
+
+        processedUsers.push({
+          user_id: user._id.toString(),
+          preferredGroupSize: Math.round(avgPartySize),
+          preferredOccasion: mostCommonOccasion,
+          prefersQuiet: user.foodPreferences?.spiceLevelPreference === 'mild',
+          prefersWindow: Math.random() > 0.5, // Random for now
+          prefersPrivate: interactions.some(i => i.context?.occasion === 'Romantic')
+        });
+      }
+
+      console.log(`✅ Loaded ${processedUsers.length} real users for ML model`);
+      return processedUsers.length > 0 ? processedUsers : this.createMockUsersData();
+    } catch (error) {
+      console.error('Error loading real user data:', error);
+      return this.createMockUsersData();
+    }
+  }
+
+  // Load real interaction data from database
+  async loadRealInteractionsData() {
+    try {
+      const TableInteraction = require('../Models/TableInteraction');
+      const realInteractions = await TableInteraction.find({}).limit(1000);
+
+      const processedInteractions = realInteractions.map(interaction => ({
+        user_id: interaction.userId.toString(),
+        table_id: interaction.tableId.toString(),
+        interactionType: interaction.interactionType,
+        weight: this.getInteractionWeight(interaction.interactionType),
+        rating: interaction.rating,
+        timestamp: interaction.timestamp
+      }));
+
+      console.log(`✅ Loaded ${processedInteractions.length} real interactions for ML model`);
+      return processedInteractions.length > 0 ? processedInteractions : this.createMockInteractionsData();
+    } catch (error) {
+      console.error('Error loading real interaction data:', error);
+      return this.createMockInteractionsData();
+    }
+  }
+
+  // Helper method to assign weights to different interaction types
+  getInteractionWeight(interactionType) {
+    const weights = {
+      'view': 1.0,
+      'favorite': 3.0,
+      'inquiry': 2.0,
+      'booking': 5.0,
+      'rating': 4.0
+    };
+    return weights[interactionType] || 1.0;
   }
 
   createMockTablesData() {

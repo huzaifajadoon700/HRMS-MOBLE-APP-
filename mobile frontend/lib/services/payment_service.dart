@@ -496,7 +496,7 @@ class PaymentHistoryModel {
     );
   }
 
-  String get formattedAmount => '\$${amount.toStringAsFixed(2)}';
+  String get formattedAmount => 'PKR ${amount.toStringAsFixed(0)}';
 
   String get statusDisplayText {
     switch (status.toLowerCase()) {

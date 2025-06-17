@@ -199,7 +199,7 @@ class _MenuItemDetailScreenState extends State<MenuItemDetailScreen> {
                           ),
                         ),
                         Text(
-                          '\$${widget.menuItem.price.toStringAsFixed(2)}',
+                          'PKR ${widget.menuItem.price.toStringAsFixed(0)}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: 18,
@@ -455,7 +455,7 @@ class _MenuItemDetailScreenState extends State<MenuItemDetailScreen> {
                         ),
                   ),
                   Text(
-                    '\$${_totalPrice.toStringAsFixed(2)}',
+                    'PKR ${_totalPrice.toStringAsFixed(0)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,

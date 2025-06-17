@@ -163,6 +163,20 @@
       "timestamp": "2025-06-03T15:17:52.411Z",
       "date": "2025-06-03",
       "interaction_type": "rating"
+    },
+    {
+      "recipe_id": "683c13488fde14dd4093c629",
+      "rating": 3,
+      "timestamp": "2025-06-11T17:58:55.928Z",
+      "date": "2025-06-11",
+      "interaction_type": "rating"
+    },
+    {
+      "recipe_id": "683c13488fde14dd4093c629",
+      "rating": 3,
+      "timestamp": "2025-06-11T17:58:56.369Z",
+      "date": "2025-06-11",
+      "interaction_type": "rating"
     }
   ],
   "684800464fea053eab1be15a": [

@@ -1,0 +1,41 @@
+# Project Folder Index
+
+This document provides an index of all folders within this project.
+
+## Root Folders
+- [mobile backend/](mobile%20backend/)
+- [mobile frontend/](mobile%20frontend/)
+- [website updated/](website%20updated/)
+
+## Website Updated Structure
+- [website updated/backend/](website%20updated/backend/)
+  - [table_ml_models/](website%20updated/backend/table_ml_models/)
+  - [uploads/](website%20updated/backend/uploads/)
+  - [utils/](website%20updated/backend/utils/)
+  - [utils.js/](website%20updated/backend/utils.js/)
+- [website updated/frontend/](website%20updated/frontend/)
+  - [public/](website%20updated/frontend/public/)
+    - [images/](website%20updated/frontend/public/images/)
+      - [menu/](website%20updated/frontend/public/images/menu/)
+  - [src/](website%20updated/frontend/src/)
+    - [api/](website%20updated/frontend/src/api/)
+    - [components/](website%20updated/frontend/src/components/)
+      - [Admin/](website%20updated/frontend/src/components/Admin/)
+      - [Auth/](website%20updated/frontend/src/components/Auth/)
+      - [bookings/](website%20updated/frontend/src/components/bookings/)
+      - [common/](website%20updated/frontend/src/components/common/)
+      - [data/](website%20updated/frontend/src/components/data/)
+      - [home/](website%20updated/frontend/src/components/home/)
+      - [layout/](website%20updated/frontend/src/components/layout/)
+      - [Menu/](website%20updated/frontend/src/components/Menu/)
+      - [orders/](website%20updated/frontend/src/components/orders/)
+      - [recommendations/](website%20updated/frontend/src/components/recommendations/)
+      - [tables/](website%20updated/frontend/src/components/tables/)
+      - [ui/](website%20updated/frontend/src/components/ui/)
+      - [User/](website%20updated/frontend/src/components/User/)
+    - [css/](website%20updated/frontend/src/css/)
+    - [hooks/](website%20updated/frontend/src/hooks/)
+    - [pages/](website%20updated/frontend/src/pages/)
+      - [services/](website%20updated/frontend/src/pages/services/)
+    - [services/](website%20updated/frontend/src/services/)
+    - [styles/](website%20updated/frontend/src/styles/)

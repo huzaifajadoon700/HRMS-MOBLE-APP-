@@ -38,30 +38,49 @@ class SocketService {
     // Store order ID and create new socket
     _activeOrderId = orderId;
     print('[Socket] Creating new connection for order: $orderId');
+    print('[Socket] Connecting to server: $_socketServer');
 
     _socket = IO.io(_socketServer, <String, dynamic>{
       'transports': ['websocket', 'polling'],
       'autoConnect': false,
+      'timeout': 10000,
+      'reconnection': true,
+      'reconnectionAttempts': 5,
+      'reconnectionDelay': 1000,
     });
 
     // Set up event handlers
     _socket!.on('connect', (_) {
-      print('[Socket] Connected to server');
+      print('[Socket] ✅ Connected to server successfully');
       _isConnected = true;
 
       // Start tracking once connected
       _socket!.emit('trackOrder', {'orderId': orderId});
-      print('[Socket] Tracking request sent for order: $orderId');
+      print('[Socket] 📡 Tracking request sent for order: $orderId');
     });
 
-    _socket!.on('disconnect', (_) {
-      print('[Socket] Disconnected from server');
+    _socket!.on('disconnect', (reason) {
+      print('[Socket] ❌ Disconnected from server. Reason: $reason');
+      _isConnected = false;
+    });
+
+    _socket!.on('connect_error', (error) {
+      print('[Socket] 🚨 Connection error: $error');
       _isConnected = false;
     });
 
     _socket!.on('error', (error) {
-      print('[Socket] Error: $error');
+      print('[Socket] ⚠️ Socket error: $error');
       _isConnected = false;
+    });
+
+    _socket!.on('reconnect', (attemptNumber) {
+      print('[Socket] 🔄 Reconnected after $attemptNumber attempts');
+      _isConnected = true;
+    });
+
+    _socket!.on('reconnect_error', (error) {
+      print('[Socket] 🔄❌ Reconnection error: $error');
     });
 
     // Handle order updates
@@ -167,12 +186,55 @@ class SocketService {
     }
   }
 
+  // Test connection to server
+  Future<bool> testConnection() async {
+    try {
+      print('[Socket] 🧪 Testing connection to $_socketServer');
+
+      final testSocket = IO.io(_socketServer, <String, dynamic>{
+        'transports': ['websocket', 'polling'],
+        'autoConnect': false,
+        'timeout': 5000,
+      });
+
+      bool connected = false;
+
+      testSocket.on('connect', (_) {
+        print('[Socket] ✅ Test connection successful');
+        connected = true;
+        testSocket.disconnect();
+      });
+
+      testSocket.on('connect_error', (error) {
+        print('[Socket] ❌ Test connection failed: $error');
+        connected = false;
+      });
+
+      testSocket.connect();
+
+      // Wait for connection result
+      await Future.delayed(const Duration(seconds: 6));
+
+      if (!connected) {
+        testSocket.disconnect();
+      }
+
+      return connected;
+    } catch (e) {
+      print('[Socket] 🚨 Test connection exception: $e');
+      return false;
+    }
+  }
+
   // Simulate order progression for testing (like website)
   void simulateOrderProgression(String orderId) {
     if (_socket == null || !_socket!.connected) {
-      print('[Socket] Cannot simulate - socket not connected');
+      print('[Socket] ❌ Cannot simulate - socket not connected');
+      print('[Socket] 🔍 Socket state: ${_socket?.connected ?? 'null'}');
       return;
     }
+
+    print('[Socket] 🎬 Starting order simulation for: $orderId');
 
     final statuses = [
       'Order Received',
@@ -191,12 +253,14 @@ class SocketService {
       }
 
       final status = statuses[currentIndex];
+      print('[Socket] 📤 Simulating status: $status');
       emitOrderStatusUpdate(orderId, status);
       currentIndex++;
 
       // Stop after delivered
       if (status == 'Delivered') {
         timer.cancel();
+        print('[Socket] 🏁 Simulation completed');
       }
     });
   }

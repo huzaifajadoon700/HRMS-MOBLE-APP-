@@ -24,7 +24,11 @@ class AuthService {
 
     // Add interceptor for token
     _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
+      onRequest: (options, handler) async {
+        // Ensure token is loaded before making requests
+        if (_token == null) {
+          await _loadToken();
+        }
         if (_token != null) {
           options.headers['Authorization'] = 'Bearer $_token';
         }
@@ -38,6 +42,9 @@ class AuthService {
         handler.next(error);
       },
     ));
+
+    // Load token on initialization
+    _loadToken();
   }
 
   Future<void> _loadToken() async {
@@ -69,11 +76,11 @@ class AuthService {
         final data = response.data;
         if (data['success'] == true) {
           await _saveToken(data['jwtToken']);
-          
+
           // Save user data
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(AppConstants.userIdKey, data['userId']);
-          
+
           return {
             'success': true,
             'user': UserModel(
@@ -88,7 +95,7 @@ class AuthService {
           };
         }
       }
-      
+
       return {
         'success': false,
         'message': response.data['msg'] ?? 'Login failed',
@@ -106,7 +113,8 @@ class AuthService {
     }
   }
 
-  Future<Map<String, dynamic>> register(String name, String email, String password) async {
+  Future<Map<String, dynamic>> register(
+      String name, String email, String password) async {
     try {
       final response = await _dio.post('/auth/signup', data: {
         'name': name,
@@ -123,7 +131,7 @@ class AuthService {
           };
         }
       }
-      
+
       return {
         'success': false,
         'message': response.data['message'] ?? 'Registration failed',
@@ -151,11 +159,11 @@ class AuthService {
         final data = response.data;
         if (data['success'] == true) {
           await _saveToken(data['jwtToken']);
-          
+
           // Save user data
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(AppConstants.userIdKey, data['userId']);
-          
+
           return {
             'success': true,
             'user': UserModel(
@@ -170,7 +178,7 @@ class AuthService {
           };
         }
       }
-      
+
       return {
         'success': false,
         'message': response.data['message'] ?? 'Google authentication failed',
@@ -194,7 +202,7 @@ class AuthService {
 
     try {
       final response = await _dio.get('/api/user/profile');
-      
+
       if (response.statusCode == 200) {
         final data = response.data;
         return UserModel(
@@ -203,7 +211,8 @@ class AuthService {
           email: data['email'],
           phoneNumber: data['phone'] ?? '',
           role: data['role'] ?? 'user',
-          createdAt: DateTime.parse(data['createdAt'] ?? DateTime.now().toIso8601String()),
+          createdAt: DateTime.parse(
+              data['createdAt'] ?? DateTime.now().toIso8601String()),
           lastLoginAt: DateTime.now(),
         );
       }
@@ -214,7 +223,7 @@ class AuthService {
     } catch (e) {
       // Handle other errors
     }
-    
+
     return null;
   }
 
@@ -227,7 +236,8 @@ class AuthService {
     }
   }
 
-  Future<bool> updatePassword(String currentPassword, String newPassword) async {
+  Future<bool> updatePassword(
+      String currentPassword, String newPassword) async {
     try {
       final response = await _dio.put('/api/user/password', data: {
         'currentPassword': currentPassword,

@@ -1,10 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const FoodRecommendationController = require('../Controllers/FoodRecommendationController');
+const RecommendationEvaluationController = require('../Controllers/RecommendationEvaluationController');
 const { ensureAuthenticated } = require('../Middlewares/Auth');
 
-// Record user interaction with food items
+// Record user interaction with food items (authenticated)
 router.post('/interaction', ensureAuthenticated, FoodRecommendationController.recordInteraction);
+
+// Record user interaction with food items (public endpoint for testing)
+router.post('/record-interaction', async (req, res) => {
+    try {
+        await FoodRecommendationController.recordInteraction(req, res);
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error recording interaction',
+            error: error.message
+        });
+    }
+});
 
 // Get personalized recommendations for a user
 router.get('/recommendations/:userId', ensureAuthenticated, FoodRecommendationController.getRecommendations);
@@ -170,5 +184,12 @@ router.get('/pakistani-recommendations/:userId', async (req, res) => {
         });
     }
 });
+
+// **NEW: ACCURACY EVALUATION ENDPOINTS**
+// Evaluate recommendation accuracy for a specific user
+router.get('/evaluate/:userId', ensureAuthenticated, RecommendationEvaluationController.evaluateRecommendationAccuracy);
+
+// Get system-wide evaluation summary
+router.get('/evaluation/system', ensureAuthenticated, RecommendationEvaluationController.getSystemEvaluationSummary);
 
 module.exports = router;

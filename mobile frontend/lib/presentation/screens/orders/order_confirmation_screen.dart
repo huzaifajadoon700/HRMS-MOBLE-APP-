@@ -468,7 +468,7 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                 : theme.textTheme.bodyMedium,
           ),
           Text(
-            '\$${amount.toStringAsFixed(2)}',
+            'PKR ${amount.toStringAsFixed(0)}',
             style: isTotal
                 ? theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,

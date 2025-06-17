@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
 
 class MLModelLoader {
     constructor() {
@@ -8,7 +9,13 @@ class MLModelLoader {
         this.integrationConfig = null;
         this.userHistory = null;
         this.userProfiles = null;
+        this.svdModel = null;
+        this.userMappings = null;
+        this.recipeMappings = null;
         this.isLoaded = false;
+        this.modelReady = false;
+        this.pythonModelService = 'http://localhost:5001';
+        this.realModelLoaded = false;
     }
 
     async loadModels() {
@@ -49,9 +56,23 @@ class MLModelLoader {
                 console.log('📝 Created empty user profiles');
             }
 
+            // Load SVD model mappings (critical for real ML recommendations)
+            const mappingsPath = path.join(this.modelPath, 'recommendation_mappings.pkl');
+            const modelPath = path.join(this.modelPath, 'complete_food_recommendation_model.pkl');
+
+            if (fs.existsSync(mappingsPath) && fs.existsSync(modelPath)) {
+                console.log('✅ Real SVD model files found!');
+                // Try to connect to Python model service
+                await this.initializeRealSVDModel();
+            } else {
+                console.log('⚠️ Real SVD model files not found, using mock implementation');
+                this.initializeMockSVDModel();
+                this.modelReady = true;
+            }
+
             this.isLoaded = true;
             console.log('🎉 ML models and configurations loaded successfully!');
-            
+
             // Log model performance
             if (this.deploymentConfig && this.deploymentConfig.model_info) {
                 const perf = this.deploymentConfig.model_info.performance;
@@ -211,11 +232,219 @@ class MLModelLoader {
         }
     }
 
+    // Initialize real SVD model using Python service
+    async initializeRealSVDModel() {
+        try {
+            console.log('🔄 Connecting to Python model service...');
+
+            // Check if Python service is running
+            const healthResponse = await axios.get(`${this.pythonModelService}/health`);
+            if (healthResponse.data.status === 'healthy') {
+                console.log('✅ Python model service is running');
+
+                // Load the model
+                const loadResponse = await axios.post(`${this.pythonModelService}/load_model`);
+                if (loadResponse.data.success) {
+                    console.log('✅ Real SVD model loaded successfully!');
+                    console.log(`📊 Model info:`, loadResponse.data.model_info);
+
+                    this.realModelLoaded = true;
+                    this.modelReady = true;
+
+                    // Get accuracy metrics
+                    const accuracyResponse = await axios.get(`${this.pythonModelService}/accuracy`);
+                    if (accuracyResponse.data.success) {
+                        console.log('📈 Real Model Accuracy:', accuracyResponse.data.accuracy_metrics);
+                    }
+
+                    return true;
+                } else {
+                    throw new Error('Failed to load model in Python service');
+                }
+            } else {
+                throw new Error('Python service not healthy');
+            }
+        } catch (error) {
+            console.log('⚠️ Failed to connect to Python model service:', error.message);
+            console.log('🔄 Falling back to mock SVD model...');
+            this.initializeMockSVDModel();
+            this.modelReady = true;
+            this.realModelLoaded = false;
+            return false;
+        }
+    }
+
+    // Initialize mock SVD model for demonstration
+    initializeMockSVDModel() {
+        // This simulates the trained SVD model from Google Colab
+        // In production, you'd load the actual model weights
+        this.svdModel = {
+            components: 25,
+            userFactors: new Map(), // User latent factors
+            itemFactors: new Map(), // Item latent factors
+            globalMean: 4.66, // Average rating from Food.com dataset
+            userMeans: new Map(), // User rating averages
+            itemMeans: new Map()  // Item rating averages
+        };
+
+        // Initialize some sample factors for demonstration
+        this.initializeSampleFactors();
+    }
+
+    initializeSampleFactors() {
+        // Sample user and item factors (normally loaded from trained model)
+        const sampleUsers = ['user1', 'user2', 'user3'];
+        const sampleItems = ['item1', 'item2', 'item3'];
+
+        sampleUsers.forEach(userId => {
+            // Random latent factors (normally from trained SVD)
+            const factors = Array.from({length: 25}, () => Math.random() * 0.1 - 0.05);
+            this.svdModel.userFactors.set(userId, factors);
+            this.svdModel.userMeans.set(userId, 4.5 + Math.random() * 0.5);
+        });
+
+        sampleItems.forEach(itemId => {
+            const factors = Array.from({length: 25}, () => Math.random() * 0.1 - 0.05);
+            this.svdModel.itemFactors.set(itemId, factors);
+            this.svdModel.itemMeans.set(itemId, 4.4 + Math.random() * 0.6);
+        });
+    }
+
+    // Advanced SVD-based recommendation prediction
+    async predictRating(userId, itemId) {
+        if (!this.modelReady) {
+            return 4.5; // Fallback
+        }
+
+        // Use real model if available
+        if (this.realModelLoaded) {
+            try {
+                const response = await axios.post(`${this.pythonModelService}/predict`, {
+                    user_id: userId,
+                    recipe_id: itemId
+                });
+
+                if (response.data.success) {
+                    return response.data.predicted_rating;
+                }
+            } catch (error) {
+                console.log('Real model prediction failed, using mock:', error.message);
+            }
+        }
+
+        // Fallback to mock model
+        if (!this.svdModel) {
+            return 4.5;
+        }
+
+        const userFactors = this.svdModel.userFactors.get(userId);
+        const itemFactors = this.svdModel.itemFactors.get(itemId);
+
+        if (!userFactors || !itemFactors) {
+            // Cold start: use global and user/item means
+            const userMean = this.svdModel.userMeans.get(userId) || this.svdModel.globalMean;
+            const itemMean = this.svdModel.itemMeans.get(itemId) || this.svdModel.globalMean;
+            return (userMean + itemMean) / 2;
+        }
+
+        // SVD prediction: global_mean + user_bias + item_bias + dot_product(user_factors, item_factors)
+        const userMean = this.svdModel.userMeans.get(userId) || this.svdModel.globalMean;
+        const itemMean = this.svdModel.itemMeans.get(itemId) || this.svdModel.globalMean;
+
+        // Dot product of latent factors
+        let dotProduct = 0;
+        for (let i = 0; i < Math.min(userFactors.length, itemFactors.length); i++) {
+            dotProduct += userFactors[i] * itemFactors[i];
+        }
+
+        const prediction = this.svdModel.globalMean +
+                          (userMean - this.svdModel.globalMean) +
+                          (itemMean - this.svdModel.globalMean) +
+                          dotProduct;
+
+        // Clamp to valid rating range
+        return Math.max(1, Math.min(5, prediction));
+    }
+
+    // Generate SVD-based recommendations for a user
+    async generateSVDRecommendations(userId, candidateItems, count = 10) {
+        if (!this.modelReady) {
+            return []; // Fallback to other recommendation methods
+        }
+
+        // Use real model if available
+        if (this.realModelLoaded) {
+            try {
+                const candidateIds = candidateItems.map(item => item._id || item.id);
+                const response = await axios.post(`${this.pythonModelService}/recommendations`, {
+                    user_id: userId,
+                    candidate_recipes: candidateIds,
+                    n_recommendations: count
+                });
+
+                if (response.data.success) {
+                    const recommendations = response.data.recommendations;
+
+                    // Map back to full item objects
+                    return recommendations.map(rec => {
+                        const item = candidateItems.find(item =>
+                            (item._id || item.id) === rec.recipe_id
+                        );
+
+                        return {
+                            ...item,
+                            score: rec.predicted_rating,
+                            reason: 'real_svd_collaborative_filtering',
+                            confidence: rec.confidence,
+                            predictedRating: rec.predicted_rating
+                        };
+                    }).filter(item => item._id || item.id); // Remove items not found
+                }
+            } catch (error) {
+                console.log('Real model recommendations failed, using mock:', error.message);
+            }
+        }
+
+        // Fallback to mock model
+        const predictions = [];
+        for (const item of candidateItems) {
+            const predictedRating = await this.predictRating(userId, item._id || item.id);
+            predictions.push({
+                itemId: item._id || item.id,
+                item: item,
+                predictedRating: predictedRating,
+                confidence: this.calculateConfidence(userId, item._id || item.id)
+            });
+        }
+
+        // Sort by predicted rating and return top recommendations
+        return predictions
+            .sort((a, b) => b.predictedRating - a.predictedRating)
+            .slice(0, count)
+            .map(pred => ({
+                ...pred.item,
+                score: pred.predictedRating,
+                reason: this.realModelLoaded ? 'real_svd_collaborative_filtering' : 'mock_svd_collaborative_filtering',
+                confidence: pred.confidence,
+                predictedRating: pred.predictedRating
+            }));
+    }
+
+    calculateConfidence(userId, itemId) {
+        // Calculate confidence based on user/item interaction history
+        const userHistory = this.userHistory[userId] || [];
+        const userInteractionCount = userHistory.length;
+
+        if (userInteractionCount < 5) return 'low';
+        if (userInteractionCount < 15) return 'medium';
+        return 'high';
+    }
+
     // Get system analytics
     getAnalytics() {
         const totalUsers = Object.keys(this.userHistory).length;
         const totalProfiles = Object.keys(this.userProfiles).length;
-        
+
         let totalInteractions = 0;
         Object.values(this.userHistory).forEach(history => {
             totalInteractions += history.length;
@@ -227,6 +456,9 @@ class MLModelLoader {
             totalInteractions,
             avgInteractionsPerUser: totalUsers > 0 ? totalInteractions / totalUsers : 0,
             modelPerformance: this.deploymentConfig?.model_info?.performance || {},
+            svdModelReady: this.modelReady,
+            realModelLoaded: this.realModelLoaded,
+            modelType: this.realModelLoaded ? 'Real Trained SVD' : 'Mock SVD',
             systemHealth: 'operational',
             lastUpdated: new Date().toISOString()
         };

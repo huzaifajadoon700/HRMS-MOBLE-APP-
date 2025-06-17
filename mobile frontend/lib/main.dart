@@ -10,6 +10,9 @@ import 'presentation/screens/bookings/room_booking_page.dart';
 import 'presentation/screens/reservations/table_reservation_page.dart';
 import 'presentation/screens/orders/menu_ordering_page.dart';
 import 'presentation/screens/orders/cart_screen.dart';
+import 'presentation/screens/orders/my_orders_screen.dart';
+import 'presentation/screens/booking/my_bookings_screen.dart';
+import 'presentation/screens/reservations/my_reservations_screen.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'presentation/providers/auth_provider.dart';
 import 'presentation/providers/cart_provider.dart';
@@ -98,6 +101,18 @@ class MyApp extends StatelessWidget {
             );
           case '/cart':
             return MaterialPageRoute(builder: (context) => const CartScreen());
+          case '/my-orders':
+            return MaterialPageRoute(
+              builder: (context) => const MyOrdersScreen(),
+            );
+          case '/my-bookings':
+            return MaterialPageRoute(
+              builder: (context) => const MyBookingsScreen(),
+            );
+          case '/my-reservations':
+            return MaterialPageRoute(
+              builder: (context) => const MyReservationsScreen(),
+            );
           default:
             return MaterialPageRoute(
               builder: (context) => const SplashScreen(),

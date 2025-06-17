@@ -24,6 +24,9 @@ dependencies:
   # UI & Fonts
   google_fonts: ^6.2.1
 
+  # Authentication
+  google_sign_in: ^6.2.1
+
   # Payment Processing
   flutter_stripe: ^10.1.1
 

@@ -8,8 +8,8 @@ class AppUtils {
   // Currency formatter
   static String formatCurrency(double amount) {
     final formatter = NumberFormat.currency(
-      symbol: '\$',
-      decimalDigits: 2,
+      symbol: 'PKR ',
+      decimalDigits: 0,
     );
     return formatter.format(amount);
   }
@@ -94,7 +94,7 @@ class AppUtils {
   static int calculateAge(DateTime birthDate) {
     final now = DateTime.now();
     int age = now.year - birthDate.year;
-    if (now.month < birthDate.month || 
+    if (now.month < birthDate.month ||
         (now.month == birthDate.month && now.day < birthDate.day)) {
       age--;
     }
@@ -105,7 +105,7 @@ class AppUtils {
   static String formatDuration(Duration duration) {
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
-    
+
     if (hours > 0) {
       return '${hours}h ${minutes > 0 ? '${minutes}m' : ''}';
     } else {
@@ -116,17 +116,18 @@ class AppUtils {
   // Get initials from name
   static String getInitials(String name) {
     if (name.isEmpty) return '';
-    
+
     final parts = name.split(' ');
     if (parts.length == 1) {
       return parts[0][0].toUpperCase();
     }
-    
+
     return parts[0][0].toUpperCase() + parts[parts.length - 1][0].toUpperCase();
   }
 
   // Show snackbar
-  static void showSnackBar(BuildContext context, String message, {bool isError = false}) {
+  static void showSnackBar(BuildContext context, String message,
+      {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -198,6 +199,7 @@ class AppUtils {
 
   // Get random color
   static Color getRandomColor() {
-    return Color((DateTime.now().millisecondsSinceEpoch & 0xFFFFFF).toInt()).withOpacity(1.0);
+    return Color((DateTime.now().millisecondsSinceEpoch & 0xFFFFFF).toInt())
+        .withOpacity(1.0);
   }
-} 
+}

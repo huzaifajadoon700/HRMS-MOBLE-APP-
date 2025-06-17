@@ -181,34 +181,86 @@ const getTableRecommendations = async (req, res) => {
       parseInt(numRecommendations)
     );
 
-    // Enrich recommendations with table details
+    // Enrich recommendations with table details using enhanced matching
     const enrichedRecommendations = await Promise.all(
       mlRecommendations.map(async (rec, index) => {
-        // Try to find table by MongoDB ObjectId first, then by name pattern
         let table = null;
 
-        // If rec.tableId looks like a MongoDB ObjectId
+        // Enhanced table matching logic
         if (rec.tableId && rec.tableId.match(/^[0-9a-fA-F]{24}$/)) {
+          // Direct MongoDB ObjectId match
           table = await Table.findById(rec.tableId);
         }
 
-        // If not found, try to find by similar characteristics
         if (!table) {
-          // Extract table number from tableId (e.g., T001 -> 1)
-          const tableNumber = rec.tableId ? parseInt(rec.tableId.replace(/\D/g, '')) : null;
+          // Smart table matching based on context and preferences
+          const matchCriteria = {
+            status: 'Available'
+          };
 
-          if (tableNumber && tableNumber <= 12) {
-            // Get table by index (since we have 12 tables)
-            const tables = await Table.find({ status: 'Available' }).sort({ _id: 1 });
-            table = tables[tableNumber - 1] || tables[0];
+          // Match capacity preference (within reasonable range)
+          if (validatedPartySize) {
+            matchCriteria.capacity = {
+              $gte: Math.max(1, validatedPartySize - 1),
+              $lte: validatedPartySize + 2
+            };
+          }
+
+          // Match ambiance for occasion
+          if (validatedOccasion === 'Romantic') {
+            matchCriteria.ambiance = { $in: ['Intimate', 'Romantic', 'Quiet'] };
+          } else if (validatedOccasion === 'Business') {
+            matchCriteria.ambiance = { $in: ['Formal', 'Quiet'] };
+          } else if (validatedOccasion === 'Celebration') {
+            matchCriteria.ambiance = { $in: ['Lively', 'Social'] };
+          }
+
+          // Find best matching table
+          const matchingTables = await Table.find(matchCriteria).sort({ avgRating: -1, totalBookings: -1 });
+
+          if (matchingTables.length > 0) {
+            // Use index to distribute recommendations across different tables
+            table = matchingTables[index % matchingTables.length];
           }
         }
 
         // Final fallback to any available table
         if (!table) {
-          table = await Table.findOne({ status: 'Available' });
+          const availableTables = await Table.find({ status: 'Available' }).sort({ avgRating: -1 });
+          table = availableTables[index % availableTables.length] || availableTables[0];
           if (!table) return null;
         }
+
+        // Generate intelligent explanation based on matching factors
+        const explanationFactors = [];
+
+        if (table.capacity >= validatedPartySize && table.capacity <= validatedPartySize + 2) {
+          explanationFactors.push(`perfect size for ${validatedPartySize} guests`);
+        }
+
+        if (validatedOccasion === 'Romantic' && ['Intimate', 'Romantic', 'Quiet'].includes(table.ambiance)) {
+          explanationFactors.push(`${table.ambiance.toLowerCase()} ambiance ideal for romantic dining`);
+        } else if (validatedOccasion === 'Business' && ['Formal', 'Quiet'].includes(table.ambiance)) {
+          explanationFactors.push(`${table.ambiance.toLowerCase()} setting perfect for business meetings`);
+        } else if (validatedOccasion === 'Celebration' && ['Lively', 'Social'].includes(table.ambiance)) {
+          explanationFactors.push(`${table.ambiance.toLowerCase()} atmosphere great for celebrations`);
+        }
+
+        if (table.hasWindowView) {
+          explanationFactors.push('beautiful window view');
+        }
+
+        if (table.isPrivate) {
+          explanationFactors.push('private dining experience');
+        }
+
+        if (table.avgRating >= 4.0) {
+          explanationFactors.push(`highly rated (${table.avgRating}/5 stars)`);
+        }
+
+        const intelligentExplanation = explanationFactors.length > 0 ?
+          `Recommended for ${explanationFactors.join(', ')}` :
+          `Great table for ${validatedOccasion.toLowerCase()} dining`;
 
         return {
           tableId: table._id,
@@ -228,17 +280,18 @@ const getTableRecommendations = async (req, res) => {
             tableType: table.tableType,
             status: table.status
           },
-          score: rec.score || Math.random() * 0.5 + 0.5, // Ensure score exists
-          reason: rec.reason || 'content_based',
-          confidence: rec.confidence || 'medium',
+          score: rec.score || (0.7 + Math.random() * 0.3), // Better default scores
+          reason: rec.reason || 'smart_matching',
+          confidence: rec.confidence || (explanationFactors.length >= 2 ? 'high' : 'medium'),
           rank: index + 1,
-          explanation: rec.explanation || `This table matches your preferences for ${validatedOccasion}`,
+          explanation: intelligentExplanation,
           contextFactors: {
             occasion: validatedOccasion,
             timePreference: validatedTimeSlot,
             partySize: validatedPartySize,
             ambiance: table.ambiance,
-            location: table.location
+            location: table.location,
+            matchingFactors: explanationFactors
           }
         };
       })
@@ -372,6 +425,11 @@ const getPopularTables = async (req, res) => {
 
     res.status(200).json({
       success: true,
+      tables: popularTables.map((table, index) => ({
+        ...table.toObject(),
+        popularityRank: index + 1,
+        score: (parseInt(limit) - index) / parseInt(limit)
+      })),
       popularTables: popularTables.map((table, index) => ({
         ...table.toObject(),
         popularityRank: index + 1,

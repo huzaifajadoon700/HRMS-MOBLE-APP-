@@ -2,7 +2,8 @@ class Environment {
   // Stripe Configuration
   static const String stripePublishableKey = String.fromEnvironment(
     'STRIPE_PUBLISHABLE_KEY',
-    defaultValue: 'pk_test_51RQDO0QHBrXA72xgYssbECOe9bubZ2bWHA4m0T6EY6AvvmAfCzIDmKUCkRjpwVVIJ4IMaOiQBUawECn5GD8ADHbn00GRVmjExI', // Fallback for development
+    defaultValue:
+        'pk_test_51RQDO0QHBrXA72xgYssbECOe9bubZ2bWHA4m0T6EY6AvvmAfCzIDmKUCkRjpwVVIJ4IMaOiQBUawECn5GD8ADHbn00GRVmjExI', // Fallback for development
   );
 
   // API Configuration
@@ -14,15 +15,17 @@ class Environment {
   // Socket Configuration
   static const String socketUrl = String.fromEnvironment(
     'SOCKET_URL',
-    defaultValue: 'http://192.168.10.6:8080', // Fallback for development
+    defaultValue: 'http://localhost:8080', // Fallback for development
   );
 
   // Environment Detection
-  static const bool isProduction = bool.fromEnvironment('PRODUCTION', defaultValue: false);
+  static const bool isProduction =
+      bool.fromEnvironment('PRODUCTION', defaultValue: false);
   static const bool isDevelopment = !isProduction;
 
   // Debug Configuration
-  static const bool enableLogging = bool.fromEnvironment('ENABLE_LOGGING', defaultValue: true);
+  static const bool enableLogging =
+      bool.fromEnvironment('ENABLE_LOGGING', defaultValue: true);
 
   // Get environment-specific values
   static String get currentStripeKey {
@@ -53,9 +56,9 @@ class Environment {
 
   // Validation
   static bool get isValidConfiguration {
-    return stripePublishableKey.isNotEmpty && 
-           apiBaseUrl.isNotEmpty && 
-           socketUrl.isNotEmpty;
+    return stripePublishableKey.isNotEmpty &&
+        apiBaseUrl.isNotEmpty &&
+        socketUrl.isNotEmpty;
   }
 
   // Debug info

@@ -4,6 +4,88 @@ const UserRoomInteraction = require('../Models/UserRoomInteraction');
 const RoomRecommendation = require('../Models/RoomRecommendation');
 const { spawn } = require('child_process');
 const path = require('path');
+const axios = require('axios');
+
+// Room ML Model Service Configuration
+const ROOM_MODEL_SERVICE_URL = 'http://localhost:5002';
+
+// Get real ML model recommendations
+exports.getRealMLRoomRecommendations = async (userId, count = 10) => {
+  try {
+    // First check if the service is available
+    const healthResponse = await axios.get(`${ROOM_MODEL_SERVICE_URL}/health`, { timeout: 2000 });
+
+    if (!healthResponse.data.model_ready) {
+      console.log('Room ML model service not ready');
+      return null;
+    }
+
+    // Get all available rooms as candidates
+    const availableRooms = await Room.find({ status: 'Available' }).select('_id');
+    const candidateRoomIds = availableRooms.map(room => room._id.toString());
+
+    // Get recommendations from ML service
+    const response = await axios.post(`${ROOM_MODEL_SERVICE_URL}/recommendations`, {
+      user_id: userId,
+      candidate_rooms: candidateRoomIds,
+      n_recommendations: count
+    }, { timeout: 5000 });
+
+    if (response.data.success && response.data.recommendations) {
+      const mlRecommendations = response.data.recommendations;
+
+      // Map ML recommendations to room objects
+      const roomRecommendations = [];
+
+      for (const rec of mlRecommendations) {
+        try {
+          // Try to find the room in our database
+          const room = await Room.findById(rec.room_id);
+
+          if (room) {
+            roomRecommendations.push({
+              roomId: room._id,
+              roomDetails: room,
+              score: rec.predicted_rating,
+              reason: 'real_svd_collaborative_filtering',
+              confidence: rec.confidence || 'high',
+              predictedRating: rec.predicted_rating,
+              mlModelUsed: true,
+              // Include room properties for easier access
+              _id: room._id,
+              roomNumber: room.roomNumber,
+              roomType: room.roomType,
+              price: room.price,
+              status: room.status,
+              description: room.description,
+              image: room.image,
+              averageRating: room.averageRating || 0,
+              totalRatings: room.totalRatings || 0
+            });
+          }
+        } catch (error) {
+          console.error(`Error processing room recommendation ${rec.room_id}:`, error.message);
+          continue;
+        }
+      }
+
+      console.log(`✅ Real ML model returned ${roomRecommendations.length} room recommendations for user ${userId}`);
+      return roomRecommendations;
+    }
+
+    return null;
+
+  } catch (error) {
+    if (error.code === 'ECONNREFUSED') {
+      console.log('Room ML model service not available (connection refused)');
+    } else if (error.code === 'ETIMEDOUT') {
+      console.log('Room ML model service timeout');
+    } else {
+      console.log('Room ML model service error:', error.message);
+    }
+    return null;
+  }
+};
 
 // Add a new room
 exports.addRoom = async (req, res) => {
@@ -364,7 +446,7 @@ exports.getRoomRecommendations = async (req, res) => {
   }
 };
 
-// Generate room recommendations using hybrid approach
+// Generate room recommendations using hybrid approach with real ML model
 exports.generateRoomRecommendations = async (userId, options = {}) => {
   try {
     const { count = 10, checkInDate, checkOutDate, groupSize } = options;
@@ -375,12 +457,28 @@ exports.generateRoomRecommendations = async (userId, options = {}) => {
       timestamp: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }
     }).populate('roomId');
 
+    // Try to get real ML model recommendations first
+    const realMLRecommendations = await exports.getRealMLRoomRecommendations(userId, count);
+    if (realMLRecommendations && realMLRecommendations.length > 0) {
+      console.log(`✅ Using real ML model recommendations for user ${userId}`);
+      return {
+        rooms: realMLRecommendations,
+        preferences: {
+          mlModel: true,
+          totalInteractions: userInteractions.length,
+          source: 'real_svd_model'
+        }
+      };
+    }
+
+    console.log(`⚠️ Real ML model not available, falling back to hybrid algorithm for user ${userId}`);
+
     if (userInteractions.length === 0) {
       // New user - return popularity-based recommendations
       const popularRooms = await exports.getPopularityBasedRoomRecommendations(count, { checkInDate, checkOutDate, groupSize });
       return {
         rooms: popularRooms,
-        preferences: { newUser: true, totalInteractions: 0 }
+        preferences: { newUser: true, totalInteractions: 0, source: 'popularity_fallback' }
       };
     }
 
