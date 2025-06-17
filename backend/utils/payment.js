@@ -109,4 +109,5 @@ module.exports = {
   processRefund,
   splitPayment,
   getPaymentHistory
-}; 
+};
+// Minor change for contribution
