@@ -84,3 +84,4 @@ class GlobalSocketService {
     _isConnected = false;
   }
 }
+// Minor change for contribution
